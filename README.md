@@ -24,10 +24,3 @@ inspired by [chess.js](https://github.com/jhlywa/chess.js)
 > npm run test
 > npm run cov
 ```
-
-## Publish
-
-```bash
-> npm adduser
-> npm publish
-```
