@@ -4,6 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.table = exports.BoardEvent = exports.BoardEventController = exports.EventHandler = void 0;
+var EventHandler_1 = require("./EventHandler");
+Object.defineProperty(exports, "EventHandler", { enumerable: true, get: function () { return __importDefault(EventHandler_1).default; } });
+var BoardEventController_1 = require("./BoardEventController");
+Object.defineProperty(exports, "BoardEventController", { enumerable: true, get: function () { return __importDefault(BoardEventController_1).default; } });
+var BoardEventController_2 = require("./BoardEventController");
+Object.defineProperty(exports, "BoardEvent", { enumerable: true, get: function () { return BoardEventController_2.BoardEvent; } });
+var table_1 = require("./table");
+Object.defineProperty(exports, "table", { enumerable: true, get: function () { return __importDefault(table_1).default; } });
 /*
  * Copyright (c) 2021, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
@@ -18,7 +26,7 @@ exports.table = exports.BoardEvent = exports.BoardEventController = exports.Even
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS'
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
@@ -30,12 +38,5 @@ exports.table = exports.BoardEvent = exports.BoardEventController = exports.Even
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- *---------------------------------------------------------------------------- */
-var EventHandler_1 = require("./EventHandler");
-Object.defineProperty(exports, "EventHandler", { enumerable: true, get: function () { return __importDefault(EventHandler_1).default; } });
-var BoardEventController_1 = require("./BoardEventController");
-Object.defineProperty(exports, "BoardEventController", { enumerable: true, get: function () { return __importDefault(BoardEventController_1).default; } });
-var BoardEventController_2 = require("./BoardEventController");
-Object.defineProperty(exports, "BoardEvent", { enumerable: true, get: function () { return BoardEventController_2.BoardEvent; } });
-var table_1 = require("./table");
-Object.defineProperty(exports, "table", { enumerable: true, get: function () { return __importDefault(table_1).default; } });
+ *---------------------------------------------------------------------------- */ 
+//# sourceMappingURL=index.js.map

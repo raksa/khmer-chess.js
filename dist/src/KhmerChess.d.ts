@@ -12,7 +12,7 @@ export default class KhmerChess {
     kpgnInstance: KPGN;
     boardEventController: BoardEventController;
     constructor(renStr?: string);
-    loadRENStr(renStr: string): void;
+    loadRENStr(renStr?: string): void;
     resetBoard(): void;
     getCanMoves(): PieceIndex[];
     getCanMovePointsByPoint(point: Point): Point[];

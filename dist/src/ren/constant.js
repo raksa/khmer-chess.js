@@ -1,6 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EVENT_FLAG_DRAW = exports.EVENT_FLAG_WINN = exports.EVENT_FLAG_ATTACK = exports.PIECE_FLAG_UPGRADE = exports.PIECE_FLAG_JUMP = exports.PIECE_FLAG_KILL = exports.NOT_SET = exports.DEFAULT_BOARD_STR = exports.STRING_COUNT = void 0;
+// BHGQKGHB/8/FFFFFFFF/8/8/ffffffff/8/bhgkqghb w ---- -- -.-
+exports.STRING_COUNT = 'B2F8G2H2K1Q1b2f8g2h2k1q1';
+// BHGQKGHB/8/FFFFFFFF/8/8/ffffffff/8/bhgkqghb w ---- -- -.-
+exports.DEFAULT_BOARD_STR = 'BHGKQGHB/8/FFFFFFFF/8/8/ffffffff/8/bhgqkghb';
+exports.NOT_SET = '-';
+exports.PIECE_FLAG_KILL = 'x';
+exports.PIECE_FLAG_JUMP = 'j';
+exports.PIECE_FLAG_UPGRADE = 'u';
+exports.EVENT_FLAG_ATTACK = 'attack';
+exports.EVENT_FLAG_WINN = 'win';
+exports.EVENT_FLAG_DRAW = 'draw';
 /*
  * Copyright (c) 2021, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
@@ -15,7 +26,7 @@ exports.EVENT_FLAG_DRAW = exports.EVENT_FLAG_WINN = exports.EVENT_FLAG_ATTACK = 
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS'
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
@@ -27,15 +38,5 @@ exports.EVENT_FLAG_DRAW = exports.EVENT_FLAG_WINN = exports.EVENT_FLAG_ATTACK = 
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- *---------------------------------------------------------------------------- */
-// BHGQKGHB/8/FFFFFFFF/8/8/ffffffff/8/bhgkqghb w ---- -- -.-
-exports.STRING_COUNT = 'B2F8G2H2K1Q1b2f8g2h2k1q1';
-// BHGQKGHB/8/FFFFFFFF/8/8/ffffffff/8/bhgkqghb w ---- -- -.-
-exports.DEFAULT_BOARD_STR = 'BHGKQGHB/8/FFFFFFFF/8/8/ffffffff/8/bhgqkghb';
-exports.NOT_SET = '-';
-exports.PIECE_FLAG_KILL = 'x';
-exports.PIECE_FLAG_JUMP = 'j';
-exports.PIECE_FLAG_UPGRADE = 'u';
-exports.EVENT_FLAG_ATTACK = 'attack';
-exports.EVENT_FLAG_WINN = 'win';
-exports.EVENT_FLAG_DRAW = 'draw';
+ *---------------------------------------------------------------------------- */ 
+//# sourceMappingURL=constant.js.map

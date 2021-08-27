@@ -22,7 +22,7 @@ export default class KhmerChess {
         this.boardEventController = new BoardEventController();
     }
 
-    loadRENStr(renStr: string) {
+    loadRENStr(renStr?: string) {
         this.renInstance = REN.fromString(renStr);
     }
 

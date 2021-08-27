@@ -14,6 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.KhmerChess = void 0;
+__exportStar(require("./brain"), exports);
+__exportStar(require("./kpgn"), exports);
+__exportStar(require("./ren"), exports);
+__exportStar(require("./other"), exports);
+var KhmerChess_1 = require("./KhmerChess");
+Object.defineProperty(exports, "KhmerChess", { enumerable: true, get: function () { return __importDefault(KhmerChess_1).default; } });
 /*
  * Copyright (c) 2021, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
@@ -28,7 +34,7 @@ exports.KhmerChess = void 0;
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS'
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
@@ -40,10 +46,5 @@ exports.KhmerChess = void 0;
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- *---------------------------------------------------------------------------- */
-__exportStar(require("./brain"), exports);
-__exportStar(require("./kpgn"), exports);
-__exportStar(require("./ren"), exports);
-__exportStar(require("./other"), exports);
-var KhmerChess_1 = require("./KhmerChess");
-Object.defineProperty(exports, "KhmerChess", { enumerable: true, get: function () { return __importDefault(KhmerChess_1).default; } });
+ *---------------------------------------------------------------------------- */ 
+//# sourceMappingURL=index.js.map

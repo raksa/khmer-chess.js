@@ -1,4 +1,15 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var Captured = /** @class */ (function () {
+    function Captured(_a) {
+        var piece = _a.piece, fromBoardPoint = _a.fromBoardPoint, toGraveyardPoint = _a.toGraveyardPoint;
+        this.piece = piece;
+        this.fromBoardPoint = fromBoardPoint;
+        this.toGraveyardPoint = toGraveyardPoint;
+    }
+    return Captured;
+}());
+exports.default = Captured;
 /*
  * Copyright (c) 2021, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
@@ -13,7 +24,7 @@
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS'
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
@@ -25,15 +36,5 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- *---------------------------------------------------------------------------- */
-Object.defineProperty(exports, "__esModule", { value: true });
-var Captured = /** @class */ (function () {
-    function Captured(_a) {
-        var piece = _a.piece, fromBoardPoint = _a.fromBoardPoint, toGraveyardPoint = _a.toGraveyardPoint;
-        this.piece = piece;
-        this.fromBoardPoint = fromBoardPoint;
-        this.toGraveyardPoint = toGraveyardPoint;
-    }
-    return Captured;
-}());
-exports.default = Captured;
+ *---------------------------------------------------------------------------- */ 
+//# sourceMappingURL=Captured.js.map

@@ -4,6 +4,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Timer = exports.Result = exports.Player = exports.Captured = exports.Move = exports.KPGN = void 0;
+var KPGN_1 = require("./KPGN");
+Object.defineProperty(exports, "KPGN", { enumerable: true, get: function () { return __importDefault(KPGN_1).default; } });
+var Move_1 = require("./Move");
+Object.defineProperty(exports, "Move", { enumerable: true, get: function () { return __importDefault(Move_1).default; } });
+var Captured_1 = require("./Captured");
+Object.defineProperty(exports, "Captured", { enumerable: true, get: function () { return __importDefault(Captured_1).default; } });
+var Player_1 = require("./Player");
+Object.defineProperty(exports, "Player", { enumerable: true, get: function () { return __importDefault(Player_1).default; } });
+var Result_1 = require("./Result");
+Object.defineProperty(exports, "Result", { enumerable: true, get: function () { return __importDefault(Result_1).default; } });
+var Timer_1 = require("./Timer");
+Object.defineProperty(exports, "Timer", { enumerable: true, get: function () { return __importDefault(Timer_1).default; } });
 /*
  * Copyright (c) 2021, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
@@ -18,7 +30,7 @@ exports.Timer = exports.Result = exports.Player = exports.Captured = exports.Mov
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS'
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
@@ -30,16 +42,5 @@ exports.Timer = exports.Result = exports.Player = exports.Captured = exports.Mov
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- *---------------------------------------------------------------------------- */
-var KPGN_1 = require("./KPGN");
-Object.defineProperty(exports, "KPGN", { enumerable: true, get: function () { return __importDefault(KPGN_1).default; } });
-var Move_1 = require("./Move");
-Object.defineProperty(exports, "Move", { enumerable: true, get: function () { return __importDefault(Move_1).default; } });
-var Captured_1 = require("./Captured");
-Object.defineProperty(exports, "Captured", { enumerable: true, get: function () { return __importDefault(Captured_1).default; } });
-var Player_1 = require("./Player");
-Object.defineProperty(exports, "Player", { enumerable: true, get: function () { return __importDefault(Player_1).default; } });
-var Result_1 = require("./Result");
-Object.defineProperty(exports, "Result", { enumerable: true, get: function () { return __importDefault(Result_1).default; } });
-var Timer_1 = require("./Timer");
-Object.defineProperty(exports, "Timer", { enumerable: true, get: function () { return __importDefault(Timer_1).default; } });
+ *---------------------------------------------------------------------------- */ 
+//# sourceMappingURL=index.js.map

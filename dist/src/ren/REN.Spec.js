@@ -1,7 +1,4 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 /*
  * Copyright (c) 2021, K4us
@@ -17,7 +14,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS'
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
@@ -30,7 +27,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * POSSIBILITY OF SUCH DAMAGE.
  *
  *---------------------------------------------------------------------------- */
-var KhmerChess_1 = __importDefault(require("./KhmerChess"));
-test('KhmerChess should work', function () {
-    expect(KhmerChess_1.default.title).toBe('khmer-chess');
+var index_1 = require("../../src/index");
+var helper_1 = require("../test/helper");
+describe('Should import successfully', function () {
+    var kc = null;
+    var point = new index_1.Point(1, 0);
+    beforeAll(function () {
+        kc = new index_1.KhmerChess(helper_1.demo1);
+    });
+    it('should has correct move positions', function () {
+        var points = kc.renInstance.getCanMovePointsByPoint(point);
+        points.map(function (p) {
+            expect(p.indexCode).toBe('d2');
+        });
+    });
 });
+//# sourceMappingURL=REN.Spec.js.map
