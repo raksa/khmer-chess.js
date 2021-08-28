@@ -6,6 +6,7 @@ inspired by [chess.js](https://github.com/jhlywa/chess.js)
 
 ## Importing
 
+* `npm i -D khmer-chess`
 * [Typescript](https://www.typescriptlang.org/): `import { KhmerChess } from 'khmer-chess'`
 * [Node.js](https://nodejs.org/en/): `const { KhmerChess } = require('khmer-chess/dist/src')`
 
