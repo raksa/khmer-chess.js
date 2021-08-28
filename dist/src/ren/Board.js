@@ -65,9 +65,10 @@ var Board = /** @class */ (function () {
             }, function () { return constant_2.EMPTY_PIECE; }).join('');
         });
     };
-    Board.prototype.toStringFull = function () {
-        var str = this.pieceIndices.map(function (pos, i) {
-            var p = pos.toPieceCharCode();
+    Board.prototype.toStringFull = function (pieceIndices) {
+        if (pieceIndices === void 0) { pieceIndices = this.pieceIndices; }
+        var str = pieceIndices.map(function (pieceIndex, i) {
+            var p = pieceIndex.toPieceCharCode();
             if (i && i % constant_2.ROW_NUMBER === 0 && i !== constant_2.CELL_COUNT) {
                 return "" + constant_2.BOARD_SEPARATOR + p;
             }

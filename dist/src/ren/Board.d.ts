@@ -10,7 +10,7 @@ export default class Board {
     get pieces(): Piece[];
     compress(str: string): string;
     extract(str: string): string;
-    toStringFull(): string;
+    toStringFull(pieceIndices?: PieceIndex[]): string;
     toStringFullNoSeparate(): string;
     toString(): string;
     getPieceAtIndex(index: number): Piece | null;

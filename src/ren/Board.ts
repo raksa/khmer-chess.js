@@ -60,9 +60,9 @@ export default class Board {
         });
     }
 
-    toStringFull() {
-        const str = this.pieceIndices.map((pos, i) => {
-            const p = pos.toPieceCharCode();
+    toStringFull(pieceIndices: PieceIndex[] = this.pieceIndices) {
+        const str = pieceIndices.map((pieceIndex, i) => {
+            const p = pieceIndex.toPieceCharCode();
             if (i && i % ROW_NUMBER === 0 && i !== CELL_COUNT) {
                 return `${BOARD_SEPARATOR}${p}`;
             }
