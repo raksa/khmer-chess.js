@@ -12,6 +12,6 @@ export default class Board {
     extract(str: string): string;
     toStringFull(pieceIndices?: PieceIndex[]): string;
     toStringFullNoSeparate(): string;
-    toString(): string;
+    toString(pieceIndices?: PieceIndex[]): string;
     getPieceAtIndex(index: number): Piece | null;
 }

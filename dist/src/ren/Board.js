@@ -81,8 +81,8 @@ var Board = /** @class */ (function () {
         str = str.replace(/\//g, '');
         return str;
     };
-    Board.prototype.toString = function () {
-        var str = this.toStringFull();
+    Board.prototype.toString = function (pieceIndices) {
+        var str = this.toStringFull(pieceIndices);
         str = this.compress(str);
         return str;
     };

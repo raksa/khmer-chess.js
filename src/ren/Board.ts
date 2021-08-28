@@ -76,8 +76,8 @@ export default class Board {
         return str;
     }
 
-    toString() {
-        let str = this.toStringFull();
+    toString(pieceIndices?: PieceIndex[]) {
+        let str = this.toStringFull(pieceIndices);
         str = this.compress(str);
         return str;
     }
