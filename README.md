@@ -4,6 +4,11 @@ khmer-chess.js is a Javascript chess library that is used for khmer-chess [Ouk-K
 
 inspired by [chess.js](https://github.com/jhlywa/chess.js)
 
+## Importing
+
+* [typescript](https://www.typescriptlang.org/): `import { KhmerChess } from 'khmer-chess'`
+* [Node.js](https://nodejs.org/en/): `const { KhmerChess } = require('khmer-chess/dist/src')`
+
 ## Run
 
 ```bash
