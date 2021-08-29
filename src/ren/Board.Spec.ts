@@ -37,12 +37,12 @@ describe('Should import successfully', function () {
     });
 
     it('should return correct board string', () => {
-        const str = kc.renInstance.board.toString();
+        const str = kc.kpgn.ren.board.toString();
         expect(str).toBe(demoBoard1);
     });
 
     it('should has return H', () => {
-        const piece = kc.renInstance.board.getPieceAtIndex(point.index);
+        const piece = kc.kpgn.ren.board.getPieceAtIndex(point.index);
         expect(piece.pieceCharCode).toBe('H');
     });
 });

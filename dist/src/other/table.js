@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-function asciiTable(renInstance) {
-    var arr = renInstance.board.piecesMultiArray;
+function asciiTable(ren) {
+    var arr = ren.board.piecesMultiArray;
     var str = '  ┏━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┓';
     var result = arr.reverse().reduce(function (s, subArr, i) {
         var rs = subArr.map(function (p) { return " " + (p ? p.pieceCharCode : ' ') + " "; }).join('┃');
@@ -9,9 +9,9 @@ function asciiTable(renInstance) {
         s += "\n" + (8 - i) + " \u2503" + rs + "\u2503\n  " + bottom;
         return s;
     }, str);
-    var gyTStr = renInstance.graveyard.pieces.map(function () { return '━━━'; }).join('┳');
-    var gyStr = renInstance.graveyard.pieces.map(function (p) { return " " + (p ? p.pieceCharCode : ' ') + " "; }).join('┃');
-    var gyBStr = renInstance.graveyard.pieces.map(function () { return '━━━'; }).join('┻');
+    var gyTStr = ren.graveyard.pieces.map(function () { return '━━━'; }).join('┳');
+    var gyStr = ren.graveyard.pieces.map(function (p) { return " " + (p ? p.pieceCharCode : ' ') + " "; }).join('┃');
+    var gyBStr = ren.graveyard.pieces.map(function () { return '━━━'; }).join('┻');
     var graveyardStr = "  \u250F" + gyTStr + "\u2513\n  \u2503" + gyStr + "\u2503\n  \u2517" + gyBStr + "\u251B";
     return result + "\n    a   b   c   d   e   f   g   h\n" + graveyardStr;
 }

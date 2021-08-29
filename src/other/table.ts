@@ -1,7 +1,7 @@
 import REN from '../ren/REN';
 
-export default function asciiTable(renInstance: REN) {
-  const arr = renInstance.board.piecesMultiArray;
+export default function asciiTable(ren: REN) {
+  const arr = ren.board.piecesMultiArray;
   const str = '  ┏━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┓';
   const result = arr.reverse().reduce((s, subArr, i) => {
     const rs = subArr.map((p) => ` ${p ? p.pieceCharCode : ' '} `).join('┃');
@@ -11,9 +11,9 @@ ${8 - i} ┃${rs}┃
   ${bottom}`;
     return s;
   }, str);
-  const gyTStr = renInstance.graveyard.pieces.map(() => '━━━').join('┳');
-  const gyStr = renInstance.graveyard.pieces.map((p) => ` ${p ? p.pieceCharCode : ' '} `).join('┃');
-  const gyBStr = renInstance.graveyard.pieces.map(() => '━━━').join('┻');
+  const gyTStr = ren.graveyard.pieces.map(() => '━━━').join('┳');
+  const gyStr = ren.graveyard.pieces.map((p) => ` ${p ? p.pieceCharCode : ' '} `).join('┃');
+  const gyBStr = ren.graveyard.pieces.map(() => '━━━').join('┻');
   const graveyardStr = `  ┏${gyTStr}┓
   ┃${gyStr}┃
   ┗${gyBStr}┛`;

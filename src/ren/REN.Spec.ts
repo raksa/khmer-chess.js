@@ -37,7 +37,7 @@ describe('Should import successfully', function () {
     });
 
     it('should has correct move positions', () => {
-        const points = kc.renInstance.getCanMovePointsByPoint(point);
+        const points = kc.kpgn.ren.getCanMovePointsByPoint(point);
         points.map(p => {
             expect(p.indexCode).toBe('d2');
         });

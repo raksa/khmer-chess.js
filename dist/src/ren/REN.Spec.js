@@ -36,7 +36,7 @@ describe('Should import successfully', function () {
         kc = new index_1.KhmerChess(helper_1.demo1);
     });
     it('should has correct move positions', function () {
-        var points = kc.renInstance.getCanMovePointsByPoint(point);
+        var points = kc.kpgn.ren.getCanMovePointsByPoint(point);
         points.map(function (p) {
             expect(p.indexCode).toBe('d2');
         });

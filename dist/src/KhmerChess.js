@@ -31,29 +31,29 @@ var constant_1 = require("./ren/constant");
 var REN_1 = __importDefault(require("./ren/REN"));
 var KhmerChess = /** @class */ (function () {
     function KhmerChess(renStr) {
-        this.renInstance = REN_1.default.fromString(renStr);
-        this.kpgnInstance = new KPGN_1.default(this.renInstance);
+        var ren = REN_1.default.fromString(renStr);
+        this.kpgn = new KPGN_1.default(ren);
         this.boardEventController = new BoardEventController_1.default();
     }
     KhmerChess.prototype.loadRENStr = function (renStr) {
-        this.renInstance = REN_1.default.fromString(renStr);
+        this.kpgn.ren = REN_1.default.fromString(renStr);
     };
     KhmerChess.prototype.resetBoard = function () {
-        this.renInstance = REN_1.default.fromString();
+        this.kpgn.ren = REN_1.default.fromString();
     };
     KhmerChess.prototype.getCanMoves = function () {
-        var pieceIndices = this.renInstance.genAllCanMoves();
+        var pieceIndices = this.kpgn.ren.genAllCanMoves();
         return pieceIndices;
     };
     KhmerChess.prototype.getCanMovePointsByPoint = function (point) {
-        var canMovePoints = this.renInstance.getCanMovePointsByPoint(point);
+        var canMovePoints = this.kpgn.ren.getCanMovePointsByPoint(point);
         return canMovePoints;
     };
     KhmerChess.prototype.getAttacker = function () {
-        return this.renInstance.getAttacker();
+        return this.kpgn.ren.getAttacker();
     };
     KhmerChess.prototype.getWinColor = function () {
-        return this.renInstance.getWinColor();
+        return this.kpgn.ren.getWinColor();
     };
     KhmerChess.prototype.getStuckColor = function () {
         // TODO:
@@ -79,52 +79,52 @@ var KhmerChess = /** @class */ (function () {
         }
     };
     KhmerChess.prototype.getRENStr = function () {
-        return this.renInstance.toString();
+        return this.kpgn.ren.toString();
     };
     Object.defineProperty(KhmerChess.prototype, "piecesInBoardMultiArray", {
         get: function () {
-            return this.renInstance.board.piecesMultiArray;
+            return this.kpgn.ren.board.piecesMultiArray;
         },
         enumerable: false,
         configurable: true
     });
     Object.defineProperty(KhmerChess.prototype, "piecesInBoard", {
         get: function () {
-            return this.renInstance.board.pieces;
+            return this.kpgn.ren.board.pieces;
         },
         enumerable: false,
         configurable: true
     });
     Object.defineProperty(KhmerChess.prototype, "piecesInGraveyard", {
         get: function () {
-            return this.renInstance.graveyard.pieces;
+            return this.kpgn.ren.graveyard.pieces;
         },
         enumerable: false,
         configurable: true
     });
     // Khmer Portable Game Notation <file-name>.kpgn.json
     KhmerChess.prototype.getKPGN = function () {
-        return this.kpgnInstance.toJson();
+        return this.kpgn.toJson();
     };
     KhmerChess.prototype.loadKpgn = function (kpgnJosn, options) {
-        this.kpgnInstance = new KPGN_1.default(this.renInstance);
+        this.kpgn = new KPGN_1.default(this.kpgn.ren);
     };
     KhmerChess.prototype.drawAscii = function () {
-        return table_1.default(this.renInstance);
+        return table_1.default(this.kpgn.ren);
     };
     Object.defineProperty(KhmerChess.prototype, "turn", {
         get: function () {
-            return this.renInstance.turn;
+            return this.kpgn.ren.turn;
         },
         set: function (turn) {
-            this.renInstance.turn = turn;
+            this.kpgn.ren.turn = turn;
         },
         enumerable: false,
         configurable: true
     });
     KhmerChess.prototype.move = function (moveFromIndex, moveToIndex) {
-        var move = this.renInstance.move(moveFromIndex, moveToIndex);
-        this.kpgnInstance.moves.push(move);
+        var move = this.kpgn.ren.move(moveFromIndex, moveToIndex);
+        this.kpgn.moves.push(move);
         return move;
     };
     KhmerChess.prototype.undoMove = function () {
@@ -136,10 +136,10 @@ var KhmerChess = /** @class */ (function () {
      * -> 4k3/8/8/8/8/8/8/3K4 w ---- -- -.- bhgqghbffffffffFFFFFFFFBHGQGHB
      */
     KhmerChess.prototype.clearBoard = function () {
-        this.renInstance = REN_1.default.fromString('4k3/8/8/8/8/8/8/3K4 w ---- -- -.- bhgqghbffffffffFFFFFFFFBHGQGHB');
+        this.kpgn.ren = REN_1.default.fromString('4k3/8/8/8/8/8/8/3K4 w ---- -- -.- bhgqghbffffffffFFFFFFFFBHGQGHB');
     };
     KhmerChess.prototype.getHistories = function () {
-        return this.kpgnInstance.moves;
+        return this.kpgn.moves;
     };
     KhmerChess.prototype.checkBoardEvent = function () {
         var pieceIndex = this.getAttacker();

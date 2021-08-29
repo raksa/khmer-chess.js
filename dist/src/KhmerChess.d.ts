@@ -4,12 +4,10 @@ import BoardEventController, { BoardEvent } from './other/BoardEventController';
 import { ListenerType } from './other/EventHandler';
 import { PieceIndex } from './ren';
 import Point from './ren/Point';
-import REN from './ren/REN';
 export default class KhmerChess {
     static title: string;
     static version: string;
-    renInstance: REN;
-    kpgnInstance: KPGN;
+    kpgn: KPGN;
     boardEventController: BoardEventController;
     constructor(renStr?: string);
     loadRENStr(renStr?: string): void;

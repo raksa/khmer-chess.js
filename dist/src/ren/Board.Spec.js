@@ -36,11 +36,11 @@ describe('Should import successfully', function () {
         kc = new index_1.KhmerChess(helper_1.demo1);
     });
     it('should return correct board string', function () {
-        var str = kc.renInstance.board.toString();
+        var str = kc.kpgn.ren.board.toString();
         expect(str).toBe(helper_1.demoBoard1);
     });
     it('should has return H', function () {
-        var piece = kc.renInstance.board.getPieceAtIndex(point.index);
+        var piece = kc.kpgn.ren.board.getPieceAtIndex(point.index);
         expect(piece.pieceCharCode).toBe('H');
     });
 });

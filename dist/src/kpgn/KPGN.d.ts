@@ -22,9 +22,9 @@ export default class KPGN {
         white: Result;
     };
     moves: Move[];
-    renInstant: REN;
+    ren: REN;
     timer: Timer;
-    constructor(renInstant: REN);
+    constructor(ren: REN);
     toJson(): {
         event: string;
         date: string;

@@ -13,38 +13,37 @@ import REN from './ren/REN';
 export default class KhmerChess {
     static title = config.name;
     static version = config.version;
-    renInstance: REN;
-    kpgnInstance: KPGN;
+    kpgn: KPGN;
     boardEventController: BoardEventController;
     constructor(renStr?: string) {
-        this.renInstance = REN.fromString(renStr);
-        this.kpgnInstance = new KPGN(this.renInstance);
+        const ren = REN.fromString(renStr);
+        this.kpgn = new KPGN(ren);
         this.boardEventController = new BoardEventController();
     }
 
     loadRENStr(renStr?: string) {
-        this.renInstance = REN.fromString(renStr);
+        this.kpgn.ren = REN.fromString(renStr);
     }
 
     resetBoard() {
-        this.renInstance = REN.fromString();
+        this.kpgn.ren = REN.fromString();
     }
 
     getCanMoves(): PieceIndex[] {
-        const pieceIndices = this.renInstance.genAllCanMoves();
+        const pieceIndices = this.kpgn.ren.genAllCanMoves();
         return pieceIndices;
     }
     getCanMovePointsByPoint(point: Point): Point[] {
-        const canMovePoints = this.renInstance.getCanMovePointsByPoint(point);
+        const canMovePoints = this.kpgn.ren.getCanMovePointsByPoint(point);
         return canMovePoints;
     }
 
     getAttacker(): PieceIndex | null {
-        return this.renInstance.getAttacker();
+        return this.kpgn.ren.getAttacker();
     }
 
     getWinColor(): string | null {
-        return this.renInstance.getWinColor();
+        return this.kpgn.ren.getWinColor();
     }
 
     getStuckColor(): string | null {
@@ -75,45 +74,45 @@ export default class KhmerChess {
     }
 
     getRENStr() {
-        return this.renInstance.toString();
+        return this.kpgn.ren.toString();
     }
 
     get piecesInBoardMultiArray() {
-        return this.renInstance.board.piecesMultiArray;
+        return this.kpgn.ren.board.piecesMultiArray;
     }
 
     get piecesInBoard() {
-        return this.renInstance.board.pieces;
+        return this.kpgn.ren.board.pieces;
     }
 
     get piecesInGraveyard() {
-        return this.renInstance.graveyard.pieces;
+        return this.kpgn.ren.graveyard.pieces;
     }
 
     // Khmer Portable Game Notation <file-name>.kpgn.json
     getKPGN() {
-        return this.kpgnInstance.toJson();
+        return this.kpgn.toJson();
     }
 
     loadKpgn(kpgnJosn: any, options: any) {
-        this.kpgnInstance = new KPGN(this.renInstance);
+        this.kpgn = new KPGN(this.kpgn.ren);
     }
 
     drawAscii() {
-        return asciiTable(this.renInstance);
+        return asciiTable(this.kpgn.ren);
     }
 
     get turn() {
-        return this.renInstance.turn;
+        return this.kpgn.ren.turn;
     }
 
     set turn(turn: string) {
-        this.renInstance.turn = turn;
+        this.kpgn.ren.turn = turn;
     }
 
     move(moveFromIndex: number, moveToIndex: number): Move | null {
-        const move = this.renInstance.move(moveFromIndex, moveToIndex);
-        this.kpgnInstance.moves.push(move);
+        const move = this.kpgn.ren.move(moveFromIndex, moveToIndex);
+        this.kpgn.moves.push(move);
         return move;
     }
 
@@ -127,11 +126,11 @@ export default class KhmerChess {
      * -> 4k3/8/8/8/8/8/8/3K4 w ---- -- -.- bhgqghbffffffffFFFFFFFFBHGQGHB
      */
     clearBoard() {
-        this.renInstance = REN.fromString('4k3/8/8/8/8/8/8/3K4 w ---- -- -.- bhgqghbffffffffFFFFFFFFBHGQGHB');
+        this.kpgn.ren = REN.fromString('4k3/8/8/8/8/8/8/3K4 w ---- -- -.- bhgqghbffffffffFFFFFFFFBHGQGHB');
     }
 
     getHistories() {
-        return this.kpgnInstance.moves;
+        return this.kpgn.moves;
     }
 
     checkBoardEvent() {

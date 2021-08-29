@@ -10,7 +10,7 @@ var Result_1 = __importDefault(require("./Result"));
  */
 // TODO: improve KPGN
 var KPGN = /** @class */ (function () {
-    function KPGN(renInstant) {
+    function KPGN(ren) {
         this.players = {
             white: new Player_1.default(),
             black: new Player_1.default(),
@@ -22,7 +22,7 @@ var KPGN = /** @class */ (function () {
             },
             white: new Result_1.default(),
         };
-        this.renInstant = renInstant;
+        this.ren = ren;
         this.moves = [];
     }
     KPGN.prototype.toJson = function () {
@@ -42,7 +42,7 @@ var KPGN = /** @class */ (function () {
                 white: this.result.white.toJson(),
             },
             moves: this.moves.map(function (m) { return m.toJson(); }),
-            ren: this.renInstant.toString(),
+            ren: this.ren.toString(),
             timer: this.timer.toJson(),
         };
     };
