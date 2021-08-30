@@ -2,7 +2,9 @@
 
 khmer-chess.js is a Javascript chess library that is used for khmer-chess [Ouk-Khmer](https://en.wikipedia.org/wiki/Ouk-Khmer_(Hill%27s_version)) move generation/validation, piece placement/movement, and check/checkmate/stalemate detection - basically everything but the AI.
 
-inspired by [chess.js](https://github.com/jhlywa/chess.js)
+Inspired by [chess.js](https://github.com/jhlywa/chess.js)
+
+Notation [KPNG Spec](https://github.com/K4us/khmer-chess.js/tree/main/src/kpgn/kpng-spec)
 
 ## Importing
 
