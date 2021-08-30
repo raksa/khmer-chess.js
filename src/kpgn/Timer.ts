@@ -3,8 +3,8 @@ export default class Timer {
     totalSecond: number;
     currentWhite: number;
     currentBlack: number;
-    constructor(totalSecond: number, bonusTime: number,
-        currentWhite: number, currentBlack: number) {
+    constructor(totalSecond: number = 0, bonusTime: number = 0,
+        currentWhite: number = 0, currentBlack: number = 0) {
         this.bonusTime = bonusTime;
         this.totalSecond = totalSecond;
         this.currentWhite = currentWhite;

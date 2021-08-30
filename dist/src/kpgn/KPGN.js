@@ -5,9 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var Player_1 = __importDefault(require("./Player"));
 var Result_1 = __importDefault(require("./Result"));
+var Timer_1 = __importDefault(require("./Timer"));
 // TODO: improve KPGN
 var KPGN = /** @class */ (function () {
     function KPGN(ren) {
+        this.event = '';
+        this.date = '';
+        this.location = '';
         this.players = {
             white: new Player_1.default(),
             black: new Player_1.default(),
@@ -19,6 +23,7 @@ var KPGN = /** @class */ (function () {
             },
             white: new Result_1.default(),
         };
+        this.timer = new Timer_1.default();
         this.ren = ren;
         this.moves = [];
     }

@@ -6,9 +6,9 @@ import Timer from './Timer';
 
 // TODO: improve KPGN
 export default class KPGN {
-    event: string;
-    date: string;
-    location: string;
+    event: string = '';
+    date: string = '';
+    location: string = '';
     players = {
         white: new Player(),
         black: new Player(),
@@ -23,7 +23,7 @@ export default class KPGN {
 
     moves: Move[];
     ren: REN;
-    timer: Timer;
+    timer: Timer = new Timer();
 
     constructor(ren: REN) {
         this.ren = ren;

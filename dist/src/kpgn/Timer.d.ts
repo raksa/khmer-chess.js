@@ -3,7 +3,7 @@ export default class Timer {
     totalSecond: number;
     currentWhite: number;
     currentBlack: number;
-    constructor(totalSecond: number, bonusTime: number, currentWhite: number, currentBlack: number);
+    constructor(totalSecond?: number, bonusTime?: number, currentWhite?: number, currentBlack?: number);
     toJson(): {
         totalSecond: number;
         bonusTime: number;

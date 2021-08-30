@@ -2,6 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Timer = /** @class */ (function () {
     function Timer(totalSecond, bonusTime, currentWhite, currentBlack) {
+        if (totalSecond === void 0) { totalSecond = 0; }
+        if (bonusTime === void 0) { bonusTime = 0; }
+        if (currentWhite === void 0) { currentWhite = 0; }
+        if (currentBlack === void 0) { currentBlack = 0; }
         this.bonusTime = bonusTime;
         this.totalSecond = totalSecond;
         this.currentWhite = currentWhite;
