@@ -4,10 +4,6 @@ import Player from './Player';
 import Result from './Result';
 import Timer from './Timer';
 
-/**
- * Khmer portable game notation
- * inspired by PGN https://en.wikipedia.org/wiki/Portable_Game_Notation
- */
 // TODO: improve KPGN
 export default class KPGN {
     event: string;

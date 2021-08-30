@@ -1,0 +1,10 @@
+{
+    "type": "string",
+    "description": "",
+    "value": "<pieces on board> <turn w|b> <king&queen moved ----|SNsn> <king attack --|Kk> <countdown -.-|-.4> <pieces in graveyard>",
+    "metadata": {
+        "example": [
+            "BHGKQ2B/4GH2/TFFFFFFF/8/8/5ff1/2qg2b1/bhgk2h1 w ---- -- -.- ffffff"
+        ]
+    }
+}

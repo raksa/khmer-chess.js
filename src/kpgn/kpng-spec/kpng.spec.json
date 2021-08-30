@@ -1,0 +1,48 @@
+{
+    "event": {
+        "type": "String",
+        "description": ""
+    },
+    "date": {
+        "type": "Date",
+        "description": ""
+    },
+    "location": "this.location,",
+    "players": {
+        "white": "this.players.white.toJson(),",
+        "black": "this.players.black.toJson(),"
+    },
+    "result": "{",
+    "last": {
+        "whiteWin": "this.result.last.whiteWin,",
+        "blackWin": "this.result.last.blackWin,"
+    },
+    "white": "this.result.white.toJson(),",
+    "moves": {
+        "type": "Array<String>",
+        "description": ""
+    },
+    "ren": {
+        "type": "String",
+        "description": "REN specification",
+        "required": true
+    },
+    "timer": {
+        "type": "Object",
+        "description": "",
+        "value": {
+            "totalSecond": {
+                "type": "Number",
+                "description": ""
+            },
+            "currentWhite": {
+                "type": "Number",
+                "description": ""
+            },
+            "currentBlack": {
+                "type": "Number",
+                "description": ""
+            }
+        }
+    }
+}

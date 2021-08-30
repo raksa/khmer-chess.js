@@ -1,3 +1,5 @@
-# KPNG Specification
+# KPNG: ne Khmer Portable Game Notation Specification
 
-JSON format
+Inspired by [PGN](https://en.wikipedia.org/wiki/Portable_Game_Notation)
+
+format: JSON
