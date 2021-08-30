@@ -145,6 +145,21 @@ export default class Piece {
             return !~ruler.indexOf(c);
         });
     }
+
+    upgrade() {
+        if (this.isTypeFish) {
+            this.type = PIECE_TYPE_TRANSFORM_FISH;
+            return true;
+        }
+        return false;
+    }
+    downgrade() {
+        if (this.isTypeTransformedFish) {
+            this.type = PIECE_TYPE_FISH;
+            return true;
+        }
+        return false;
+    }
 }
 
 const allPiecesString: string[] = [

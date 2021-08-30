@@ -198,6 +198,20 @@ var Piece = /** @class */ (function () {
             return !~ruler.indexOf(c);
         });
     };
+    Piece.prototype.upgrade = function () {
+        if (this.isTypeFish) {
+            this.type = constant_1.PIECE_TYPE_TRANSFORM_FISH;
+            return true;
+        }
+        return false;
+    };
+    Piece.prototype.downgrade = function () {
+        if (this.isTypeTransformedFish) {
+            this.type = constant_1.PIECE_TYPE_FISH;
+            return true;
+        }
+        return false;
+    };
     return Piece;
 }());
 exports.default = Piece;

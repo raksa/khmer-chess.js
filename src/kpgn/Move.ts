@@ -1,5 +1,5 @@
 
-import { boardHelper, PIECE_TYPE_TRANSFORM_FISH } from '../brain';
+import { boardHelper } from '../brain';
 import {
     PIECE_FLAG_JUMP,
     PIECE_FLAG_KILL,
@@ -35,7 +35,7 @@ export default class Move implements MovePropType {
         this.captured = captured || null;
         if (boardHelper.isUpgradable(piece, moveTo)) {
             this.isUpgrading = true;
-            piece.type = PIECE_TYPE_TRANSFORM_FISH;
+            piece.upgrade();
         }
     }
 

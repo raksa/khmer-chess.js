@@ -19,7 +19,7 @@ var Move = /** @class */ (function () {
         this.captured = captured || null;
         if (brain_1.boardHelper.isUpgradable(piece, moveTo)) {
             this.isUpgrading = true;
-            piece.type = brain_1.PIECE_TYPE_TRANSFORM_FISH;
+            piece.upgrade();
         }
     }
     // Spec: Fc5d6xf => White fish (F) moved from c5 to d6 killed black fish (f)

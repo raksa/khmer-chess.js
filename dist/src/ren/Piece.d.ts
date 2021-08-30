@@ -30,4 +30,6 @@ export default class Piece {
     static isBlackColor(color: string): boolean;
     static oppositeColor(color: any): "w" | "b";
     static isValidPiecesString(str: string, onlyPiece?: boolean): boolean;
+    upgrade(): boolean;
+    downgrade(): boolean;
 }
