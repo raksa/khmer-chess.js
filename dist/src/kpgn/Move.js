@@ -23,9 +23,7 @@ var Move = /** @class */ (function () {
         }
     }
     // Spec: Fc5d6xf => White fish (F) moved from c5 to d6 killed black fish (f)
-    Move.fromMovedString = function (graveyardLastIndex) {
-        // const str = 'Fc5d6j';
-        var str = 'Fc5d6xf';
+    Move.fromMovedString = function (str, graveyardLastIndex) {
         var piece = Piece_1.default.fromCharCode(str[0]);
         var moveFrom = Point_1.default.fromIndexCode(str.substr(1, 2));
         var moveTo = Point_1.default.fromIndexCode(str.substr(3, 2));
@@ -86,6 +84,8 @@ var Move = /** @class */ (function () {
             var upgrade = this.isUpgrading ? ' បក' : '';
             return this.piece.title + " \u178A\u17BE\u179A\u200B\u1796\u17B8 " + this.moveFrom.title + " \u1791\u17C5 " + this.moveTo.title + upgrade + captured;
         }
+    };
+    Move.prototype.reverse = function () {
     };
     return Move;
 }());

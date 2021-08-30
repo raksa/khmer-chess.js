@@ -1,8 +1,12 @@
 "use strict";
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -197,12 +201,12 @@ var Piece = /** @class */ (function () {
     return Piece;
 }());
 exports.default = Piece;
-var allPiecesString = __spreadArray(__spreadArray(__spreadArray([], Piece.pieceChars), Piece.pieceChars.map(function (pieceChar) {
+var allPiecesString = __spreadArray(__spreadArray(__spreadArray([], Piece.pieceChars, true), Piece.pieceChars.map(function (pieceChar) {
     return Piece.toWhiteCharCode(pieceChar);
-})), [
+}), true), [
     constant_1.EMPTY_PIECE,
     constant_1.BOARD_SEPARATOR,
-]);
+], false);
 /*
  * Copyright (c) 2021, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>

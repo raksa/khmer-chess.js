@@ -40,9 +40,7 @@ export default class Move implements MovePropType {
     }
 
     // Spec: Fc5d6xf => White fish (F) moved from c5 to d6 killed black fish (f)
-    static fromMovedString(graveyardLastIndex: number) {
-        // const str = 'Fc5d6j';
-        const str = 'Fc5d6xf';
+    static fromMovedString(str: string, graveyardLastIndex: number) {
         const piece = Piece.fromCharCode(str[0]);
         const moveFrom = Point.fromIndexCode(str.substr(1, 2));
         const moveTo = Point.fromIndexCode(str.substr(3, 2));
@@ -103,6 +101,9 @@ export default class Move implements MovePropType {
             const upgrade = this.isUpgrading ? ' បក' : '';
             return `${this.piece.title} ដើរ​ពី ${this.moveFrom.title} ទៅ ${this.moveTo.title}${upgrade}${captured}`;
         }
+    }
+
+    reverse() {
     }
 }
 /*

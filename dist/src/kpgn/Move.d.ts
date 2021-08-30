@@ -17,7 +17,7 @@ export default class Move implements MovePropType {
     isUpgrading?: boolean;
     captured?: Captured;
     constructor({ piece, moveFrom, moveTo, isJumping, isUpgrading, captured, }: MovePropType);
-    static fromMovedString(graveyardLastIndex: number): Move;
+    static fromMovedString(str: string, graveyardLastIndex: number): Move;
     toString(): string;
     toJson(): {
         fromIndex: number;
@@ -26,4 +26,5 @@ export default class Move implements MovePropType {
         capturedPiece: string;
     };
     getMessage(isEnglish?: boolean): string;
+    reverse(): void;
 }

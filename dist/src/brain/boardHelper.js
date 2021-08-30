@@ -10,7 +10,7 @@ var Point_1 = __importDefault(require("../ren/Point"));
 var Piece_1 = __importDefault(require("../ren/Piece"));
 var Rectangle_1 = __importDefault(require("./Rectangle"));
 var ren_1 = require("../ren");
-var mask = genMask_1.default();
+var mask = (0, genMask_1.default)();
 var BoardHelper = /** @class */ (function () {
     function BoardHelper() {
         this.convertMask = function (point1, index, color) {

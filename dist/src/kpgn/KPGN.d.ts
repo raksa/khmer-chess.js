@@ -3,9 +3,6 @@ import Move from './Move';
 import Player from './Player';
 import Result from './Result';
 import Timer from './Timer';
-/**
- * Khmer portable game notation
- */
 export default class KPGN {
     event: string;
     date: string;
@@ -58,9 +55,10 @@ export default class KPGN {
         }[];
         ren: string;
         timer: {
-            totalSecond: string;
-            currentWhite: string;
-            currentBlack: string;
+            totalSecond: number;
+            bonusTime: number;
+            currentWhite: number;
+            currentBlack: number;
         };
     };
 }

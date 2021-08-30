@@ -5,9 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var Player_1 = __importDefault(require("./Player"));
 var Result_1 = __importDefault(require("./Result"));
-/**
- * Khmer portable game notation
- */
 // TODO: improve KPGN
 var KPGN = /** @class */ (function () {
     function KPGN(ren) {

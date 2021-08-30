@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Timer = /** @class */ (function () {
-    function Timer(totalSecond, currentWhite, currentBlack) {
+    function Timer(totalSecond, bonusTime, currentWhite, currentBlack) {
+        this.bonusTime = bonusTime;
         this.totalSecond = totalSecond;
         this.currentWhite = currentWhite;
         this.currentBlack = currentBlack;
@@ -9,6 +10,7 @@ var Timer = /** @class */ (function () {
     Timer.prototype.toJson = function () {
         return {
             totalSecond: this.totalSecond,
+            bonusTime: this.bonusTime,
             currentWhite: this.currentWhite,
             currentBlack: this.currentBlack,
         };

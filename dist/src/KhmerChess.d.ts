@@ -11,6 +11,7 @@ export default class KhmerChess {
     boardEventController: BoardEventController;
     constructor(renStr?: string);
     loadRENStr(renStr?: string): void;
+    loadMovesStrings(moves: string[]): void;
     resetBoard(): void;
     getCanMoves(): PieceIndex[];
     getCanMovePointsByPoint(point: Point): Point[];
@@ -62,9 +63,10 @@ export default class KhmerChess {
         }[];
         ren: string;
         timer: {
-            totalSecond: string;
-            currentWhite: string;
-            currentBlack: string;
+            totalSecond: number;
+            bonusTime: number;
+            currentWhite: number;
+            currentBlack: number;
         };
     };
     loadKpgn(kpgnJosn: any, options: any): void;

@@ -25,6 +25,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var package_json_1 = __importDefault(require("../package.json"));
 var brain_1 = require("./brain");
 var KPGN_1 = __importDefault(require("./kpgn/KPGN"));
+var Move_1 = __importDefault(require("./kpgn/Move"));
 var BoardEventController_1 = __importStar(require("./other/BoardEventController"));
 var table_1 = __importDefault(require("./other/table"));
 var constant_1 = require("./ren/constant");
@@ -37,6 +38,16 @@ var KhmerChess = /** @class */ (function () {
     }
     KhmerChess.prototype.loadRENStr = function (renStr) {
         this.kpgn.ren = REN_1.default.fromString(renStr);
+    };
+    KhmerChess.prototype.loadMovesStrings = function (moves) {
+        var graveyardLastIndex = 0;
+        this.kpgn.moves = moves.map(function (move) {
+            var moved = Move_1.default.fromMovedString(move, graveyardLastIndex);
+            if (moved.captured) {
+                graveyardLastIndex = moved.captured.toGraveyardPoint.index + 1;
+            }
+            return moved;
+        });
     };
     KhmerChess.prototype.resetBoard = function () {
         this.kpgn.ren = REN_1.default.fromString();
@@ -110,7 +121,7 @@ var KhmerChess = /** @class */ (function () {
         this.kpgn = new KPGN_1.default(this.kpgn.ren);
     };
     KhmerChess.prototype.drawAscii = function () {
-        return table_1.default(this.kpgn.ren);
+        return (0, table_1.default)(this.kpgn.ren);
     };
     Object.defineProperty(KhmerChess.prototype, "turn", {
         get: function () {

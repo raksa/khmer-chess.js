@@ -25,6 +25,17 @@ export default class KhmerChess {
         this.kpgn.ren = REN.fromString(renStr);
     }
 
+    loadMovesStrings(moves: string[]) {
+        let graveyardLastIndex = 0;
+        this.kpgn.moves = moves.map((move) => {
+            const moved = Move.fromMovedString(move, graveyardLastIndex);
+            if (moved.captured) {
+                graveyardLastIndex = moved.captured.toGraveyardPoint.index + 1;
+            }
+            return moved;
+        });
+    }
+
     resetBoard() {
         this.kpgn.ren = REN.fromString();
     }
