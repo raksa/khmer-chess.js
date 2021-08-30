@@ -1,6 +1,6 @@
 {
     "type": "string",
-    "description": "",
+    "description": "Raksa-Eng Notation, the notation for portable chess game string",
     "value": "<pieces on board> <turn w|b> <king&queen moved ----|SNsn> <king attack --|Kk> <countdown -.-|-.4> <pieces in graveyard>",
     "metadata": {
         "example": [

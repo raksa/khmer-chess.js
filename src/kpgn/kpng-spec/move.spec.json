@@ -1,0 +1,10 @@
+{
+    "type": "string",
+    "description": "Moving notation",
+    "metadata": {
+        "example": [
+            "Fe3e4",
+            "ff6f5"
+        ]
+    }
+}

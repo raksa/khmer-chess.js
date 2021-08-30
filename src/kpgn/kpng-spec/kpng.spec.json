@@ -1,47 +1,119 @@
 {
     "event": {
-        "type": "String",
-        "description": ""
+        "type": "string",
+        "description": "",
+        "metadata": {
+            "example": [
+                "King of Ouk, Ankor 2017"
+            ]
+        }
     },
     "date": {
-        "type": "Date",
-        "description": ""
+        "type": "date",
+        "description": "Date of event",
+        "metadata": {
+            "example": [
+                "2021-08-30"
+            ]
+        }
     },
-    "location": "this.location,",
+    "location": {
+        "type": "string",
+        "description": "Location of event",
+        "metadata": {
+            "example": [
+                "Ankor, Siem Reap, Cambodia"
+            ]
+        }
+    },
     "players": {
-        "white": "this.players.white.toJson(),",
-        "black": "this.players.black.toJson(),"
+        "white": {
+            "type": "object",
+            "description": "White user info",
+            "value": {
+                "username": {
+                    "type": "string",
+                    "description": "user unique name"
+                },
+                "id": {
+                    "type": "string",
+                    "description": "user unique id"
+                }
+            }
+        },
+        "black": {
+            "type": "object",
+            "description": "Black user info",
+            "value": {
+                "username": {
+                    "type": "string",
+                    "description": "user unique name"
+                },
+                "id": {
+                    "type": "string",
+                    "description": "user unique id"
+                }
+            }
+        }
     },
-    "result": "{",
-    "last": {
-        "whiteWin": "this.result.last.whiteWin,",
-        "blackWin": "this.result.last.blackWin,"
+    "result": {
+        "last": {
+            "whiteWin": {
+                "type": "boolean",
+                "description": "Is wite player win last match"
+            },
+            "blackWin": {
+                "type": "boolean",
+                "description": "Is black player win last match"
+            }
+        },
+        "white": {
+            "type": "object",
+            "description": "total = win + draw + lost, black win = white lost, black draw = white draw, black lost = white win",
+            "value": {
+                "win": {
+                    "type": "number",
+                    "description": "Win count"
+                },
+                "draw": {
+                    "type": "number",
+                    "description": "Draw count"
+                },
+                "lost": {
+                    "type": "number",
+                    "description": "Lost count"
+                }
+            }
+        }
     },
-    "white": "this.result.white.toJson(),",
     "moves": {
-        "type": "Array<String>",
-        "description": ""
+        "type": "string[]",
+        "description": "Check move.spec.json for detail"
     },
     "ren": {
-        "type": "String",
-        "description": "REN specification",
+        "type": "string",
+        "description": "REN specification, check ren.spec.json for detail",
         "required": true
     },
     "timer": {
-        "type": "Object",
-        "description": "",
+        "type": "object",
+        "description": "Time for the event,",
         "value": {
             "totalSecond": {
-                "type": "Number",
-                "description": ""
+                "type": "number",
+                "description": "play time + bonus time"
+            },
+            "bonusTime": {
+                "type": "number",
+                "description": "additional time"
             },
             "currentWhite": {
-                "type": "Number",
-                "description": ""
+                "type": "number",
+                "description": "white play time recorded"
             },
             "currentBlack": {
-                "type": "Number",
-                "description": ""
+                "type": "number",
+                "description": "black play time recorded"
             }
         }
     }
