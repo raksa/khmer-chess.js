@@ -1,8 +1,11 @@
 export default class Timer {
-    totalSecond: string;
-    currentWhite: string;
-    currentBlack: string;
-    constructor(totalSecond: string, currentWhite: string, currentBlack: string) {
+    bonusTime: number;
+    totalSecond: number;
+    currentWhite: number;
+    currentBlack: number;
+    constructor(totalSecond: number, bonusTime: number,
+        currentWhite: number, currentBlack: number) {
+        this.bonusTime = bonusTime;
         this.totalSecond = totalSecond;
         this.currentWhite = currentWhite;
         this.currentBlack = currentBlack;
@@ -11,6 +14,7 @@ export default class Timer {
     toJson() {
         return {
             totalSecond: this.totalSecond,
+            bonusTime: this.bonusTime,
             currentWhite: this.currentWhite,
             currentBlack: this.currentBlack,
         };
