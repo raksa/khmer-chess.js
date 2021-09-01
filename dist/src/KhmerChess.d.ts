@@ -10,8 +10,7 @@ export default class KhmerChess {
     kpgn: KPGN;
     boardEventController: BoardEventController;
     constructor(renStr?: string);
-    loadRENStr(renStr?: string): void;
-    loadMovesStrings(moves: string[]): void;
+    loadKpng(option: object): void;
     resetBoard(): void;
     getCanMoves(): PieceIndex[];
     getCanMovePointsByPoint(point: Point): Point[];
@@ -30,45 +29,7 @@ export default class KhmerChess {
     get piecesInBoardMultiArray(): import("./ren").Piece[][];
     get piecesInBoard(): import("./ren").Piece[];
     get piecesInGraveyard(): import("./ren").Piece[];
-    getKPGN(): {
-        event: string;
-        date: string;
-        location: string;
-        players: {
-            white: {
-                id: string;
-                name: string;
-            };
-            black: {
-                id: string;
-                name: string;
-            };
-        };
-        result: {
-            last: {
-                whiteWin: boolean;
-                blackWin: boolean;
-            };
-            white: {
-                win: number;
-                draw: number;
-                lost: number;
-            };
-        };
-        moves: {
-            fromIndex: number;
-            toIndex: number;
-            isJumping: boolean;
-            capturedPiece: string;
-        }[];
-        ren: string;
-        timer: {
-            totalSecond: number;
-            bonusTime: number;
-            currentWhite: number;
-            currentBlack: number;
-        };
-    };
+    getKPGN(): import("./kpgn/KPGN").Option;
     loadKpgn(kpgnJosn: any, options: any): void;
     drawAscii(): string;
     get turn(): string;

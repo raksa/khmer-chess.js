@@ -3,34 +3,74 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var REN_1 = __importDefault(require("../ren/REN"));
+var Move_1 = __importDefault(require("./Move"));
 var Player_1 = __importDefault(require("./Player"));
 var Result_1 = __importDefault(require("./Result"));
 var Timer_1 = __importDefault(require("./Timer"));
-// TODO: improve KPGN
 var KPGN = /** @class */ (function () {
     function KPGN(ren) {
         this.event = '';
-        this.date = '';
+        this.date = null;
         this.location = '';
         this.players = {
-            white: new Player_1.default(),
-            black: new Player_1.default(),
+            white: new Player_1.default({}),
+            black: new Player_1.default({}),
         };
         this.result = {
             last: {
                 whiteWin: false,
                 blackWin: false,
             },
-            white: new Result_1.default(),
+            white: new Result_1.default({}),
         };
-        this.timer = new Timer_1.default();
+        this.timer = new Timer_1.default({});
         this.ren = ren;
         this.moves = [];
     }
+    KPGN.prototype.loadRENStr = function (renStr) {
+        this.ren = REN_1.default.fromString(renStr);
+    };
+    KPGN.prototype.loadMovesStrings = function (moves) {
+        var _this = this;
+        var graveyardLastIndex = 0;
+        this.moves = moves.map(function (move) {
+            var moved = Move_1.default.fromMovedString(move, _this.ren, graveyardLastIndex);
+            if (moved.captured) {
+                graveyardLastIndex = moved.captured.toGraveyardPoint.index + 1;
+            }
+            return moved;
+        });
+    };
+    KPGN.prototype.validateOption = function (option) {
+        // TODO: throw when invalid option's properties
+    };
+    KPGN.prototype.fromJson = function (option) {
+        this.validateOption(option);
+        var ren = option.ren, moves = option.moves, timer = option.timer, result = option.result, players = option.players, location = option.location, date = option.date, event = option.event;
+        this.event = event || this.event;
+        this.date = date ? new Date(date) : this.date;
+        this.location = location || this.location;
+        if (players) {
+            this.players = {
+                white: new Player_1.default(players.white),
+                black: new Player_1.default(players.black),
+            };
+        }
+        if (result) {
+            this.result = {
+                last: result.last,
+                white: new Result_1.default(result.white),
+            };
+        }
+        this.ren = REN_1.default.fromString(ren || '');
+        this.loadMovesStrings(moves || []);
+        this.timer = new Timer_1.default(timer || {});
+    };
     KPGN.prototype.toJson = function () {
         return {
             event: this.event,
-            date: this.date,
+            date: this.date ? this.date.toString() : '',
             location: this.location,
             players: {
                 white: this.players.white.toJson(),
@@ -43,7 +83,7 @@ var KPGN = /** @class */ (function () {
                 },
                 white: this.result.white.toJson(),
             },
-            moves: this.moves.map(function (m) { return m.toJson(); }),
+            moves: this.moves.map(function (m) { return m.toString(); }),
             ren: this.ren.toString(),
             timer: this.timer.toJson(),
         };

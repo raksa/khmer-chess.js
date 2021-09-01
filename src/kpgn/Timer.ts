@@ -1,14 +1,23 @@
+export type Option = {
+    totalSecond?: number;
+    bonusTime?: number;
+    currentWhite?: number;
+    currentBlack?: number;
+};
 export default class Timer {
     bonusTime: number;
     totalSecond: number;
     currentWhite: number;
     currentBlack: number;
-    constructor(totalSecond: number = 0, bonusTime: number = 0,
-        currentWhite: number = 0, currentBlack: number = 0) {
-        this.bonusTime = bonusTime;
-        this.totalSecond = totalSecond;
-        this.currentWhite = currentWhite;
-        this.currentBlack = currentBlack;
+    constructor({ totalSecond, bonusTime, currentWhite, currentBlack }: Option) {
+        this.bonusTime = bonusTime || 0;
+        this.totalSecond = totalSecond || 0;
+        this.currentWhite = currentWhite || 0;
+        this.currentBlack = currentBlack || 0;
+    }
+
+    fromJson() {
+
     }
 
     toJson() {

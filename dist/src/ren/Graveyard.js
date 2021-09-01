@@ -28,6 +28,9 @@ var Graveyard = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    Graveyard.prototype.get = function (index) {
+        return this.pieces[index];
+    };
     Graveyard.prototype.toString = function () {
         return this.pieces.map(function (p) {
             return p.pieceCharCode;

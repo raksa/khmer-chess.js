@@ -1,7 +1,13 @@
 {
     "type": "string",
     "description": "Moving notation",
+    "value": "<pieces char code><from index code><to index coed><flags>",
     "metadata": {
+        "flags": [
+            "<capturing [x + graveyard index]>",
+            "<king or queen jump>",
+            "<fish upgrading>"
+        ],
         "example": [
             "Fe3e4",
             "ff6f5"

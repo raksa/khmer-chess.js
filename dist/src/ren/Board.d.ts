@@ -5,7 +5,7 @@ import PieceIndex from './PieceIndex';
  */
 export default class Board {
     pieceIndices: PieceIndex[];
-    constructor(boardStr: any);
+    constructor(boardStr?: string);
     get piecesMultiArray(): Piece[][];
     get pieces(): Piece[];
     compress(str: string): string;

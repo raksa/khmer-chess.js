@@ -3,9 +3,31 @@ import Move from './Move';
 import Player from './Player';
 import Result from './Result';
 import Timer from './Timer';
+import type { Option as TimeOption } from './Timer';
+import type { Option as ResultOption } from './Result';
+import type { Option as PlayerOption } from './Player';
+export declare type Option = {
+    event?: string;
+    date?: string;
+    location?: string;
+    players?: {
+        white: PlayerOption;
+        black: PlayerOption;
+    };
+    result?: {
+        last: {
+            whiteWin: boolean;
+            blackWin: boolean;
+        };
+        white: ResultOption;
+    };
+    moves?: string[];
+    ren?: string;
+    timer?: TimeOption;
+};
 export default class KPGN {
     event: string;
-    date: string;
+    date: Date | null;
     location: string;
     players: {
         white: Player;
@@ -22,43 +44,9 @@ export default class KPGN {
     ren: REN;
     timer: Timer;
     constructor(ren: REN);
-    toJson(): {
-        event: string;
-        date: string;
-        location: string;
-        players: {
-            white: {
-                id: string;
-                name: string;
-            };
-            black: {
-                id: string;
-                name: string;
-            };
-        };
-        result: {
-            last: {
-                whiteWin: boolean;
-                blackWin: boolean;
-            };
-            white: {
-                win: number;
-                draw: number;
-                lost: number;
-            };
-        };
-        moves: {
-            fromIndex: number;
-            toIndex: number;
-            isJumping: boolean;
-            capturedPiece: string;
-        }[];
-        ren: string;
-        timer: {
-            totalSecond: number;
-            bonusTime: number;
-            currentWhite: number;
-            currentBlack: number;
-        };
-    };
+    loadRENStr(renStr?: string): void;
+    loadMovesStrings(moves: string[]): void;
+    validateOption(option: Option): void;
+    fromJson(option: Option): void;
+    toJson(): Option;
 }

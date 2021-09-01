@@ -7,7 +7,6 @@ var Piece_1 = __importDefault(require("./Piece"));
 var PieceIndex_1 = __importDefault(require("./PieceIndex"));
 var constant_1 = require("./constant");
 var constant_2 = require("../brain/constant");
-var jsis_1 = __importDefault(require("../brain/jsis"));
 var Point_1 = __importDefault(require("./Point"));
 /**
  * BHGQKGHB/8/FFFFFFFF/8/8/ffffffff/8/bhgkqghb => bhgqkghb/......../ffffffff/......../......../FFFFFFFF/......../BHGKQGHB
@@ -20,7 +19,7 @@ var Board = /** @class */ (function () {
             var point = Point_1.default.fromIndex(i);
             return new PieceIndex_1.default(point, null);
         });
-        if (jsis_1.default.isUndefined(boardStr)) {
+        if (!boardStr) {
             boardStr = constant_1.DEFAULT_BOARD_STR;
         }
         var newBoardStr = this.extract(boardStr).replace(/\//g, '');

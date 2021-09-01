@@ -94,6 +94,7 @@ var REN = /** @class */ (function () {
             });
         }
         this.board.pieceIndices[moveToIndex].piece = piece;
+        this.turn = Piece_1.default.oppositeColor(piece.color);
         return move;
     };
     REN.prototype.toString = function () {

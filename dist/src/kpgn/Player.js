@@ -1,11 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Player = /** @class */ (function () {
-    function Player(id, name) {
-        this.name = null;
-        this.id = null;
-        this.id = id;
-        this.name = name;
+    function Player(_a) {
+        var id = _a.id, name = _a.name;
+        this.id = id || '';
+        this.name = name || '';
     }
     Player.prototype.toJson = function () {
         return {

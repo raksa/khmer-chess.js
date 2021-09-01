@@ -1,11 +1,16 @@
+export type Option = {
+    win?: number;
+    draw?: number;
+    lost?: number;
+};
 export default class Result {
-    win = 0;
-    draw = 0;
-    lost = 0;
-    constructor(win = 0, draw = 0, lost = 0) {
-        this.win = win;
-        this.draw = draw;
-        this.lost = lost;
+    win: number;
+    draw: number;
+    lost: number;
+    constructor({ win, draw, lost }: Option) {
+        this.win = win || 0;
+        this.draw = draw || 0;
+        this.lost = lost || 0;
     }
 
     toJson() {
@@ -16,6 +21,7 @@ export default class Result {
         };
     }
 }
+
 /*
  * Copyright (c) 2021, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>

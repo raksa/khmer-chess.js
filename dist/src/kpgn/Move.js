@@ -23,7 +23,8 @@ var Move = /** @class */ (function () {
         }
     }
     // Spec: Fc5d6xf => White fish (F) moved from c5 to d6 killed black fish (f)
-    Move.fromMovedString = function (str, graveyardLastIndex) {
+    Move.fromMovedString = function (str, ren, graveyardLastIndex) {
+        // TODO: preload attack and win-draw-lost
         var piece = Piece_1.default.fromCharCode(str[0]);
         var moveFrom = Point_1.default.fromIndexCode(str.substr(1, 2));
         var moveTo = Point_1.default.fromIndexCode(str.substr(3, 2));
@@ -33,11 +34,15 @@ var Move = /** @class */ (function () {
             moveTo: moveTo,
         });
         if (str[5] === constant_1.PIECE_FLAG_KILL) {
-            var capturedPieceChar = str[6];
+            var gyIndex = Number(str.substr(6).match(/^(\d+)/)[1]);
+            var capturedPiece = ren.graveyard.get(gyIndex);
+            if (!capturedPiece) {
+                throw new Error('Invalid captured index');
+            }
             move.captured = new Captured_1.default({
                 fromBoardPoint: moveTo,
                 toGraveyardPoint: Point_1.default.fromIndexGraveyardIndex(graveyardLastIndex),
-                piece: Piece_1.default.fromCharCode(capturedPieceChar),
+                piece: capturedPiece,
             });
         }
         else if (str[5] === constant_1.PIECE_FLAG_JUMP) {
@@ -50,7 +55,10 @@ var Move = /** @class */ (function () {
         var pCode = this.piece.pieceCharCode;
         var fIndexCode = this.moveFrom.indexCode;
         var tIndexCode = this.moveTo.indexCode;
-        var flags = this.captured ? constant_1.PIECE_FLAG_KILL : '';
+        var flags = '';
+        if (this.captured) {
+            flags += constant_1.PIECE_FLAG_KILL + this.captured.toGraveyardPoint.index;
+        }
         if (this.isJumping) {
             flags += constant_1.PIECE_FLAG_JUMP;
         }

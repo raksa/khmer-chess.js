@@ -1,16 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Result = /** @class */ (function () {
-    function Result(win, draw, lost) {
-        if (win === void 0) { win = 0; }
-        if (draw === void 0) { draw = 0; }
-        if (lost === void 0) { lost = 0; }
-        this.win = 0;
-        this.draw = 0;
-        this.lost = 0;
-        this.win = win;
-        this.draw = draw;
-        this.lost = lost;
+    function Result(_a) {
+        var win = _a.win, draw = _a.draw, lost = _a.lost;
+        this.win = win || 0;
+        this.draw = draw || 0;
+        this.lost = lost || 0;
     }
     Result.prototype.toJson = function () {
         return {

@@ -2,7 +2,6 @@ import Piece from './Piece';
 import PieceIndex from './PieceIndex';
 import { DEFAULT_BOARD_STR } from './constant';
 import { BOARD_SEPARATOR, CELL_COUNT, EMPTY_PIECE, ROW_NUMBER } from '../brain/constant';
-import jsis from '../brain/jsis';
 import Point from './Point';
 
 /**
@@ -17,8 +16,8 @@ export default class Board {
         return new PieceIndex(point, null);
     });
 
-    constructor(boardStr: any) {
-        if (jsis.isUndefined(boardStr)) {
+    constructor(boardStr?: string) {
+        if (!boardStr) {
             boardStr = DEFAULT_BOARD_STR;
         }
         const newBoardStr = this.extract(boardStr).replace(/\//g, '');

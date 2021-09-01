@@ -6,6 +6,7 @@ export { CapturedPropType } from './Captured';
 export { default as Player } from './Player';
 export { default as Result } from './Result';
 export { default as Timer } from './Timer';
+export type { Option as KPGNOption } from './KPGN';
 /*
  * Copyright (c) 2021, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>

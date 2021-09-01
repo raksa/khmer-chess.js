@@ -5,6 +5,9 @@ export default class Graveyard {
     get lastIndex() {
         return this.pieces.length - 1;
     }
+    get(index: number) {
+        return this.pieces[index];
+    }
     constructor(graveyardStr?: string) {
         if (graveyardStr) {
             if (graveyardStr.length > 30 ||

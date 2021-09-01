@@ -1,7 +1,11 @@
+export declare type Option = {
+    id?: string;
+    name?: string;
+};
 export default class Player {
     name: string | null;
     id: string | null;
-    constructor(id?: string, name?: string);
+    constructor({ id, name }: Option);
     toJson(): {
         id: string;
         name: string;

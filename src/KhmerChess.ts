@@ -21,19 +21,8 @@ export default class KhmerChess {
         this.boardEventController = new BoardEventController();
     }
 
-    loadRENStr(renStr?: string) {
-        this.kpgn.ren = REN.fromString(renStr);
-    }
-
-    loadMovesStrings(moves: string[]) {
-        let graveyardLastIndex = 0;
-        this.kpgn.moves = moves.map((move) => {
-            const moved = Move.fromMovedString(move, graveyardLastIndex);
-            if (moved.captured) {
-                graveyardLastIndex = moved.captured.toGraveyardPoint.index + 1;
-            }
-            return moved;
-        });
+    loadKpng(option: object) {
+        this.kpgn.fromJson(option);
     }
 
     resetBoard() {

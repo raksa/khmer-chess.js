@@ -1,5 +1,6 @@
 
 import { boardHelper } from '../brain';
+import { REN } from '../ren';
 import {
     PIECE_FLAG_JUMP,
     PIECE_FLAG_KILL,
@@ -40,7 +41,8 @@ export default class Move implements MovePropType {
     }
 
     // Spec: Fc5d6xf => White fish (F) moved from c5 to d6 killed black fish (f)
-    static fromMovedString(str: string, graveyardLastIndex: number) {
+    static fromMovedString(str: string, ren: REN, graveyardLastIndex: number) {
+        // TODO: preload attack and win-draw-lost
         const piece = Piece.fromCharCode(str[0]);
         const moveFrom = Point.fromIndexCode(str.substr(1, 2));
         const moveTo = Point.fromIndexCode(str.substr(3, 2));
@@ -50,12 +52,17 @@ export default class Move implements MovePropType {
             moveTo,
         });
         if (str[5] === PIECE_FLAG_KILL) {
-            const capturedPieceChar = str[6];
+            const gyIndex = Number(str.substr(6).match(/^(\d+)/)[1]);
+            const capturedPiece = ren.graveyard.get(gyIndex);
+            if (!capturedPiece) {
+                throw new Error('Invalid captured index');
+            }
             move.captured = new Captured({
                 fromBoardPoint: moveTo,
                 toGraveyardPoint: Point.fromIndexGraveyardIndex(graveyardLastIndex),
-                piece: Piece.fromCharCode(capturedPieceChar),
+                piece: capturedPiece,
             });
+
         } else if (str[5] === PIECE_FLAG_JUMP) {
             move.isJumping = true;
         }
@@ -66,7 +73,11 @@ export default class Move implements MovePropType {
         const pCode = this.piece.pieceCharCode;
         const fIndexCode = this.moveFrom.indexCode;
         const tIndexCode = this.moveTo.indexCode;
-        let flags = this.captured ? PIECE_FLAG_KILL : '';
+        let flags = '';
+        if (this.captured) {
+            flags += PIECE_FLAG_KILL + this.captured.toGraveyardPoint.index;
+
+        }
         if (this.isJumping) {
             flags += PIECE_FLAG_JUMP;
         }

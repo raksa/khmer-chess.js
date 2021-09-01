@@ -121,6 +121,7 @@ export default class REN {
             });
         }
         this.board.pieceIndices[moveToIndex].piece = piece;
+        this.turn = Piece.oppositeColor(piece.color);
         return move;
     }
 
