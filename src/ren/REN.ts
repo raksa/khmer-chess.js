@@ -1,5 +1,5 @@
 import Board from './Board';
-import KqMoved from './KqMoved';
+import KqJumped from './KqJumped';
 import KAttacked from './KAttacked';
 import CountDown from './CountDown';
 import Graveyard from './Graveyard';
@@ -23,7 +23,7 @@ import jsis from '../brain/jsis';
 export type RENPropType = {
     boardStr: string;
     turnStr: string;
-    kqMovedStr: string;
+    kqJumpedStr: string;
     kAttackedStr: string;
     countdownStr: string;
     graveyardStr: string;
@@ -31,7 +31,7 @@ export type RENPropType = {
 export default class REN {
     board: Board;
     turn: string;
-    kqMoved: KqMoved;
+    kqJumped: KqJumped;
     kAttacked: KAttacked;
     countdown: CountDown;
     graveyard: Graveyard;
@@ -44,13 +44,13 @@ export default class REN {
     init({
         boardStr,
         turnStr,
-        kqMovedStr,
+        kqJumpedStr,
         kAttackedStr,
         countdownStr,
         graveyardStr }: RENPropType) {
         this.board = new Board(boardStr);
         this.turn = turnStr || PIECE_COLOR_WHITE;
-        this.kqMoved = new KqMoved(kqMovedStr);
+        this.kqJumped = new KqJumped(kqJumpedStr);
         this.kAttacked = new KAttacked(kAttackedStr);
         this.countdown = new CountDown(countdownStr);
         this.graveyard = new Graveyard(graveyardStr);
@@ -99,7 +99,7 @@ export default class REN {
         return new REN({
             boardStr: renArr[0],
             turnStr: renArr[1],
-            kqMovedStr: renArr[2],
+            kqJumpedStr: renArr[2],
             kAttackedStr: renArr[3],
             countdownStr: renArr[4],
             graveyardStr: renArr[5],
@@ -129,6 +129,7 @@ export default class REN {
         this.board.setPieceAtIndex(moveToIndex, piece);
         this.turn = Piece.oppositeColor(piece.color);
         move.setRen(this);
+        this.kqJumped.checkKQMoved(move);
         return move;
     }
 
@@ -154,7 +155,7 @@ export default class REN {
     toString() {
         let str = this.board.toString();
         str += ` ${this.turn.toString()}`;
-        str += ` ${this.kqMoved.toString()}`;
+        str += ` ${this.kqJumped.toString()}`;
         str += ` ${this.kAttacked.toString()}`;
         str += ` ${this.countdown.toString()}`;
         str += ` ${this.graveyard.toString()}`;
@@ -162,13 +163,13 @@ export default class REN {
     }
 
     get isQueenMoved() {
-        const isQueenMoved = Piece.isWhiteColor(this.turn) && this.kqMoved.whiteQueen ||
-            Piece.isBlackColor(this.turn) && this.kqMoved.blackQueen;
+        const isQueenMoved = Piece.isWhiteColor(this.turn) && this.kqJumped.whiteQueen ||
+            Piece.isBlackColor(this.turn) && this.kqJumped.blackQueen;
         return isQueenMoved;
     }
     get isKingMoved() {
-        const isKingMoved = Piece.isWhiteColor(this.turn) && this.kqMoved.whiteKing ||
-            Piece.isBlackColor(this.turn) && this.kqMoved.blackKing;
+        const isKingMoved = Piece.isWhiteColor(this.turn) && this.kqJumped.whiteKing ||
+            Piece.isBlackColor(this.turn) && this.kqJumped.blackKing;
         return isKingMoved;
     }
     genAllCanMoves(): PieceIndex[] {
@@ -184,10 +185,10 @@ export default class REN {
     }
     isHasMoved(piece: Piece) {
         let isHasMoved = false;
-        if ((this.kqMoved.blackKing && piece.isColorBlack && piece.isTypeKing) ||
-            (this.kqMoved.whiteKing && piece.isColorWhite && piece.isTypeKing) ||
-            (this.kqMoved.blackQueen && piece.isColorBlack && piece.isTypeQueen) ||
-            (this.kqMoved.whiteQueen && piece.isColorWhite && piece.isTypeQueen)) {
+        if ((this.kqJumped.blackKing && piece.isColorBlack && piece.isTypeKing) ||
+            (this.kqJumped.whiteKing && piece.isColorWhite && piece.isTypeKing) ||
+            (this.kqJumped.blackQueen && piece.isColorBlack && piece.isTypeQueen) ||
+            (this.kqJumped.whiteQueen && piece.isColorWhite && piece.isTypeQueen)) {
             isHasMoved = true;
         }
         return isHasMoved;

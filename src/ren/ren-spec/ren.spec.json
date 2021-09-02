@@ -1,14 +1,15 @@
 {
     "type": "string",
     "description": "Raksa-Eng Notation, the notation for portable chess game string",
-    "value": "<pieces on board> <turn [w|b]> <king&queen moved [----|KQkq]> <king attacked [--|Kk]> <countdown [-.-|-.4]> <pieces in graveyard>",
+    "value": "<pieces on board> <turn [w|b]> <king&queen jumped [----|KQkq]> <king attacked [--|Kk]> <countdown [-.-|-.4]> <pieces in graveyard>",
     "metadata": {
         "TODO": "change value to regex",
         "code": {
             "turn: w": "white",
             "turn: b": "black",
-            "moved: KQkq": "WhiteKing has moved | WhiteQueen has moved | BlackKing has moved | BlackQueen has moved",
-            "moved: K-kq": "WhiteKing has moved | BlackKing has moved | BlackQueen has moved",
+            "king&queen jumped": "moved & capturing & attacking will force king&queen stop jumping",
+            "king&queen jumped: KQkq": "WhiteKing has jumped | WhiteQueen has jumped | BlackKing has jumped | BlackQueen has jumped",
+            "king&queen jumped: K-kq": "WhiteKing has jumped | BlackKing has jumped | BlackQueen has jumped",
             "attacked: Kk": "WhiteKing has been attacked | BlackKing has been attacked",
             "attacked: -k": "BlackKing has been attacked",
             "countdown: -.4": "white 0 | black 4th moved"

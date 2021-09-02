@@ -1,21 +1,31 @@
 import { PIECE_TYPE_KING, PIECE_TYPE_QUEEN } from '../brain/constant';
+import { Move } from '../kpgn';
 import { NOT_SET } from './constant';
 import Piece from './Piece';
 
 /**
- * King or Queen has moved, the will effect jumping
+ * King or Queen has jumped, the will effect jumping
  */
-export default class KqMoved {
+export default class KqJumped {
     whiteKing = false;
     whiteQueen = false;
     blackKing = false;
     blackQueen = false;
-    constructor(kqMovedStr?: string) {
-        if (kqMovedStr) {
-            this.whiteKing = !!~kqMovedStr.indexOf(Piece.toWhiteCharCode(PIECE_TYPE_KING));
-            this.whiteQueen = !!~kqMovedStr.indexOf(Piece.toWhiteCharCode(PIECE_TYPE_QUEEN));
-            this.blackKing = !!~kqMovedStr.indexOf(PIECE_TYPE_KING);
-            this.blackQueen = !!~kqMovedStr.indexOf(PIECE_TYPE_QUEEN);
+    constructor(kqJumpedStr?: string) {
+        if (kqJumpedStr) {
+            this.whiteKing = !!~kqJumpedStr.indexOf(Piece.toWhiteCharCode(PIECE_TYPE_KING));
+            this.whiteQueen = !!~kqJumpedStr.indexOf(Piece.toWhiteCharCode(PIECE_TYPE_QUEEN));
+            this.blackKing = !!~kqJumpedStr.indexOf(PIECE_TYPE_KING);
+            this.blackQueen = !!~kqJumpedStr.indexOf(PIECE_TYPE_QUEEN);
+        }
+    }
+
+    checkKQMoved(move: Move) {
+        const piece = move.piece;
+        if (piece.isTypeKing) {
+            if (piece.isColorWhite) {
+                this.whiteKing = true;
+            }
         }
     }
 

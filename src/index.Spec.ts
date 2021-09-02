@@ -57,7 +57,7 @@ import {
     CountDown,
     Graveyard,
     KAttacked,
-    KqMoved,
+    KqJumped,
     Piece,
     PieceIndex,
     Point,
