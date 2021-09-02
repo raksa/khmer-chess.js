@@ -10,12 +10,12 @@ var Point_1 = __importDefault(require("../ren/Point"));
 var Captured_1 = __importDefault(require("./Captured"));
 var Move = /** @class */ (function () {
     function Move(_a) {
-        var piece = _a.piece, moveFrom = _a.moveFrom, moveTo = _a.moveTo, isJumping = _a.isJumping, isUpgrading = _a.isUpgrading, captured = _a.captured;
+        var piece = _a.piece, moveFrom = _a.moveFrom, moveTo = _a.moveTo, isUpgrading = _a.isUpgrading, captured = _a.captured;
         this.boardStatus = {};
+        this.jumpingCodes = {};
         this.piece = piece;
         this.moveFrom = moveFrom;
         this.moveTo = moveTo;
-        this.isJumping = !!isJumping;
         this.isUpgrading = !!isUpgrading;
         this.captured = captured || null;
         if (brain_1.boardHelper.isUpgradable(piece, moveTo)) {
@@ -24,13 +24,42 @@ var Move = /** @class */ (function () {
         }
     }
     Move.prototype.setRen = function (ren) {
-        this.renStr = ren.toString();
         // TODO: preload stuck, draw
         this.boardStatus.attacker = ren.getAttacker();
         if (this.boardStatus.attacker) {
             this.boardStatus.winColor = ren.getWinColor();
         }
+        ren.kqJumped.checkKQMoved(this);
+        this.renStr = ren.toString();
     };
+    Object.defineProperty(Move.prototype, "isWhiteKingJumping", {
+        get: function () {
+            return !!this.jumpingCodes[Piece_1.default.toWhiteCharCode(brain_1.PIECE_TYPE_KING)];
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Move.prototype, "isWhiteQueenJumping", {
+        get: function () {
+            return !!this.jumpingCodes[Piece_1.default.toWhiteCharCode(brain_1.PIECE_TYPE_QUEEN)];
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Move.prototype, "isBlackKingJumping", {
+        get: function () {
+            return !!this.jumpingCodes[brain_1.PIECE_TYPE_KING];
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Move.prototype, "isBlackQueenJumping", {
+        get: function () {
+            return !!this.jumpingCodes[brain_1.PIECE_TYPE_QUEEN];
+        },
+        enumerable: false,
+        configurable: true
+    });
     Object.defineProperty(Move.prototype, "attacker", {
         get: function () {
             return this.boardStatus.attacker || null;
@@ -82,8 +111,9 @@ var Move = /** @class */ (function () {
             moveFrom: moveFrom,
             moveTo: moveTo,
         });
-        if (str[5] === constant_1.PIECE_FLAG_KILL) {
-            var gyIndex = Number(str.substr(6).match(/^(\d+)/)[1]);
+        var killIndex = str.indexOf(constant_1.PIECE_FLAG_KILL);
+        if (!!~killIndex) {
+            var gyIndex = Number(str.substr(killIndex + 1).match(/^(\d+)/)[1]);
             var capturedPiece = ren.graveyard.get(gyIndex);
             if (!capturedPiece) {
                 throw new Error('Invalid captured index');
@@ -94,8 +124,12 @@ var Move = /** @class */ (function () {
                 piece: capturedPiece,
             });
         }
-        else if (str[5] === constant_1.PIECE_FLAG_JUMP) {
-            move.isJumping = true;
+        var jumpingIndex = str.indexOf(constant_1.PIECE_FLAG_JUMP);
+        if (!!~jumpingIndex) {
+            var jumpingCodes = str.substr(jumpingIndex + 1).match(/^\[(\w+)\]/)[1];
+            jumpingCodes.split('').forEach(function (c) {
+                move.jumpingCodes[c] = true;
+            });
         }
         move.setRen(ren);
         return move;
@@ -108,8 +142,9 @@ var Move = /** @class */ (function () {
         if (this.captured) {
             flags += constant_1.PIECE_FLAG_KILL + this.captured.toGraveyardPoint.index;
         }
-        if (this.isJumping) {
-            flags += constant_1.PIECE_FLAG_JUMP;
+        var jumpingCodes = Object.keys(this.jumpingCodes).join('');
+        if (jumpingCodes.length) {
+            flags += constant_1.PIECE_FLAG_JUMP + ("[" + jumpingCodes + "]");
         }
         if (this.isUpgrading) {
             flags += constant_1.PIECE_FLAG_UPGRADE;
@@ -120,9 +155,41 @@ var Move = /** @class */ (function () {
         return {
             fromIndex: this.moveFrom.index,
             toIndex: this.moveTo.index,
-            isJumping: this.isJumping,
+            jumpingCodes: Object.keys(this.jumpingCodes).join(''),
             capturedPiece: this.captured ? this.captured.piece.pieceCharCode : null,
         };
+    };
+    Move.prototype.getJumpingMessage = function (isEnglish) {
+        var jump = '';
+        if (isEnglish) {
+            if (this.isWhiteKingJumping) {
+                jump += ' white king jumping';
+            }
+            if (this.isWhiteQueenJumping) {
+                jump += ' white queen jumping';
+            }
+            if (this.isBlackKingJumping) {
+                jump += ' black king jumping';
+            }
+            if (this.isBlackQueenJumping) {
+                jump += ' black queen jumping';
+            }
+        }
+        else {
+            if (this.isWhiteKingJumping) {
+                jump += ' ស្តេច​ស​ភ្លោះ';
+            }
+            if (this.isWhiteQueenJumping) {
+                jump += ' នាង​ស​ភ្លោះ';
+            }
+            if (this.isBlackKingJumping) {
+                jump += ' ស្តេច​ខ្មៅ​ភ្លោះ';
+            }
+            if (this.isBlackQueenJumping) {
+                jump += ' នាង​ខ្មៅ​ភ្លោះ';
+            }
+        }
+        return jump;
     };
     Move.prototype.getMessage = function (isEnglish) {
         if (isEnglish) {
@@ -131,7 +198,8 @@ var Move = /** @class */ (function () {
                 captured = " captures " + this.captured.piece.titleEnglish;
             }
             var upgrade = this.isUpgrading ? ' transforms' : '';
-            return this.piece.titleEnglish + " moved from " + this.moveFrom.titleEnglish + " to " + this.moveTo.titleEnglish + upgrade + captured;
+            var jump = this.getJumpingMessage(isEnglish);
+            return this.piece.titleEnglish + " moved from " + this.moveFrom.titleEnglish + " to " + this.moveTo.titleEnglish + upgrade + captured + " " + jump;
         }
         else {
             var captured = '';
@@ -139,7 +207,8 @@ var Move = /** @class */ (function () {
                 captured = " \u179F\u17CA\u17B8" + this.captured.piece.title;
             }
             var upgrade = this.isUpgrading ? ' បក' : '';
-            return this.piece.title + " \u178A\u17BE\u179A\u200B\u1796\u17B8 " + this.moveFrom.title + " \u1791\u17C5 " + this.moveTo.title + upgrade + captured;
+            var jump = this.getJumpingMessage(isEnglish);
+            return this.piece.title + " \u178A\u17BE\u179A\u200B\u1796\u17B8 " + this.moveFrom.title + " \u1791\u17C5 " + this.moveTo.title + upgrade + captured + " " + jump;
         }
     };
     return Move;

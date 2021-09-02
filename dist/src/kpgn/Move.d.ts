@@ -6,7 +6,6 @@ export declare type Option = {
     piece: Piece;
     moveFrom: Point;
     moveTo: Point;
-    isJumping?: boolean;
     isUpgrading?: boolean;
     captured?: Captured;
 };
@@ -18,14 +17,20 @@ export default class Move {
         stuckColor?: string;
         drawCountColor?: string;
     };
+    jumpingCodes: {
+        [key: string]: boolean;
+    };
     piece: Piece;
     moveFrom: Point;
     moveTo: Point;
-    isJumping: boolean;
     isUpgrading: boolean;
     captured: Captured | null;
-    constructor({ piece, moveFrom, moveTo, isJumping, isUpgrading, captured, }: Option);
+    constructor({ piece, moveFrom, moveTo, isUpgrading, captured, }: Option);
     setRen(ren: REN): void;
+    get isWhiteKingJumping(): boolean;
+    get isWhiteQueenJumping(): boolean;
+    get isBlackKingJumping(): boolean;
+    get isBlackQueenJumping(): boolean;
     get attacker(): PieceIndex;
     get winColor(): string;
     get stuckColor(): string;
@@ -37,8 +42,9 @@ export default class Move {
     toJson(): {
         fromIndex: number;
         toIndex: number;
-        isJumping: boolean;
+        jumpingCodes: string;
         capturedPiece: string;
     };
+    getJumpingMessage(isEnglish?: boolean): string;
     getMessage(isEnglish?: boolean): string;
 }

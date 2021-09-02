@@ -7,31 +7,76 @@ var constant_1 = require("../brain/constant");
 var constant_2 = require("./constant");
 var Piece_1 = __importDefault(require("./Piece"));
 /**
- * King or Queen has moved, the will effect jumping
+ * King or Queen has jumped, the will effect jumping
  */
-var KqMoved = /** @class */ (function () {
-    function KqMoved(kqMovedStr) {
+var KqJumped = /** @class */ (function () {
+    function KqJumped(kqJumpedStr) {
         this.whiteKing = false;
         this.whiteQueen = false;
         this.blackKing = false;
         this.blackQueen = false;
-        if (kqMovedStr) {
-            this.whiteKing = !!~kqMovedStr.indexOf(Piece_1.default.toWhiteCharCode(constant_1.PIECE_TYPE_KING));
-            this.whiteQueen = !!~kqMovedStr.indexOf(Piece_1.default.toWhiteCharCode(constant_1.PIECE_TYPE_QUEEN));
-            this.blackKing = !!~kqMovedStr.indexOf(constant_1.PIECE_TYPE_KING);
-            this.blackQueen = !!~kqMovedStr.indexOf(constant_1.PIECE_TYPE_QUEEN);
+        this.keyCodes = {};
+        this.codeKeys = {};
+        if (kqJumpedStr) {
+            this.whiteKing = !!~kqJumpedStr.indexOf(Piece_1.default.toWhiteCharCode(constant_1.PIECE_TYPE_KING));
+            this.whiteQueen = !!~kqJumpedStr.indexOf(Piece_1.default.toWhiteCharCode(constant_1.PIECE_TYPE_QUEEN));
+            this.blackKing = !!~kqJumpedStr.indexOf(constant_1.PIECE_TYPE_KING);
+            this.blackQueen = !!~kqJumpedStr.indexOf(constant_1.PIECE_TYPE_QUEEN);
+        }
+        this.keyCodes['blackKing'] = Piece_1.default.toWhiteCharCode(constant_1.PIECE_TYPE_QUEEN);
+        this.keyCodes['whiteKing'] = Piece_1.default.toWhiteCharCode(constant_1.PIECE_TYPE_KING);
+        this.keyCodes['whiteQueen'] = constant_1.PIECE_TYPE_KING;
+        this.keyCodes['blackQueen'] = constant_1.PIECE_TYPE_QUEEN;
+        for (var k in this.keyCodes) {
+            this.codeKeys[this.keyCodes[k]] = k;
         }
     }
-    KqMoved.prototype.toString = function () {
+    KqJumped.prototype.applyJumping = function (propKey, move) {
+        if (!this[propKey]) {
+            var charCode = this.keyCodes[propKey];
+            move.jumpingCodes[charCode] = true;
+            this[propKey] = true;
+        }
+    };
+    KqJumped.prototype.unJumped = function (code) {
+        var key = this.codeKeys[code];
+        this[key] = false;
+    };
+    KqJumped.prototype.checkKQMoved = function (move) {
+        if (move.attacker || move.captured) {
+            this.applyJumping('whiteKing', move);
+            this.applyJumping('blackKing', move);
+            this.applyJumping('whiteQueen', move);
+            this.applyJumping('blackQueen', move);
+        }
+        var piece = move.piece;
+        if (piece.isTypeKing) {
+            if (piece.isColorWhite) {
+                this.applyJumping('whiteKing', move);
+            }
+            else {
+                this.applyJumping('blackKing', move);
+            }
+        }
+        else if (piece.isTypeQueen) {
+            if (piece.isColorWhite) {
+                this.applyJumping('whiteQueen', move);
+            }
+            else {
+                this.applyJumping('blackQueen', move);
+            }
+        }
+    };
+    KqJumped.prototype.toString = function () {
         var str = "" + (this.whiteKing ? Piece_1.default.toWhiteCharCode(constant_1.PIECE_TYPE_KING) : constant_2.NOT_SET);
         str += "" + (this.whiteQueen ? Piece_1.default.toWhiteCharCode(constant_1.PIECE_TYPE_QUEEN) : constant_2.NOT_SET);
         str += "" + (this.blackKing ? constant_1.PIECE_TYPE_KING : constant_2.NOT_SET);
         str += "" + (this.blackQueen ? constant_1.PIECE_TYPE_QUEEN : constant_2.NOT_SET);
         return str;
     };
-    return KqMoved;
+    return KqJumped;
 }());
-exports.default = KqMoved;
+exports.default = KqJumped;
 /*
  * Copyright (c) 2021, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
@@ -59,4 +104,4 @@ exports.default = KqMoved;
  * POSSIBILITY OF SUCH DAMAGE.
  *
  *---------------------------------------------------------------------------- */ 
-//# sourceMappingURL=KqMoved.js.map
+//# sourceMappingURL=KqJumped.js.map

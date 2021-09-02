@@ -1,5 +1,5 @@
 
-import { boardHelper } from '../brain';
+import { boardHelper, PIECE_TYPE_KING, PIECE_TYPE_QUEEN } from '../brain';
 import { PieceIndex, REN } from '../ren';
 import {
     PIECE_FLAG_JUMP,
@@ -25,7 +25,7 @@ export default class Move {
         stuckColor?: string,
         drawCountColor?: string,
     } = {};
-    jumpingCodes: { string?: boolean } = {};
+    jumpingCodes: { [key: string]: boolean } = {};
     piece: Piece;
     moveFrom: Point;
     moveTo: Point;
@@ -53,6 +53,19 @@ export default class Move {
         }
         ren.kqJumped.checkKQMoved(this);
         this.renStr = ren.toString();
+    }
+
+    get isWhiteKingJumping() {
+        return !!this.jumpingCodes[Piece.toWhiteCharCode(PIECE_TYPE_KING)];
+    }
+    get isWhiteQueenJumping() {
+        return !!this.jumpingCodes[Piece.toWhiteCharCode(PIECE_TYPE_QUEEN)];
+    }
+    get isBlackKingJumping() {
+        return !!this.jumpingCodes[PIECE_TYPE_KING];
+    }
+    get isBlackQueenJumping() {
+        return !!this.jumpingCodes[PIECE_TYPE_QUEEN];
     }
 
     get attacker() {
@@ -106,7 +119,7 @@ export default class Move {
         if (!!~jumpingIndex) {
             const jumpingCodes = str.substr(jumpingIndex + 1).match(/^\[(\w+)\]/)[1];
             jumpingCodes.split('').forEach((c) => {
-                (move.jumpingCodes as any)[c] = true;
+                move.jumpingCodes[c] = true;
             });
         }
         move.setRen(ren);
@@ -140,6 +153,37 @@ export default class Move {
         };
     }
 
+    getJumpingMessage(isEnglish?: boolean) {
+        let jump = '';
+        if (isEnglish) {
+            if (this.isWhiteKingJumping) {
+                jump += ' white king jumping';
+            }
+            if (this.isWhiteQueenJumping) {
+                jump += ' white queen jumping';
+            }
+            if (this.isBlackKingJumping) {
+                jump += ' black king jumping';
+            }
+            if (this.isBlackQueenJumping) {
+                jump += ' black queen jumping';
+            }
+        } else {
+            if (this.isWhiteKingJumping) {
+                jump += ' ស្តេច​ស​ភ្លោះ';
+            }
+            if (this.isWhiteQueenJumping) {
+                jump += ' នាង​ស​ភ្លោះ';
+            }
+            if (this.isBlackKingJumping) {
+                jump += ' ស្តេច​ខ្មៅ​ភ្លោះ';
+            }
+            if (this.isBlackQueenJumping) {
+                jump += ' នាង​ខ្មៅ​ភ្លោះ';
+            }
+        }
+        return jump;
+    }
     getMessage(isEnglish?: boolean) {
         if (isEnglish) {
             let captured = '';
@@ -147,14 +191,16 @@ export default class Move {
                 captured = ` captures ${this.captured.piece.titleEnglish}`;
             }
             const upgrade = this.isUpgrading ? ' transforms' : '';
-            return `${this.piece.titleEnglish} moved from ${this.moveFrom.titleEnglish} to ${this.moveTo.titleEnglish}${upgrade}${captured}`;
+            const jump = this.getJumpingMessage(isEnglish);
+            return `${this.piece.titleEnglish} moved from ${this.moveFrom.titleEnglish} to ${this.moveTo.titleEnglish}${upgrade}${captured} ${jump}`;
         } else {
             let captured = '';
             if (this.captured) {
                 captured = ` ស៊ី${this.captured.piece.title}`;
             }
             const upgrade = this.isUpgrading ? ' បក' : '';
-            return `${this.piece.title} ដើរ​ពី ${this.moveFrom.title} ទៅ ${this.moveTo.title}${upgrade}${captured}`;
+            const jump = this.getJumpingMessage(isEnglish);
+            return `${this.piece.title} ដើរ​ពី ${this.moveFrom.title} ទៅ ${this.moveTo.title}${upgrade}${captured} ${jump}`;
         }
     }
 }

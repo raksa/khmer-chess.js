@@ -1,5 +1,5 @@
 import Board from './Board';
-import KqMoved from './KqMoved';
+import KqJumped from './KqJumped';
 import KAttacked from './KAttacked';
 import CountDown from './CountDown';
 import Graveyard from './Graveyard';
@@ -15,7 +15,7 @@ import MoveHelper from '../brain/MoveHelper';
 export declare type RENPropType = {
     boardStr: string;
     turnStr: string;
-    kqMovedStr: string;
+    kqJumpedStr: string;
     kAttackedStr: string;
     countdownStr: string;
     graveyardStr: string;
@@ -23,13 +23,13 @@ export declare type RENPropType = {
 export default class REN {
     board: Board;
     turn: string;
-    kqMoved: KqMoved;
+    kqJumped: KqJumped;
     kAttacked: KAttacked;
     countdown: CountDown;
     graveyard: Graveyard;
     moveHelper: MoveHelper;
     constructor(renProps: RENPropType);
-    init({ boardStr, turnStr, kqMovedStr, kAttackedStr, countdownStr, graveyardStr }: RENPropType): void;
+    init({ boardStr, turnStr, kqJumpedStr, kAttackedStr, countdownStr, graveyardStr }: RENPropType): void;
     isInvalidPieceCount(): string | false;
     backRen(move: Move): REN;
     static fromString(renStr?: string): REN;

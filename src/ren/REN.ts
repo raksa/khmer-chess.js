@@ -147,6 +147,9 @@ export default class REN {
             this.board.setPieceAtIndex(movedToIndex, capturedPiece);
             this.graveyard.removeAtIndex(movedToGYIndex);
         }
+        for (const k in move.jumpingCodes) {
+            this.kqJumped.unJumped(k);
+        }
         this.turn = piece.color;
         return true;
     }

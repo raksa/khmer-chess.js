@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var Board_1 = __importDefault(require("./Board"));
-var KqMoved_1 = __importDefault(require("./KqMoved"));
+var KqJumped_1 = __importDefault(require("./KqJumped"));
 var KAttacked_1 = __importDefault(require("./KAttacked"));
 var CountDown_1 = __importDefault(require("./CountDown"));
 var Graveyard_1 = __importDefault(require("./Graveyard"));
@@ -23,10 +23,10 @@ var REN = /** @class */ (function () {
         this.init(renProps);
     }
     REN.prototype.init = function (_a) {
-        var boardStr = _a.boardStr, turnStr = _a.turnStr, kqMovedStr = _a.kqMovedStr, kAttackedStr = _a.kAttackedStr, countdownStr = _a.countdownStr, graveyardStr = _a.graveyardStr;
+        var boardStr = _a.boardStr, turnStr = _a.turnStr, kqJumpedStr = _a.kqJumpedStr, kAttackedStr = _a.kAttackedStr, countdownStr = _a.countdownStr, graveyardStr = _a.graveyardStr;
         this.board = new Board_1.default(boardStr);
         this.turn = turnStr || constant_2.PIECE_COLOR_WHITE;
-        this.kqMoved = new KqMoved_1.default(kqMovedStr);
+        this.kqJumped = new KqJumped_1.default(kqJumpedStr);
         this.kAttacked = new KAttacked_1.default(kAttackedStr);
         this.countdown = new CountDown_1.default(countdownStr);
         this.graveyard = new Graveyard_1.default(graveyardStr);
@@ -72,7 +72,7 @@ var REN = /** @class */ (function () {
         return new REN({
             boardStr: renArr[0],
             turnStr: renArr[1],
-            kqMovedStr: renArr[2],
+            kqJumpedStr: renArr[2],
             kAttackedStr: renArr[3],
             countdownStr: renArr[4],
             graveyardStr: renArr[5],
@@ -118,13 +118,16 @@ var REN = /** @class */ (function () {
             this.board.setPieceAtIndex(movedToIndex, capturedPiece);
             this.graveyard.removeAtIndex(movedToGYIndex);
         }
+        for (var k in move.jumpingCodes) {
+            this.kqJumped.unJumped(k);
+        }
         this.turn = piece.color;
         return true;
     };
     REN.prototype.toString = function () {
         var str = this.board.toString();
         str += " " + this.turn.toString();
-        str += " " + this.kqMoved.toString();
+        str += " " + this.kqJumped.toString();
         str += " " + this.kAttacked.toString();
         str += " " + this.countdown.toString();
         str += " " + this.graveyard.toString();
@@ -132,8 +135,8 @@ var REN = /** @class */ (function () {
     };
     Object.defineProperty(REN.prototype, "isQueenMoved", {
         get: function () {
-            var isQueenMoved = Piece_1.default.isWhiteColor(this.turn) && this.kqMoved.whiteQueen ||
-                Piece_1.default.isBlackColor(this.turn) && this.kqMoved.blackQueen;
+            var isQueenMoved = Piece_1.default.isWhiteColor(this.turn) && this.kqJumped.whiteQueen ||
+                Piece_1.default.isBlackColor(this.turn) && this.kqJumped.blackQueen;
             return isQueenMoved;
         },
         enumerable: false,
@@ -141,8 +144,8 @@ var REN = /** @class */ (function () {
     });
     Object.defineProperty(REN.prototype, "isKingMoved", {
         get: function () {
-            var isKingMoved = Piece_1.default.isWhiteColor(this.turn) && this.kqMoved.whiteKing ||
-                Piece_1.default.isBlackColor(this.turn) && this.kqMoved.blackKing;
+            var isKingMoved = Piece_1.default.isWhiteColor(this.turn) && this.kqJumped.whiteKing ||
+                Piece_1.default.isBlackColor(this.turn) && this.kqJumped.blackKing;
             return isKingMoved;
         },
         enumerable: false,
@@ -161,10 +164,10 @@ var REN = /** @class */ (function () {
     };
     REN.prototype.isHasMoved = function (piece) {
         var isHasMoved = false;
-        if ((this.kqMoved.blackKing && piece.isColorBlack && piece.isTypeKing) ||
-            (this.kqMoved.whiteKing && piece.isColorWhite && piece.isTypeKing) ||
-            (this.kqMoved.blackQueen && piece.isColorBlack && piece.isTypeQueen) ||
-            (this.kqMoved.whiteQueen && piece.isColorWhite && piece.isTypeQueen)) {
+        if ((this.kqJumped.blackKing && piece.isColorBlack && piece.isTypeKing) ||
+            (this.kqJumped.whiteKing && piece.isColorWhite && piece.isTypeKing) ||
+            (this.kqJumped.blackQueen && piece.isColorBlack && piece.isTypeQueen) ||
+            (this.kqJumped.whiteQueen && piece.isColorWhite && piece.isTypeQueen)) {
             isHasMoved = true;
         }
         return isHasMoved;

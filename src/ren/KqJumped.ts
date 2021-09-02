@@ -11,7 +11,8 @@ export default class KqJumped {
     whiteQueen = false;
     blackKing = false;
     blackQueen = false;
-    keyCodes: { any?: string } = {};
+    keyCodes: { [key: string]: string } = {};
+    codeKeys: { [key: string]: string } = {};
     constructor(kqJumpedStr?: string) {
         if (kqJumpedStr) {
             this.whiteKing = !!~kqJumpedStr.indexOf(Piece.toWhiteCharCode(PIECE_TYPE_KING));
@@ -19,19 +20,26 @@ export default class KqJumped {
             this.blackKing = !!~kqJumpedStr.indexOf(PIECE_TYPE_KING);
             this.blackQueen = !!~kqJumpedStr.indexOf(PIECE_TYPE_QUEEN);
         }
-        const keyCodes = (this.keyCodes as any);
-        keyCodes['blackKing'] = Piece.toWhiteCharCode(PIECE_TYPE_QUEEN);
-        keyCodes['whiteKing'] = Piece.toWhiteCharCode(PIECE_TYPE_KING);
-        keyCodes['whiteQueen'] = PIECE_TYPE_KING;
-        keyCodes['blackQueen'] = PIECE_TYPE_QUEEN;
+        this.keyCodes['blackKing'] = Piece.toWhiteCharCode(PIECE_TYPE_QUEEN);
+        this.keyCodes['whiteKing'] = Piece.toWhiteCharCode(PIECE_TYPE_KING);
+        this.keyCodes['whiteQueen'] = PIECE_TYPE_KING;
+        this.keyCodes['blackQueen'] = PIECE_TYPE_QUEEN;
+        for (const k in this.keyCodes) {
+            this.codeKeys[this.keyCodes[k]] = k;
+        }
     }
 
     applyJumping(propKey: string, move: Move) {
         if (!(this as any)[propKey]) {
-            const charCode = (this.keyCodes as any)[propKey];
-            (move.jumpingCodes as any)[charCode] = true;
+            const charCode = this.keyCodes[propKey];
+            move.jumpingCodes[charCode] = true;
             (this as any)[propKey] = true;
         }
+    }
+
+    unJumped(code: string) {
+        const key = this.codeKeys[code];
+        (this as any)[key] = false;
     }
 
     checkKQMoved(move: Move) {
