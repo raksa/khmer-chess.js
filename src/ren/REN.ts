@@ -129,7 +129,6 @@ export default class REN {
         this.board.setPieceAtIndex(moveToIndex, piece);
         this.turn = Piece.oppositeColor(piece.color);
         move.setRen(this);
-        this.kqJumped.checkKQMoved(move);
         return move;
     }
 

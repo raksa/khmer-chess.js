@@ -11,6 +11,7 @@ export default class KqJumped {
     whiteQueen = false;
     blackKing = false;
     blackQueen = false;
+    keyCodes: { any?: string } = {};
     constructor(kqJumpedStr?: string) {
         if (kqJumpedStr) {
             this.whiteKing = !!~kqJumpedStr.indexOf(Piece.toWhiteCharCode(PIECE_TYPE_KING));
@@ -18,13 +19,40 @@ export default class KqJumped {
             this.blackKing = !!~kqJumpedStr.indexOf(PIECE_TYPE_KING);
             this.blackQueen = !!~kqJumpedStr.indexOf(PIECE_TYPE_QUEEN);
         }
+        const keyCodes = (this.keyCodes as any);
+        keyCodes['blackKing'] = Piece.toWhiteCharCode(PIECE_TYPE_QUEEN);
+        keyCodes['whiteKing'] = Piece.toWhiteCharCode(PIECE_TYPE_KING);
+        keyCodes['whiteQueen'] = PIECE_TYPE_KING;
+        keyCodes['blackQueen'] = PIECE_TYPE_QUEEN;
+    }
+
+    applyJumping(propKey: string, move: Move) {
+        if (!(this as any)[propKey]) {
+            const charCode = (this.keyCodes as any)[propKey];
+            (move.jumpingCodes as any)[charCode] = true;
+            (this as any)[propKey] = true;
+        }
     }
 
     checkKQMoved(move: Move) {
+        if (move.attacker || move.captured) {
+            this.applyJumping('whiteKing', move);
+            this.applyJumping('blackKing', move);
+            this.applyJumping('whiteQueen', move);
+            this.applyJumping('blackQueen', move);
+        }
         const piece = move.piece;
         if (piece.isTypeKing) {
             if (piece.isColorWhite) {
-                this.whiteKing = true;
+                this.applyJumping('whiteKing', move);
+            } else {
+                this.applyJumping('blackKing', move);
+            }
+        } else if (piece.isTypeQueen) {
+            if (piece.isColorWhite) {
+                this.applyJumping('whiteQueen', move);
+            } else {
+                this.applyJumping('blackQueen', move);
             }
         }
     }

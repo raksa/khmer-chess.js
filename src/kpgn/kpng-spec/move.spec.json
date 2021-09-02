@@ -6,7 +6,8 @@
         "flags": [
             "<capturing [x + graveyard index]>",
             "<king or queen jump>",
-            "<fish upgrading>"
+            "<fish upgrading>",
+            "<jumping upgrading | jump-flag + [<pieces char code>]>"
         ],
         "example": [
             "Fe3e4",

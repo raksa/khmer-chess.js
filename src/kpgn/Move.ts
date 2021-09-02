@@ -14,7 +14,6 @@ export type Option = {
     piece: Piece;
     moveFrom: Point;
     moveTo: Point;
-    isJumping?: boolean; // King or Queen would jump on first start
     isUpgrading?: boolean;
     captured?: Captured;
 };
@@ -26,19 +25,18 @@ export default class Move {
         stuckColor?: string,
         drawCountColor?: string,
     } = {};
+    jumpingCodes: { string?: boolean } = {};
     piece: Piece;
     moveFrom: Point;
     moveTo: Point;
-    isJumping: boolean;
     isUpgrading: boolean;
     captured: Captured | null;
-    constructor({ piece, moveFrom, moveTo, isJumping,
+    constructor({ piece, moveFrom, moveTo,
         isUpgrading, captured,
     }: Option) {
         this.piece = piece;
         this.moveFrom = moveFrom;
         this.moveTo = moveTo;
-        this.isJumping = !!isJumping;
         this.isUpgrading = !!isUpgrading;
         this.captured = captured || null;
         if (boardHelper.isUpgradable(piece, moveTo)) {
@@ -48,12 +46,13 @@ export default class Move {
     }
 
     setRen(ren: REN) {
-        this.renStr = ren.toString();
         // TODO: preload stuck, draw
         this.boardStatus.attacker = ren.getAttacker();
         if (this.boardStatus.attacker) {
             this.boardStatus.winColor = ren.getWinColor();
         }
+        ren.kqJumped.checkKQMoved(this);
+        this.renStr = ren.toString();
     }
 
     get attacker() {
@@ -89,8 +88,9 @@ export default class Move {
             moveFrom,
             moveTo,
         });
-        if (str[5] === PIECE_FLAG_KILL) {
-            const gyIndex = Number(str.substr(6).match(/^(\d+)/)[1]);
+        const killIndex = str.indexOf(PIECE_FLAG_KILL);
+        if (!!~killIndex) {
+            const gyIndex = Number(str.substr(killIndex + 1).match(/^(\d+)/)[1]);
             const capturedPiece = ren.graveyard.get(gyIndex);
             if (!capturedPiece) {
                 throw new Error('Invalid captured index');
@@ -101,8 +101,13 @@ export default class Move {
                 piece: capturedPiece,
             });
 
-        } else if (str[5] === PIECE_FLAG_JUMP) {
-            move.isJumping = true;
+        }
+        const jumpingIndex = str.indexOf(PIECE_FLAG_JUMP);
+        if (!!~jumpingIndex) {
+            const jumpingCodes = str.substr(jumpingIndex + 1).match(/^\[(\w+)\]/)[1];
+            jumpingCodes.split('').forEach((c) => {
+                (move.jumpingCodes as any)[c] = true;
+            });
         }
         move.setRen(ren);
         return move;
@@ -116,8 +121,9 @@ export default class Move {
             flags += PIECE_FLAG_KILL + this.captured.toGraveyardPoint.index;
 
         }
-        if (this.isJumping) {
-            flags += PIECE_FLAG_JUMP;
+        const jumpingCodes = Object.keys(this.jumpingCodes).join('');
+        if (jumpingCodes.length) {
+            flags += PIECE_FLAG_JUMP + `[${jumpingCodes}]`;
         }
         if (this.isUpgrading) {
             flags += PIECE_FLAG_UPGRADE;
@@ -129,7 +135,7 @@ export default class Move {
         return {
             fromIndex: this.moveFrom.index,
             toIndex: this.moveTo.index,
-            isJumping: this.isJumping,
+            jumpingCodes: Object.keys(this.jumpingCodes).join(''),
             capturedPiece: this.captured ? this.captured.piece.pieceCharCode : null,
         };
     }
