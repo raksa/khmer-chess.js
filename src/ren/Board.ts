@@ -84,6 +84,10 @@ export default class Board {
     getPieceAtIndex(index: number): Piece | null {
         return this.pieceIndices[index].piece;
     }
+
+    setPieceAtIndex(index: number, piece: Piece | null) {
+        this.pieceIndices[index].piece = piece;
+    }
 }
 /*
  * Copyright (c) 2021, K4us

@@ -23,7 +23,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var package_json_1 = __importDefault(require("../package.json"));
-var brain_1 = require("./brain");
 var KPGN_1 = __importDefault(require("./kpgn/KPGN"));
 var BoardEventController_1 = __importStar(require("./other/BoardEventController"));
 var table_1 = __importDefault(require("./other/table"));
@@ -48,26 +47,6 @@ var KhmerChess = /** @class */ (function () {
     KhmerChess.prototype.getCanMovePointsByPoint = function (point) {
         var canMovePoints = this.kpgn.ren.getCanMovePointsByPoint(point);
         return canMovePoints;
-    };
-    KhmerChess.prototype.getAttacker = function () {
-        return this.kpgn.ren.getAttacker();
-    };
-    KhmerChess.prototype.getWinColor = function () {
-        return this.kpgn.ren.getWinColor();
-    };
-    KhmerChess.prototype.getStuckColor = function () {
-        // TODO:
-        return null;
-    };
-    KhmerChess.prototype.isDraw = function () {
-        return this.getStuckColor() || this.getDrawCountColor();
-    };
-    KhmerChess.prototype.getDrawCountColor = function () {
-        // TODO:
-        return null;
-    };
-    KhmerChess.prototype.gameOver = function () {
-        return this.getWinColor() || this.isDraw();
     };
     KhmerChess.prototype.validateRENStr = function (renStr) {
         try {
@@ -123,13 +102,11 @@ var KhmerChess = /** @class */ (function () {
         configurable: true
     });
     KhmerChess.prototype.move = function (moveFromIndex, moveToIndex) {
+        var _this = this;
         var move = this.kpgn.ren.move(moveFromIndex, moveToIndex);
         this.kpgn.moves.push(move);
+        setTimeout(function () { return _this.checkBoardEvent(); }, 1);
         return move;
-    };
-    KhmerChess.prototype.undoMove = function () {
-        // TODO:
-        return false;
     };
     /**
      * Move all pieces to graveyard except kings
@@ -142,21 +119,21 @@ var KhmerChess = /** @class */ (function () {
         return this.kpgn.moves;
     };
     KhmerChess.prototype.checkBoardEvent = function () {
-        var pieceIndex = this.getAttacker();
-        if (!brain_1.jsis.isNull(pieceIndex)) {
+        var pieceIndex = this.kpgn.latestMove.attacker;
+        if (pieceIndex) {
             var boardEvent = new BoardEventController_1.BoardEvent({
                 flag: constant_1.EVENT_FLAG_ATTACK,
                 actorPieceIndex: pieceIndex,
             });
             this.boardEventController.fireEvent(boardEvent);
-        }
-        var winColor = this.getWinColor();
-        if (!brain_1.jsis.isNull(winColor)) {
-            var boardEvent = new BoardEventController_1.BoardEvent({
-                flag: constant_1.EVENT_FLAG_WINN,
-                actorPieceIndex: pieceIndex,
-            });
-            this.boardEventController.fireEvent(boardEvent);
+            var winColor = this.kpgn.latestMove.winColor;
+            if (winColor) {
+                var boardEvent_1 = new BoardEventController_1.BoardEvent({
+                    flag: constant_1.EVENT_FLAG_WINN,
+                    actorPieceIndex: pieceIndex,
+                });
+                this.boardEventController.fireEvent(boardEvent_1);
+            }
         }
     };
     KhmerChess.prototype.addBoardEventListener = function (listener) {

@@ -14,4 +14,5 @@ export default class Board {
     toStringFullNoSeparate(): string;
     toString(pieceIndices?: PieceIndex[]): string;
     getPieceAtIndex(index: number): Piece | null;
+    setPieceAtIndex(index: number, piece: Piece | null): void;
 }

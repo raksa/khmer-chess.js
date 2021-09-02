@@ -88,6 +88,9 @@ var Board = /** @class */ (function () {
     Board.prototype.getPieceAtIndex = function (index) {
         return this.pieceIndices[index].piece;
     };
+    Board.prototype.setPieceAtIndex = function (index, piece) {
+        this.pieceIndices[index].piece = piece;
+    };
     return Board;
 }());
 exports.default = Board;

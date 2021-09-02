@@ -1,6 +1,6 @@
 
 import { boardHelper } from '../brain';
-import { REN } from '../ren';
+import { PieceIndex, REN } from '../ren';
 import {
     PIECE_FLAG_JUMP,
     PIECE_FLAG_KILL,
@@ -10,7 +10,7 @@ import Piece from '../ren/Piece';
 import Point from '../ren/Point';
 import Captured from './Captured';
 
-export type MovePropType = {
+export type Option = {
     piece: Piece;
     moveFrom: Point;
     moveTo: Point;
@@ -18,16 +18,23 @@ export type MovePropType = {
     isUpgrading?: boolean;
     captured?: Captured;
 };
-export default class Move implements MovePropType {
+export default class Move {
+    renStr: string;
+    boardStatus: {
+        attacker?: PieceIndex,
+        winColor?: string,
+        stuckColor?: string,
+        drawCountColor?: string,
+    } = {};
     piece: Piece;
     moveFrom: Point;
     moveTo: Point;
-    isJumping?: boolean;
-    isUpgrading?: boolean;
-    captured?: Captured;
+    isJumping: boolean;
+    isUpgrading: boolean;
+    captured: Captured | null;
     constructor({ piece, moveFrom, moveTo, isJumping,
         isUpgrading, captured,
-    }: MovePropType) {
+    }: Option) {
         this.piece = piece;
         this.moveFrom = moveFrom;
         this.moveTo = moveTo;
@@ -40,9 +47,40 @@ export default class Move implements MovePropType {
         }
     }
 
-    // Spec: Fc5d6xf => White fish (F) moved from c5 to d6 killed black fish (f)
-    static fromMovedString(str: string, ren: REN, graveyardLastIndex: number) {
-        // TODO: preload attack and win-draw-lost
+    setRen(ren: REN) {
+        this.renStr = ren.toString();
+        // TODO: preload stuck, draw
+        this.boardStatus.attacker = ren.getAttacker();
+        if (this.boardStatus.attacker) {
+            this.boardStatus.winColor = ren.getWinColor();
+        }
+    }
+
+    get attacker() {
+        return this.boardStatus.attacker || null;
+    }
+
+    get winColor() {
+        return this.boardStatus.winColor || null;
+    }
+
+    get stuckColor() {
+        return this.boardStatus.stuckColor || null;
+    }
+
+    get drawCountColor() {
+        return this.boardStatus.drawCountColor || null;
+    }
+
+    get isDraw() {
+        return this.stuckColor || this.drawCountColor;
+    }
+
+    get isGameOver() {
+        return this.winColor || this.isDraw;
+    }
+
+    static fromMovedString(str: string, ren: REN) {
         const piece = Piece.fromCharCode(str[0]);
         const moveFrom = Point.fromIndexCode(str.substr(1, 2));
         const moveTo = Point.fromIndexCode(str.substr(3, 2));
@@ -59,16 +97,16 @@ export default class Move implements MovePropType {
             }
             move.captured = new Captured({
                 fromBoardPoint: moveTo,
-                toGraveyardPoint: Point.fromIndexGraveyardIndex(graveyardLastIndex),
+                toGraveyardPoint: Point.fromIndexGraveyardIndex(gyIndex),
                 piece: capturedPiece,
             });
 
         } else if (str[5] === PIECE_FLAG_JUMP) {
             move.isJumping = true;
         }
+        move.setRen(ren);
         return move;
     }
-    // Fc5d6j: jump, Fc5d6x: kill, Fc5d6xt: kill&upgrade
     toString() {
         const pCode = this.piece.pieceCharCode;
         const fIndexCode = this.moveFrom.indexCode;
@@ -112,9 +150,6 @@ export default class Move implements MovePropType {
             const upgrade = this.isUpgrading ? ' បក' : '';
             return `${this.piece.title} ដើរ​ពី ${this.moveFrom.title} ទៅ ${this.moveTo.title}${upgrade}${captured}`;
         }
-    }
-
-    reverse() {
     }
 }
 /*

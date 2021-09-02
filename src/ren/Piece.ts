@@ -160,6 +160,9 @@ export default class Piece {
         }
         return false;
     }
+    clone() {
+        return Piece.fromCharCode(this.pieceCharCode);
+    }
 }
 
 const allPiecesString: string[] = [

@@ -85,8 +85,14 @@ export default class REN {
         return str;
     }
 
+    backRen(move: Move) {
+        const ren = REN.fromString(this.toString());
+        ren.moveBack(move);
+        return ren;
+    }
+
     static fromString(renStr?: string) {
-        if (jsis.isUndefined(renStr)) {
+        if (!renStr) {
             renStr = DEFAULT_BOARD_STR;
         }
         const renArr = renStr.split(' ');
@@ -102,14 +108,14 @@ export default class REN {
 
     move(moveFromIndex: number, moveToIndex: number): Move | null {
         const piece = this.board.getPieceAtIndex(moveFromIndex);
-        if (jsis.isNull(piece)) {
+        if (!piece) {
             return null;
         }
-        this.board.pieceIndices[moveFromIndex].piece = null;
+        this.board.setPieceAtIndex(moveFromIndex, null);
         const move = new Move({
             moveFrom: Point.fromIndex(moveFromIndex),
             moveTo: Point.fromIndex(moveToIndex),
-            piece,
+            piece: piece.clone(),
         });
         const targetPiece = this.board.getPieceAtIndex(moveToIndex);
         if (targetPiece) {
@@ -120,9 +126,29 @@ export default class REN {
                 piece: targetPiece,
             });
         }
-        this.board.pieceIndices[moveToIndex].piece = piece;
+        this.board.setPieceAtIndex(moveToIndex, piece);
         this.turn = Piece.oppositeColor(piece.color);
+        move.setRen(this);
         return move;
+    }
+
+    moveBack(move: Move) {
+        const movedToIndex = move.moveTo.index;
+        const movedFromIndex = move.moveFrom.index;
+        const piece = this.board.getPieceAtIndex(movedToIndex);
+        this.board.setPieceAtIndex(movedToIndex, null);
+        if (!piece) {
+            return false;
+        }
+        this.board.setPieceAtIndex(movedFromIndex, piece);
+        if (move.captured) {
+            const movedToGYIndex = move.captured.toGraveyardPoint.index;
+            const capturedPiece = this.graveyard.get(movedToGYIndex);
+            this.board.setPieceAtIndex(movedToIndex, capturedPiece);
+            this.graveyard.removeAtIndex(movedToGYIndex);
+        }
+        this.turn = piece.color;
+        return true;
     }
 
     toString() {

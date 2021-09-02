@@ -14,12 +14,6 @@ export default class KhmerChess {
     resetBoard(): void;
     getCanMoves(): PieceIndex[];
     getCanMovePointsByPoint(point: Point): Point[];
-    getAttacker(): PieceIndex | null;
-    getWinColor(): string | null;
-    getStuckColor(): string | null;
-    isDraw(): string;
-    getDrawCountColor(): string | null;
-    gameOver(): string;
     validateRENStr(renStr: string): {
         valid: boolean;
         error_number: number;
@@ -35,7 +29,6 @@ export default class KhmerChess {
     get turn(): string;
     set turn(turn: string);
     move(moveFromIndex: number, moveToIndex: number): Move | null;
-    undoMove(): boolean;
     /**
      * Move all pieces to graveyard except kings
      * -> 4k3/8/8/8/8/8/8/3K4 w ---- -- -.- bhgqghbffffffffFFFFFFFFBHGQGHB

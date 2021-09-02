@@ -212,6 +212,9 @@ var Piece = /** @class */ (function () {
         }
         return false;
     };
+    Piece.prototype.clone = function () {
+        return Piece.fromCharCode(this.pieceCharCode);
+    };
     return Piece;
 }());
 exports.default = Piece;

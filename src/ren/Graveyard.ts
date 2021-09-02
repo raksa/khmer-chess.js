@@ -8,6 +8,12 @@ export default class Graveyard {
     get(index: number) {
         return this.pieces[index];
     }
+    removeAtIndex(index: number) {
+        if (!!this.get(index)) {
+            this.pieces.splice(index, 1);
+        }
+        return true;
+    }
     constructor(graveyardStr?: string) {
         if (graveyardStr) {
             if (graveyardStr.length > 30 ||

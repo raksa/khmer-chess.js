@@ -44,9 +44,12 @@ export default class KPGN {
     ren: REN;
     timer: Timer;
     constructor(ren: REN);
+    get latestMove(): Move;
     loadRENStr(renStr?: string): void;
     loadMovesStrings(moves: string[]): void;
     validateOption(option: Option): void;
     fromJson(option: Option): void;
     toJson(): Option;
+    fromBase64(str: string): void;
+    toBase64(): string;
 }

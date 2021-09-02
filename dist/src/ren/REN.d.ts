@@ -31,8 +31,10 @@ export default class REN {
     constructor(renProps: RENPropType);
     init({ boardStr, turnStr, kqMovedStr, kAttackedStr, countdownStr, graveyardStr }: RENPropType): void;
     isInvalidPieceCount(): string | false;
+    backRen(move: Move): REN;
     static fromString(renStr?: string): REN;
     move(moveFromIndex: number, moveToIndex: number): Move | null;
+    moveBack(move: Move): boolean;
     toString(): string;
     get isQueenMoved(): boolean;
     get isKingMoved(): boolean;

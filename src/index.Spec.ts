@@ -38,7 +38,7 @@ import {
     CapturedPropType,
     KPGN,
     Move,
-    MovePropType,
+    MoveOption,
     Player,
     Result,
     Timer,

@@ -28,19 +28,23 @@ var KPGN = /** @class */ (function () {
         this.ren = ren;
         this.moves = [];
     }
+    Object.defineProperty(KPGN.prototype, "latestMove", {
+        get: function () {
+            return this.moves[this.moves.length - 1] || null;
+        },
+        enumerable: false,
+        configurable: true
+    });
     KPGN.prototype.loadRENStr = function (renStr) {
         this.ren = REN_1.default.fromString(renStr);
     };
     KPGN.prototype.loadMovesStrings = function (moves) {
-        var _this = this;
-        var graveyardLastIndex = 0;
-        this.moves = moves.map(function (move) {
-            var moved = Move_1.default.fromMovedString(move, _this.ren, graveyardLastIndex);
-            if (moved.captured) {
-                graveyardLastIndex = moved.captured.toGraveyardPoint.index + 1;
-            }
-            return moved;
-        });
+        var currentRen = this.ren;
+        this.moves = moves.reverse().map(function (moveStr) {
+            var move = Move_1.default.fromMovedString(moveStr, currentRen);
+            currentRen = currentRen.backRen(move);
+            return move;
+        }).reverse();
     };
     KPGN.prototype.validateOption = function (option) {
         // TODO: throw when invalid option's properties
@@ -83,10 +87,17 @@ var KPGN = /** @class */ (function () {
                 },
                 white: this.result.white.toJson(),
             },
+            timer: this.timer.toJson(),
             moves: this.moves.map(function (m) { return m.toString(); }),
             ren: this.ren.toString(),
-            timer: this.timer.toJson(),
         };
+    };
+    KPGN.prototype.fromBase64 = function (str) {
+        // TODO:
+    };
+    KPGN.prototype.toBase64 = function () {
+        // TODO:
+        return '';
     };
     return KPGN;
 }());

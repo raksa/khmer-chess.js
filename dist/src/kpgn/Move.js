@@ -11,6 +11,7 @@ var Captured_1 = __importDefault(require("./Captured"));
 var Move = /** @class */ (function () {
     function Move(_a) {
         var piece = _a.piece, moveFrom = _a.moveFrom, moveTo = _a.moveTo, isJumping = _a.isJumping, isUpgrading = _a.isUpgrading, captured = _a.captured;
+        this.boardStatus = {};
         this.piece = piece;
         this.moveFrom = moveFrom;
         this.moveTo = moveTo;
@@ -22,9 +23,57 @@ var Move = /** @class */ (function () {
             piece.upgrade();
         }
     }
-    // Spec: Fc5d6xf => White fish (F) moved from c5 to d6 killed black fish (f)
-    Move.fromMovedString = function (str, ren, graveyardLastIndex) {
-        // TODO: preload attack and win-draw-lost
+    Move.prototype.setRen = function (ren) {
+        this.renStr = ren.toString();
+        // TODO: preload stuck, draw
+        this.boardStatus.attacker = ren.getAttacker();
+        if (this.boardStatus.attacker) {
+            this.boardStatus.winColor = ren.getWinColor();
+        }
+    };
+    Object.defineProperty(Move.prototype, "attacker", {
+        get: function () {
+            return this.boardStatus.attacker || null;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Move.prototype, "winColor", {
+        get: function () {
+            return this.boardStatus.winColor || null;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Move.prototype, "stuckColor", {
+        get: function () {
+            return this.boardStatus.stuckColor || null;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Move.prototype, "drawCountColor", {
+        get: function () {
+            return this.boardStatus.drawCountColor || null;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Move.prototype, "isDraw", {
+        get: function () {
+            return this.stuckColor || this.drawCountColor;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Move.prototype, "isGameOver", {
+        get: function () {
+            return this.winColor || this.isDraw;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Move.fromMovedString = function (str, ren) {
         var piece = Piece_1.default.fromCharCode(str[0]);
         var moveFrom = Point_1.default.fromIndexCode(str.substr(1, 2));
         var moveTo = Point_1.default.fromIndexCode(str.substr(3, 2));
@@ -41,16 +90,16 @@ var Move = /** @class */ (function () {
             }
             move.captured = new Captured_1.default({
                 fromBoardPoint: moveTo,
-                toGraveyardPoint: Point_1.default.fromIndexGraveyardIndex(graveyardLastIndex),
+                toGraveyardPoint: Point_1.default.fromIndexGraveyardIndex(gyIndex),
                 piece: capturedPiece,
             });
         }
         else if (str[5] === constant_1.PIECE_FLAG_JUMP) {
             move.isJumping = true;
         }
+        move.setRen(ren);
         return move;
     };
-    // Fc5d6j: jump, Fc5d6x: kill, Fc5d6xt: kill&upgrade
     Move.prototype.toString = function () {
         var pCode = this.piece.pieceCharCode;
         var fIndexCode = this.moveFrom.indexCode;
@@ -92,8 +141,6 @@ var Move = /** @class */ (function () {
             var upgrade = this.isUpgrading ? ' បក' : '';
             return this.piece.title + " \u178A\u17BE\u179A\u200B\u1796\u17B8 " + this.moveFrom.title + " \u1791\u17C5 " + this.moveTo.title + upgrade + captured;
         }
-    };
-    Move.prototype.reverse = function () {
     };
     return Move;
 }());

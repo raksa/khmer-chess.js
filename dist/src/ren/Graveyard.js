@@ -31,6 +31,12 @@ var Graveyard = /** @class */ (function () {
     Graveyard.prototype.get = function (index) {
         return this.pieces[index];
     };
+    Graveyard.prototype.removeAtIndex = function (index) {
+        if (!!this.get(index)) {
+            this.pieces.splice(index, 1);
+        }
+        return true;
+    };
     Graveyard.prototype.toString = function () {
         return this.pieces.map(function (p) {
             return p.pieceCharCode;

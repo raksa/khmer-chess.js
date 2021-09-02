@@ -1,5 +1,4 @@
 import config from '../package.json';
-import { jsis } from './brain';
 import KPGN from './kpgn/KPGN';
 import Move from './kpgn/Move';
 import BoardEventController, { BoardEvent } from './other/BoardEventController';
@@ -36,32 +35,6 @@ export default class KhmerChess {
     getCanMovePointsByPoint(point: Point): Point[] {
         const canMovePoints = this.kpgn.ren.getCanMovePointsByPoint(point);
         return canMovePoints;
-    }
-
-    getAttacker(): PieceIndex | null {
-        return this.kpgn.ren.getAttacker();
-    }
-
-    getWinColor(): string | null {
-        return this.kpgn.ren.getWinColor();
-    }
-
-    getStuckColor(): string | null {
-        // TODO:
-        return null;
-    }
-
-    isDraw() {
-        return this.getStuckColor() || this.getDrawCountColor();
-    }
-
-    getDrawCountColor(): string | null {
-        // TODO:
-        return null;
-    }
-
-    gameOver() {
-        return this.getWinColor() || this.isDraw();
     }
 
     validateRENStr(renStr: string) {
@@ -113,12 +86,8 @@ export default class KhmerChess {
     move(moveFromIndex: number, moveToIndex: number): Move | null {
         const move = this.kpgn.ren.move(moveFromIndex, moveToIndex);
         this.kpgn.moves.push(move);
+        setTimeout(() => this.checkBoardEvent(), 1);
         return move;
-    }
-
-    undoMove() {
-        // TODO:
-        return false;
     }
 
     /**
@@ -134,21 +103,21 @@ export default class KhmerChess {
     }
 
     checkBoardEvent() {
-        const pieceIndex = this.getAttacker();
-        if (!jsis.isNull(pieceIndex)) {
+        const pieceIndex = this.kpgn.latestMove.attacker;
+        if (pieceIndex) {
             const boardEvent = new BoardEvent({
                 flag: EVENT_FLAG_ATTACK,
                 actorPieceIndex: pieceIndex,
             });
             this.boardEventController.fireEvent(boardEvent);
-        }
-        const winColor = this.getWinColor();
-        if (!jsis.isNull(winColor)) {
-            const boardEvent = new BoardEvent({
-                flag: EVENT_FLAG_WIN,
-                actorPieceIndex: pieceIndex,
-            });
-            this.boardEventController.fireEvent(boardEvent);
+            const winColor = this.kpgn.latestMove.winColor;
+            if (winColor) {
+                const boardEvent = new BoardEvent({
+                    flag: EVENT_FLAG_WIN,
+                    actorPieceIndex: pieceIndex,
+                });
+                this.boardEventController.fireEvent(boardEvent);
+            }
         }
     }
     addBoardEventListener(listener: ListenerType<BoardEvent>) {

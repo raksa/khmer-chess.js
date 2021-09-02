@@ -59,8 +59,13 @@ var REN = /** @class */ (function () {
         }
         return str;
     };
+    REN.prototype.backRen = function (move) {
+        var ren = REN.fromString(this.toString());
+        ren.moveBack(move);
+        return ren;
+    };
     REN.fromString = function (renStr) {
-        if (jsis_1.default.isUndefined(renStr)) {
+        if (!renStr) {
             renStr = constant_1.DEFAULT_BOARD_STR;
         }
         var renArr = renStr.split(' ');
@@ -75,14 +80,14 @@ var REN = /** @class */ (function () {
     };
     REN.prototype.move = function (moveFromIndex, moveToIndex) {
         var piece = this.board.getPieceAtIndex(moveFromIndex);
-        if (jsis_1.default.isNull(piece)) {
+        if (!piece) {
             return null;
         }
-        this.board.pieceIndices[moveFromIndex].piece = null;
+        this.board.setPieceAtIndex(moveFromIndex, null);
         var move = new Move_1.default({
             moveFrom: Point_1.default.fromIndex(moveFromIndex),
             moveTo: Point_1.default.fromIndex(moveToIndex),
-            piece: piece,
+            piece: piece.clone(),
         });
         var targetPiece = this.board.getPieceAtIndex(moveToIndex);
         if (targetPiece) {
@@ -93,9 +98,28 @@ var REN = /** @class */ (function () {
                 piece: targetPiece,
             });
         }
-        this.board.pieceIndices[moveToIndex].piece = piece;
+        this.board.setPieceAtIndex(moveToIndex, piece);
         this.turn = Piece_1.default.oppositeColor(piece.color);
+        move.setRen(this);
         return move;
+    };
+    REN.prototype.moveBack = function (move) {
+        var movedToIndex = move.moveTo.index;
+        var movedFromIndex = move.moveFrom.index;
+        var piece = this.board.getPieceAtIndex(movedToIndex);
+        this.board.setPieceAtIndex(movedToIndex, null);
+        if (!piece) {
+            return false;
+        }
+        this.board.setPieceAtIndex(movedFromIndex, piece);
+        if (move.captured) {
+            var movedToGYIndex = move.captured.toGraveyardPoint.index;
+            var capturedPiece = this.graveyard.get(movedToGYIndex);
+            this.board.setPieceAtIndex(movedToIndex, capturedPiece);
+            this.graveyard.removeAtIndex(movedToGYIndex);
+        }
+        this.turn = piece.color;
+        return true;
     };
     REN.prototype.toString = function () {
         var str = this.board.toString();

@@ -52,19 +52,21 @@ export default class KPGN {
         this.moves = [];
     }
 
+    get latestMove() {
+        return this.moves[this.moves.length - 1] || null;
+    }
+
     loadRENStr(renStr?: string) {
         this.ren = REN.fromString(renStr);
     }
 
     loadMovesStrings(moves: string[]) {
-        let graveyardLastIndex = 0;
-        this.moves = moves.map((move) => {
-            const moved = Move.fromMovedString(move, this.ren, graveyardLastIndex);
-            if (moved.captured) {
-                graveyardLastIndex = moved.captured.toGraveyardPoint.index + 1;
-            }
-            return moved;
-        });
+        let currentRen = this.ren;
+        this.moves = moves.reverse().map((moveStr) => {
+            const move = Move.fromMovedString(moveStr, currentRen);
+            currentRen = currentRen.backRen(move);
+            return move;
+        }).reverse();
     }
 
     validateOption(option: Option) {
@@ -112,10 +114,18 @@ export default class KPGN {
                 },
                 white: this.result.white.toJson(),
             },
+            timer: this.timer.toJson(),
             moves: this.moves.map((m) => m.toString()),
             ren: this.ren.toString(),
-            timer: this.timer.toJson(),
         };
+    }
+
+    fromBase64(str: string) {
+        // TODO:
+    }
+    toBase64() {
+        // TODO:
+        return '';
     }
 }
 /*

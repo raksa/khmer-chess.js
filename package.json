@@ -1,6 +1,6 @@
 {
   "name": "khmer-chess",
-  "version": "1.0.44",
+  "version": "1.0.45",
   "description": "KhmerChess Javascript library",
   "main": "src/index.ts",
   "scripts": {

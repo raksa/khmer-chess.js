@@ -32,4 +32,5 @@ export default class Piece {
     static isValidPiecesString(str: string, onlyPiece?: boolean): boolean;
     upgrade(): boolean;
     downgrade(): boolean;
+    clone(): Piece;
 }
