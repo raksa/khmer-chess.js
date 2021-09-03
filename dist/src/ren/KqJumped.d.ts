@@ -14,8 +14,11 @@ export default class KqJumped {
         [key: string]: string;
     };
     constructor(kqJumpedStr?: string);
+    get isJumped(): boolean;
+    setProp(key: string, value: boolean): void;
     applyJumping(propKey: string, move: Move): void;
-    unJumped(code: string): void;
     checkKQMoved(move: Move): void;
     toString(): string;
+    toNumber(): number;
+    static fromNumber(n: number): KqJumped;
 }

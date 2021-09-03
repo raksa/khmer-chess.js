@@ -41,7 +41,7 @@ var KPGN = /** @class */ (function () {
     KPGN.prototype.loadMovesStrings = function (moves) {
         var currentRen = this.ren;
         this.moves = moves.reverse().map(function (moveStr) {
-            var move = Move_1.default.fromMovedString(moveStr, currentRen);
+            var move = Move_1.default.fromString(moveStr, currentRen);
             currentRen = currentRen.backRen(move);
             return move;
         }).reverse();

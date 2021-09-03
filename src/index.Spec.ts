@@ -3,7 +3,6 @@
 import {
     HVPont,
     Rectangle,
-    boardEventController,
     boardHelper,
     genMask,
     jsis,
@@ -47,8 +46,6 @@ import {
 import {
     EventHandler,
     ListenerType,
-    BoardEventController,
-    BoardEvent,
     table,
 } from './index';
 // ren

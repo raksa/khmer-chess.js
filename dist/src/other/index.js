@@ -3,13 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.table = exports.BoardEvent = exports.BoardEventController = exports.EventHandler = void 0;
+exports.table = exports.EventHandler = void 0;
 var EventHandler_1 = require("./EventHandler");
 Object.defineProperty(exports, "EventHandler", { enumerable: true, get: function () { return __importDefault(EventHandler_1).default; } });
-var BoardEventController_1 = require("./BoardEventController");
-Object.defineProperty(exports, "BoardEventController", { enumerable: true, get: function () { return __importDefault(BoardEventController_1).default; } });
-var BoardEventController_2 = require("./BoardEventController");
-Object.defineProperty(exports, "BoardEvent", { enumerable: true, get: function () { return BoardEventController_2.BoardEvent; } });
 var table_1 = require("./table");
 Object.defineProperty(exports, "table", { enumerable: true, get: function () { return __importDefault(table_1).default; } });
 /*

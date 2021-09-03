@@ -52,6 +52,27 @@ var Board = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(Board.prototype, "whiteKing", {
+        get: function () {
+            return this.pieceIndices.find(function (pieceIndex) {
+                return pieceIndex.piece && pieceIndex.piece.isTypeKing && pieceIndex.piece.isColorWhite;
+            });
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Board.prototype, "blackKing", {
+        get: function () {
+            return this.pieceIndices.find(function (pieceIndex) {
+                return pieceIndex.piece && pieceIndex.piece.isTypeKing && pieceIndex.piece.isColorBlack;
+            });
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Board.prototype.getKing = function (color) {
+        return Piece_1.default.isWhiteColor(color) ? this.whiteKing : this.blackKing;
+    };
     Board.prototype.compress = function (str) {
         var reg = new RegExp("(\\" + constant_2.EMPTY_PIECE + "+)", 'g');
         return str.replace(reg, function ($1) { return $1.length; });

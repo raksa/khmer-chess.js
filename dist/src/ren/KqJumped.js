@@ -11,36 +11,45 @@ var Piece_1 = __importDefault(require("./Piece"));
  */
 var KqJumped = /** @class */ (function () {
     function KqJumped(kqJumpedStr) {
+        var _a;
         this.whiteKing = false;
         this.whiteQueen = false;
         this.blackKing = false;
         this.blackQueen = false;
-        this.keyCodes = {};
-        this.codeKeys = {};
+        this.keyCodes = {
+            blackKing: Piece_1.default.toWhiteCharCode(constant_1.PIECE_TYPE_QUEEN),
+            whiteKing: Piece_1.default.toWhiteCharCode(constant_1.PIECE_TYPE_KING),
+            whiteQueen: constant_1.PIECE_TYPE_KING,
+            blackQueen: constant_1.PIECE_TYPE_QUEEN,
+        };
+        this.codeKeys = (_a = {},
+            _a[Piece_1.default.toWhiteCharCode(constant_1.PIECE_TYPE_QUEEN)] = 'blackKing: ',
+            _a[Piece_1.default.toWhiteCharCode(constant_1.PIECE_TYPE_KING)] = 'whiteKing: ',
+            _a[constant_1.PIECE_TYPE_KING] = 'whiteQueen: ',
+            _a[constant_1.PIECE_TYPE_QUEEN] = 'blackQueen: ',
+            _a);
         if (kqJumpedStr) {
             this.whiteKing = !!~kqJumpedStr.indexOf(Piece_1.default.toWhiteCharCode(constant_1.PIECE_TYPE_KING));
             this.whiteQueen = !!~kqJumpedStr.indexOf(Piece_1.default.toWhiteCharCode(constant_1.PIECE_TYPE_QUEEN));
             this.blackKing = !!~kqJumpedStr.indexOf(constant_1.PIECE_TYPE_KING);
             this.blackQueen = !!~kqJumpedStr.indexOf(constant_1.PIECE_TYPE_QUEEN);
         }
-        this.keyCodes['blackKing'] = Piece_1.default.toWhiteCharCode(constant_1.PIECE_TYPE_QUEEN);
-        this.keyCodes['whiteKing'] = Piece_1.default.toWhiteCharCode(constant_1.PIECE_TYPE_KING);
-        this.keyCodes['whiteQueen'] = constant_1.PIECE_TYPE_KING;
-        this.keyCodes['blackQueen'] = constant_1.PIECE_TYPE_QUEEN;
-        for (var k in this.keyCodes) {
-            this.codeKeys[this.keyCodes[k]] = k;
-        }
     }
+    Object.defineProperty(KqJumped.prototype, "isJumped", {
+        get: function () {
+            return this.whiteKing || this.whiteQueen || this.blackKing || this.blackQueen;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    KqJumped.prototype.setProp = function (key, value) {
+        this[key] = value;
+    };
     KqJumped.prototype.applyJumping = function (propKey, move) {
         if (!this[propKey]) {
-            var charCode = this.keyCodes[propKey];
-            move.jumpingCodes[charCode] = true;
-            this[propKey] = true;
+            move.kqJumping.setProp(propKey, true);
+            this.setProp(propKey, true);
         }
-    };
-    KqJumped.prototype.unJumped = function (code) {
-        var key = this.codeKeys[code];
-        this[key] = false;
     };
     KqJumped.prototype.checkKQMoved = function (move) {
         if (move.attacker || move.captured) {
@@ -73,6 +82,22 @@ var KqJumped = /** @class */ (function () {
         str += "" + (this.blackKing ? constant_1.PIECE_TYPE_KING : constant_2.NOT_SET);
         str += "" + (this.blackQueen ? constant_1.PIECE_TYPE_QUEEN : constant_2.NOT_SET);
         return str;
+    };
+    KqJumped.prototype.toNumber = function () {
+        var str = "" + (this.whiteKing ? 1 : 0);
+        str += "" + (this.whiteQueen ? 1 : 0);
+        str += "" + (this.blackKing ? 1 : 0);
+        str += "" + (this.blackQueen ? 1 : 0);
+        return parseInt(str, 2);
+    };
+    KqJumped.fromNumber = function (n) {
+        var b = ('0000' + Number(n).toString(2)).substr(-4);
+        var kqJumped = new KqJumped();
+        kqJumped.whiteKing = b[0] === '1';
+        kqJumped.whiteQueen = b[1] === '1';
+        kqJumped.blackKing = b[2] === '1';
+        kqJumped.blackQueen = b[3] === '1';
+        return kqJumped;
     };
     return KqJumped;
 }());

@@ -6,9 +6,13 @@ export const NOT_SET = '-';
 export const PIECE_FLAG_KILL = 'x';
 export const PIECE_FLAG_JUMP = 'j';
 export const PIECE_FLAG_UPGRADE = 'u';
+export const PIECE_FLAG_START_COUNTING = 'z';
 export const EVENT_FLAG_ATTACK = 'attack';
-export const EVENT_FLAG_WINN = 'win';
+export const EVENT_FLAG_WIN = 'win';
 export const EVENT_FLAG_DRAW = 'draw';
+export const EVENT_FLAG_START_COUNTING = 'start-counting';
+export const EVENT_FLAG_COUNTING_DOWN = 'counting-down';
+export const EVENT_FLAG_COUNT_DOWN_OUT = 'count-down-out';
 /*
  * Copyright (c) 2021, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>

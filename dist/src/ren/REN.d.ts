@@ -32,15 +32,15 @@ export default class REN {
     init({ boardStr, turnStr, kqJumpedStr, kAttackedStr, countdownStr, graveyardStr }: RENPropType): void;
     isInvalidPieceCount(): string | false;
     backRen(move: Move): REN;
-    static fromString(renStr?: string): REN;
     move(moveFromIndex: number, moveToIndex: number): Move | null;
     moveBack(move: Move): boolean;
+    static fromString(renStr?: string): REN;
     toString(): string;
     get isQueenMoved(): boolean;
     get isKingMoved(): boolean;
     genAllCanMoves(): PieceIndex[];
     isHasMoved(piece: Piece): boolean;
     getCanMovePointsByPoint(point: Point): Point[];
-    getAttacker(): PieceIndex | null;
+    checkBoardStatus(move: Move): void;
     getWinColor(): string | null;
 }

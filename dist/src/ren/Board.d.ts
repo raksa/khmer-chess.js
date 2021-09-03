@@ -8,6 +8,9 @@ export default class Board {
     constructor(boardStr?: string);
     get piecesMultiArray(): Piece[][];
     get pieces(): Piece[];
+    get whiteKing(): PieceIndex;
+    get blackKing(): PieceIndex;
+    getKing(color: string): PieceIndex;
     compress(str: string): string;
     extract(str: string): string;
     toStringFull(pieceIndices?: PieceIndex[]): string;

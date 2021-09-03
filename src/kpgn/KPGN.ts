@@ -63,7 +63,7 @@ export default class KPGN {
     loadMovesStrings(moves: string[]) {
         let currentRen = this.ren;
         this.moves = moves.reverse().map((moveStr) => {
-            const move = Move.fromMovedString(moveStr, currentRen);
+            const move = Move.fromString(moveStr, currentRen);
             currentRen = currentRen.backRen(move);
             return move;
         }).reverse();

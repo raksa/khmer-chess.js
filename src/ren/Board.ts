@@ -45,6 +45,22 @@ export default class Board {
         });
     }
 
+    get whiteKing() {
+        return this.pieceIndices.find((pieceIndex) => {
+            return pieceIndex.piece && pieceIndex.piece.isTypeKing && pieceIndex.piece.isColorWhite;
+        });
+    }
+
+    get blackKing() {
+        return this.pieceIndices.find((pieceIndex) => {
+            return pieceIndex.piece && pieceIndex.piece.isTypeKing && pieceIndex.piece.isColorBlack;
+        });
+    }
+
+    getKing(color: string) {
+        return Piece.isWhiteColor(color) ? this.whiteKing : this.blackKing;
+    }
+
     compress(str: string) {
         const reg = new RegExp(`(\\${EMPTY_PIECE}+)`, 'g');
         return str.replace(reg, ($1: any) => $1.length);

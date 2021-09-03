@@ -13,7 +13,7 @@ import Point from './Point';
 import Piece from './Piece';
 import { PieceIndex } from '.';
 import MoveHelper from '../brain/MoveHelper';
-import { PIECE_COLOR_WHITE } from '../brain/constant';
+import { PIECE_COLOR_BLACK, PIECE_COLOR_WHITE } from '../brain/constant';
 import jsis from '../brain/jsis';
 
 /**
@@ -48,11 +48,12 @@ export default class REN {
         kAttackedStr,
         countdownStr,
         graveyardStr }: RENPropType) {
+        // TODO: improve by moving to fromString()
         this.board = new Board(boardStr);
         this.turn = turnStr || PIECE_COLOR_WHITE;
         this.kqJumped = new KqJumped(kqJumpedStr);
         this.kAttacked = new KAttacked(kAttackedStr);
-        this.countdown = new CountDown(countdownStr);
+        this.countdown = CountDown.fromString(countdownStr);
         this.graveyard = new Graveyard(graveyardStr);
         const invalidPiecesString = this.isInvalidPieceCount();
         if (invalidPiecesString) {
@@ -89,21 +90,6 @@ export default class REN {
         const ren = REN.fromString(this.toString());
         ren.moveBack(move);
         return ren;
-    }
-
-    static fromString(renStr?: string) {
-        if (!renStr) {
-            renStr = DEFAULT_BOARD_STR;
-        }
-        const renArr = renStr.split(' ');
-        return new REN({
-            boardStr: renArr[0],
-            turnStr: renArr[1],
-            kqJumpedStr: renArr[2],
-            kAttackedStr: renArr[3],
-            countdownStr: renArr[4],
-            graveyardStr: renArr[5],
-        });
     }
 
     move(moveFromIndex: number, moveToIndex: number): Move | null {
@@ -147,11 +133,42 @@ export default class REN {
             this.board.setPieceAtIndex(movedToIndex, capturedPiece);
             this.graveyard.removeAtIndex(movedToGYIndex);
         }
-        for (const k in move.jumpingCodes) {
-            this.kqJumped.unJumped(k);
+        if (move.kqJumping.whiteKing) {
+            this.kqJumped.whiteKing = false;
+        }
+        if (move.kqJumping.whiteQueen) {
+            this.kqJumped.whiteQueen = false;
+        }
+        if (move.kqJumping.blackKing) {
+            this.kqJumped.blackKing = false;
+        }
+        if (move.kqJumping.blackQueen) {
+            this.kqJumped.blackQueen = false;
+        }
+        if (move.startCountingFrom) {
+            if (move.startCountingFrom === this.countdown.blackCountingDownNumber) {
+                this.countdown.blackCountingDownNumber = null;
+            } else if (move.startCountingFrom === this.countdown.whiteCountingDownNumber) {
+                this.countdown.whiteCountingDownNumber = null;
+            }
         }
         this.turn = piece.color;
         return true;
+    }
+
+    static fromString(renStr?: string) {
+        if (!renStr) {
+            renStr = DEFAULT_BOARD_STR;
+        }
+        const renArr = renStr.split(' ');
+        return new REN({
+            boardStr: renArr[0],
+            turnStr: renArr[1],
+            kqJumpedStr: renArr[2],
+            kAttackedStr: renArr[3],
+            countdownStr: renArr[4],
+            graveyardStr: renArr[5],
+        });
     }
 
     toString() {
@@ -204,7 +221,8 @@ export default class REN {
             this.board.toStringFullNoSeparate(), this.isHasMoved(piece));
     }
 
-    getAttacker(): PieceIndex | null {
+    checkBoardStatus(move: Move) {
+        // TODO: optimize by specific color
         const state = this.moveHelper.calcState({
             piecesString: this.board.toStringFullNoSeparate(),
             currentTurn: this.turn,
@@ -213,6 +231,17 @@ export default class REN {
             genCanMove: false,
             genCanMoveForAnother: false,
         });
+        const force = false; // // force: true => weaker color has 2 pieces but force to cal count
+        if (!this.countdown.isCountingDown && (state.blackCountable || state.whiteCountable)) {
+            const countState = this.moveHelper.calCount({
+                color: state.whiteCountable ? PIECE_COLOR_WHITE : PIECE_COLOR_BLACK,
+                piecesString: this.board.toStringFullNoSeparate(),
+                force,
+            });
+            // TODO: start counting
+            console.log(countState);
+        }
+
         const kingInDanger = state.blackKingInDanger || state.whiteKingInDanger;
         if (kingInDanger) {
             const pieceIndex = kingInDanger.map((point) => {
@@ -220,9 +249,11 @@ export default class REN {
             }).filter((pieceIndex) => {
                 return !pieceIndex.piece.isTypeKing;
             })[0];
-            return pieceIndex;
+            move.boardStatus.attacker = pieceIndex;
         }
-        return null;
+        move.boardStatus.winColor = state.winColor;
+        move.boardStatus.stuckColor = state.stuckColor;
+        // TODO: drawCountColor
     }
     getWinColor(): string | null {
         const state = this.moveHelper.calcState({

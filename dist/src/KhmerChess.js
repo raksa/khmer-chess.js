@@ -1,38 +1,16 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var package_json_1 = __importDefault(require("../package.json"));
 var KPGN_1 = __importDefault(require("./kpgn/KPGN"));
-var BoardEventController_1 = __importStar(require("./other/BoardEventController"));
 var table_1 = __importDefault(require("./other/table"));
-var constant_1 = require("./ren/constant");
 var REN_1 = __importDefault(require("./ren/REN"));
 var KhmerChess = /** @class */ (function () {
     function KhmerChess(renStr) {
         var ren = REN_1.default.fromString(renStr);
         this.kpgn = new KPGN_1.default(ren);
-        this.boardEventController = new BoardEventController_1.default();
     }
     KhmerChess.prototype.loadKpng = function (option) {
         this.kpgn.fromJson(option);
@@ -102,10 +80,8 @@ var KhmerChess = /** @class */ (function () {
         configurable: true
     });
     KhmerChess.prototype.move = function (moveFromIndex, moveToIndex) {
-        var _this = this;
         var move = this.kpgn.ren.move(moveFromIndex, moveToIndex);
         this.kpgn.moves.push(move);
-        setTimeout(function () { return _this.checkBoardEvent(); }, 1);
         return move;
     };
     /**
@@ -117,30 +93,6 @@ var KhmerChess = /** @class */ (function () {
     };
     KhmerChess.prototype.getHistories = function () {
         return this.kpgn.moves;
-    };
-    KhmerChess.prototype.checkBoardEvent = function () {
-        var pieceIndex = this.kpgn.latestMove.attacker;
-        if (pieceIndex) {
-            var boardEvent = new BoardEventController_1.BoardEvent({
-                flag: constant_1.EVENT_FLAG_ATTACK,
-                actorPieceIndex: pieceIndex,
-            });
-            this.boardEventController.fireEvent(boardEvent);
-            var winColor = this.kpgn.latestMove.winColor;
-            if (winColor) {
-                var boardEvent_1 = new BoardEventController_1.BoardEvent({
-                    flag: constant_1.EVENT_FLAG_WINN,
-                    actorPieceIndex: pieceIndex,
-                });
-                this.boardEventController.fireEvent(boardEvent_1);
-            }
-        }
-    };
-    KhmerChess.prototype.addBoardEventListener = function (listener) {
-        this.boardEventController.addBoardEventListener(listener);
-    };
-    KhmerChess.prototype.removeBoardEventListener = function (listener) {
-        this.boardEventController.removeBoardEventListener(listener);
     };
     KhmerChess.title = package_json_1.default.name;
     KhmerChess.version = package_json_1.default.version;

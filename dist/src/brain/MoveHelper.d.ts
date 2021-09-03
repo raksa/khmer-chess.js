@@ -10,6 +10,7 @@ export declare type OptionsType = {
     genCanMoveForAnother: boolean;
 };
 export declare type CalCountPropsType = {
+    color: string;
     piecesString: string;
     force: boolean;
 };
@@ -49,9 +50,6 @@ export default class MoveHelper implements OptionsType {
         blackCountable: boolean;
         whiteCountable: boolean;
     };
-    calCount(option: CalCountPropsType): {
-        countingBlack: number[];
-        countingWhite: number[];
-    };
+    calCount({ color, piecesString, force }: CalCountPropsType): number[];
     genCanMovePointsByPiecePoint(point: Point, piece: Piece, piecesString: string, isHasMoved?: boolean): Point[];
 }

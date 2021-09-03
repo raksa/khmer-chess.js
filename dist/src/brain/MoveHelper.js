@@ -128,11 +128,9 @@ var MoveHelper = /** @class */ (function () {
             whiteCountable: boardHelper_1.default.checkCountable(constant_1.PIECE_COLOR_WHITE, this.piecesString),
         };
     };
-    MoveHelper.prototype.calCount = function (option) {
-        return {
-            countingBlack: boardHelper_1.default.checkCount(constant_1.PIECE_COLOR_BLACK, option.piecesString, option.force),
-            countingWhite: boardHelper_1.default.checkCount(constant_1.PIECE_COLOR_WHITE, option.piecesString, option.force),
-        };
+    MoveHelper.prototype.calCount = function (_a) {
+        var color = _a.color, piecesString = _a.piecesString, force = _a.force;
+        return boardHelper_1.default.checkCount(color, piecesString, force);
     };
     MoveHelper.prototype.genCanMovePointsByPiecePoint = function (point, piece, piecesString, isHasMoved) {
         return boardHelper_1.default.genCanMovePointsByPiecePoint(point.index, piece, piecesString, isHasMoved);

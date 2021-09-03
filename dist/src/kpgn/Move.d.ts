@@ -1,4 +1,4 @@
-import { PieceIndex, REN } from '../ren';
+import { KqJumped, PieceIndex, REN } from '../ren';
 import Piece from '../ren/Piece';
 import Point from '../ren/Point';
 import Captured from './Captured';
@@ -12,14 +12,15 @@ export declare type Option = {
 export default class Move {
     renStr: string;
     boardStatus: {
-        attacker?: PieceIndex;
-        winColor?: string;
-        stuckColor?: string;
-        drawCountColor?: string;
+        attacker: PieceIndex | null;
+        winColor: string | null;
+        stuckColor: string | null;
+        startCountingColor: string | null;
+        countingDownColor: string | null;
+        drawCountColor: string | null;
     };
-    jumpingCodes: {
-        [key: string]: boolean;
-    };
+    startCountingFrom: number;
+    kqJumping: KqJumped;
     piece: Piece;
     moveFrom: Point;
     moveTo: Point;
@@ -37,14 +38,8 @@ export default class Move {
     get drawCountColor(): string;
     get isDraw(): string;
     get isGameOver(): string;
-    static fromMovedString(str: string, ren: REN): Move;
+    static fromString(str: string, ren: REN): Move;
     toString(): string;
-    toJson(): {
-        fromIndex: number;
-        toIndex: number;
-        jumpingCodes: string;
-        capturedPiece: string;
-    };
     getJumpingMessage(isEnglish?: boolean): string;
     getMessage(isEnglish?: boolean): string;
 }

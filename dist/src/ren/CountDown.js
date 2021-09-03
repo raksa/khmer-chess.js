@@ -1,26 +1,56 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var jsis_1 = __importDefault(require("../brain/jsis"));
 var constant_1 = require("./constant");
 // 23.-
 var CountDown = /** @class */ (function () {
-    function CountDown(countdownStr) {
-        if (countdownStr === void 0) { countdownStr = ''; }
-        this.white = null;
-        this.black = null;
-        var newCountdownStr = countdownStr.split('.');
-        this.white = jsis_1.default.isStringNumber(newCountdownStr[0]) ? Number(newCountdownStr[0]) : null;
-        this.black = jsis_1.default.isStringNumber(newCountdownStr[1]) ? Number(newCountdownStr[1]) : null;
-        if (!jsis_1.default.isNull(this.white) && !jsis_1.default.isNull(this.white)) {
-            throw new Error("Invalid countdown string " + countdownStr);
-        }
+    function CountDown() {
+        this.countingDownFromNumber = null;
+        this.whiteCountingDownNumber = null;
+        this.blackCountingDownNumber = null;
     }
+    Object.defineProperty(CountDown.prototype, "isCountDownWhite", {
+        get: function () {
+            return this.whiteCountingDownNumber !== null;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(CountDown.prototype, "isCountDownBlack", {
+        get: function () {
+            return this.blackCountingDownNumber !== null;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(CountDown.prototype, "isCountingDown", {
+        get: function () {
+            return this.countingDownFromNumber !== null;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    CountDown.fromString = function (countdownStr) {
+        if (!countdownStr) {
+            countdownStr = constant_1.NOT_SET + "." + constant_1.NOT_SET + "@" + constant_1.NOT_SET;
+        }
+        var countDown = new CountDown();
+        var countingDown = countdownStr.split('@');
+        if (countingDown[1] !== constant_1.NOT_SET) {
+            countDown.countingDownFromNumber = Number(countingDown[1]);
+        }
+        var countingDownWB = countingDown[0].split('.');
+        if (countingDownWB[0] !== constant_1.NOT_SET) {
+            countDown.whiteCountingDownNumber = Number(countingDownWB[0]);
+        }
+        if (countingDownWB[1] !== constant_1.NOT_SET) {
+            countDown.blackCountingDownNumber = Number(countingDownWB[1]);
+        }
+        return countDown;
+    };
     CountDown.prototype.toString = function () {
-        var str = "" + (jsis_1.default.isNull(this.white) ? constant_1.NOT_SET : this.white);
-        str += "." + (jsis_1.default.isNull(this.black) ? constant_1.NOT_SET : this.black);
+        var str = "" + (this.isCountDownWhite ? this.whiteCountingDownNumber : constant_1.NOT_SET);
+        str += "." + (this.isCountDownBlack ? this.blackCountingDownNumber : constant_1.NOT_SET);
+        str += "@" + (this.isCountingDown ? this.countingDownFromNumber : constant_1.NOT_SET);
         return str;
     };
     return CountDown;

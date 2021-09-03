@@ -1,22 +1,45 @@
-import jsis from '../brain/jsis';
 import { NOT_SET } from './constant';
 
 // 23.-
 export default class CountDown {
-    white: number | null = null;
-    black: number | null = null;
-    constructor(countdownStr = '') {
-        const newCountdownStr = countdownStr.split('.');
-        this.white = jsis.isStringNumber(newCountdownStr[0]) ? Number(newCountdownStr[0]) : null;
-        this.black = jsis.isStringNumber(newCountdownStr[1]) ? Number(newCountdownStr[1]) : null;
-        if (!jsis.isNull(this.white) && !jsis.isNull(this.white)) {
-            throw new Error(`Invalid countdown string ${countdownStr}`);
+    countingDownFromNumber: number | null = null;
+    whiteCountingDownNumber: number | null = null;
+    blackCountingDownNumber: number | null = null;
+
+    get isCountDownWhite() {
+        return this.whiteCountingDownNumber !== null;
+    }
+    get isCountDownBlack() {
+        return this.blackCountingDownNumber !== null;
+    }
+
+    get isCountingDown() {
+        return this.countingDownFromNumber !== null;
+    }
+
+    static fromString(countdownStr: string) {
+        if (!countdownStr) {
+            countdownStr = `${NOT_SET}.${NOT_SET}@${NOT_SET}`;
         }
+        const countDown = new CountDown();
+        const countingDown = countdownStr.split('@');
+        if (countingDown[1] !== NOT_SET) {
+            countDown.countingDownFromNumber = Number(countingDown[1]);
+        }
+        const countingDownWB = countingDown[0].split('.');
+        if (countingDownWB[0] !== NOT_SET) {
+            countDown.whiteCountingDownNumber = Number(countingDownWB[0]);
+        }
+        if (countingDownWB[1] !== NOT_SET) {
+            countDown.blackCountingDownNumber = Number(countingDownWB[1]);
+        }
+        return countDown;
     }
 
     toString() {
-        let str = `${jsis.isNull(this.white) ? NOT_SET : this.white}`;
-        str += `.${jsis.isNull(this.black) ? NOT_SET : this.black}`;
+        let str = `${this.isCountDownWhite ? this.whiteCountingDownNumber : NOT_SET}`;
+        str += `.${this.isCountDownBlack ? this.blackCountingDownNumber : NOT_SET}`;
+        str += `@${this.isCountingDown ? this.countingDownFromNumber : NOT_SET}`;
         return str;
     }
 }

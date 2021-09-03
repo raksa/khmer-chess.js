@@ -1,14 +1,11 @@
 import KPGN from './kpgn/KPGN';
 import Move from './kpgn/Move';
-import BoardEventController, { BoardEvent } from './other/BoardEventController';
-import { ListenerType } from './other/EventHandler';
 import { PieceIndex } from './ren';
 import Point from './ren/Point';
 export default class KhmerChess {
     static title: string;
     static version: string;
     kpgn: KPGN;
-    boardEventController: BoardEventController;
     constructor(renStr?: string);
     loadKpng(option: object): void;
     resetBoard(): void;
@@ -35,7 +32,4 @@ export default class KhmerChess {
      */
     clearBoard(): void;
     getHistories(): Move[];
-    checkBoardEvent(): void;
-    addBoardEventListener(listener: ListenerType<BoardEvent>): void;
-    removeBoardEventListener(listener: ListenerType<BoardEvent>): void;
 }

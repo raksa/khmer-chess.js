@@ -1,9 +1,10 @@
 
-import { boardHelper, PIECE_TYPE_KING, PIECE_TYPE_QUEEN } from '../brain';
-import { PieceIndex, REN } from '../ren';
+import { boardHelper } from '../brain';
+import { KqJumped, PieceIndex, REN } from '../ren';
 import {
     PIECE_FLAG_JUMP,
     PIECE_FLAG_KILL,
+    PIECE_FLAG_START_COUNTING,
     PIECE_FLAG_UPGRADE,
 } from '../ren/constant';
 import Piece from '../ren/Piece';
@@ -20,12 +21,22 @@ export type Option = {
 export default class Move {
     renStr: string;
     boardStatus: {
-        attacker?: PieceIndex,
-        winColor?: string,
-        stuckColor?: string,
-        drawCountColor?: string,
-    } = {};
-    jumpingCodes: { [key: string]: boolean } = {};
+        attacker: PieceIndex | null,
+        winColor: string | null,
+        stuckColor: string | null,
+        startCountingColor: string | null,
+        countingDownColor: string | null,
+        drawCountColor: string | null,
+    } = {
+            attacker: null,
+            winColor: null,
+            stuckColor: null,
+            startCountingColor: null,
+            countingDownColor: null,
+            drawCountColor: null,
+        };
+    startCountingFrom = 0;
+    kqJumping: KqJumped
     piece: Piece;
     moveFrom: Point;
     moveTo: Point;
@@ -43,29 +54,26 @@ export default class Move {
             this.isUpgrading = true;
             piece.upgrade();
         }
+        this.kqJumping = new KqJumped();
     }
 
     setRen(ren: REN) {
-        // TODO: preload stuck, draw
-        this.boardStatus.attacker = ren.getAttacker();
-        if (this.boardStatus.attacker) {
-            this.boardStatus.winColor = ren.getWinColor();
-        }
+        ren.checkBoardStatus(this);
         ren.kqJumped.checkKQMoved(this);
         this.renStr = ren.toString();
     }
 
     get isWhiteKingJumping() {
-        return !!this.jumpingCodes[Piece.toWhiteCharCode(PIECE_TYPE_KING)];
+        return !!this.kqJumping.whiteKing;
     }
     get isWhiteQueenJumping() {
-        return !!this.jumpingCodes[Piece.toWhiteCharCode(PIECE_TYPE_QUEEN)];
+        return !!this.kqJumping.whiteQueen;
     }
     get isBlackKingJumping() {
-        return !!this.jumpingCodes[PIECE_TYPE_KING];
+        return !!this.kqJumping.blackKing;
     }
     get isBlackQueenJumping() {
-        return !!this.jumpingCodes[PIECE_TYPE_QUEEN];
+        return !!this.kqJumping.blackQueen;
     }
 
     get attacker() {
@@ -92,7 +100,7 @@ export default class Move {
         return this.winColor || this.isDraw;
     }
 
-    static fromMovedString(str: string, ren: REN) {
+    static fromString(str: string, ren: REN) {
         const piece = Piece.fromCharCode(str[0]);
         const moveFrom = Point.fromIndexCode(str.substr(1, 2));
         const moveTo = Point.fromIndexCode(str.substr(3, 2));
@@ -117,10 +125,12 @@ export default class Move {
         }
         const jumpingIndex = str.indexOf(PIECE_FLAG_JUMP);
         if (!!~jumpingIndex) {
-            const jumpingCodes = str.substr(jumpingIndex + 1).match(/^\[(\w+)\]/)[1];
-            jumpingCodes.split('').forEach((c) => {
-                move.jumpingCodes[c] = true;
-            });
+            const n = Number(str.substr(jumpingIndex + 1).match(/^(\d+)/)[1]);
+            move.kqJumping = KqJumped.fromNumber(n);
+        }
+        const startCountingIndex = str.indexOf(PIECE_FLAG_START_COUNTING);
+        if (!!~startCountingIndex) {
+            move.startCountingFrom = Number(str.substr(startCountingIndex + 1).match(/^(\d+)/)[1]);
         }
         move.setRen(ren);
         return move;
@@ -134,23 +144,16 @@ export default class Move {
             flags += PIECE_FLAG_KILL + this.captured.toGraveyardPoint.index;
 
         }
-        const jumpingCodes = Object.keys(this.jumpingCodes).join('');
-        if (jumpingCodes.length) {
-            flags += PIECE_FLAG_JUMP + `[${jumpingCodes}]`;
+        if (this.kqJumping.isJumped) {
+            flags += PIECE_FLAG_JUMP + this.kqJumping.toNumber();
         }
         if (this.isUpgrading) {
             flags += PIECE_FLAG_UPGRADE;
         }
+        if (this.startCountingFrom) {
+            flags += PIECE_FLAG_START_COUNTING + this.startCountingFrom;
+        }
         return `${pCode}${fIndexCode}${tIndexCode}${flags}`;
-    }
-
-    toJson() {
-        return {
-            fromIndex: this.moveFrom.index,
-            toIndex: this.moveTo.index,
-            jumpingCodes: Object.keys(this.jumpingCodes).join(''),
-            capturedPiece: this.captured ? this.captured.piece.pieceCharCode : null,
-        };
     }
 
     getJumpingMessage(isEnglish?: boolean) {

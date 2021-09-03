@@ -13,11 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MoveHelper = exports.HVPont = exports.jsis = exports.genMask = exports.boardHelper = exports.boardEventController = exports.Rectangle = void 0;
+exports.MoveHelper = exports.HVPont = exports.jsis = exports.genMask = exports.boardHelper = exports.Rectangle = void 0;
 var Rectangle_1 = require("./Rectangle");
 Object.defineProperty(exports, "Rectangle", { enumerable: true, get: function () { return __importDefault(Rectangle_1).default; } });
-var boardEventController_1 = require("./boardEventController");
-Object.defineProperty(exports, "boardEventController", { enumerable: true, get: function () { return __importDefault(boardEventController_1).default; } });
 var boardHelper_1 = require("./boardHelper");
 Object.defineProperty(exports, "boardHelper", { enumerable: true, get: function () { return __importDefault(boardHelper_1).default; } });
 var genMask_1 = require("./genMask");

@@ -11,8 +11,18 @@ export default class KqJumped {
     whiteQueen = false;
     blackKing = false;
     blackQueen = false;
-    keyCodes: { [key: string]: string } = {};
-    codeKeys: { [key: string]: string } = {};
+    keyCodes: { [key: string]: string } = {
+        blackKing: Piece.toWhiteCharCode(PIECE_TYPE_QUEEN),
+        whiteKing: Piece.toWhiteCharCode(PIECE_TYPE_KING),
+        whiteQueen: PIECE_TYPE_KING,
+        blackQueen: PIECE_TYPE_QUEEN,
+    };
+    codeKeys: { [key: string]: string } = {
+        [Piece.toWhiteCharCode(PIECE_TYPE_QUEEN)]: 'blackKing: ',
+        [Piece.toWhiteCharCode(PIECE_TYPE_KING)]: 'whiteKing: ',
+        [PIECE_TYPE_KING]: 'whiteQueen: ',
+        [PIECE_TYPE_QUEEN]: 'blackQueen: ',
+    };
     constructor(kqJumpedStr?: string) {
         if (kqJumpedStr) {
             this.whiteKing = !!~kqJumpedStr.indexOf(Piece.toWhiteCharCode(PIECE_TYPE_KING));
@@ -20,26 +30,20 @@ export default class KqJumped {
             this.blackKing = !!~kqJumpedStr.indexOf(PIECE_TYPE_KING);
             this.blackQueen = !!~kqJumpedStr.indexOf(PIECE_TYPE_QUEEN);
         }
-        this.keyCodes['blackKing'] = Piece.toWhiteCharCode(PIECE_TYPE_QUEEN);
-        this.keyCodes['whiteKing'] = Piece.toWhiteCharCode(PIECE_TYPE_KING);
-        this.keyCodes['whiteQueen'] = PIECE_TYPE_KING;
-        this.keyCodes['blackQueen'] = PIECE_TYPE_QUEEN;
-        for (const k in this.keyCodes) {
-            this.codeKeys[this.keyCodes[k]] = k;
-        }
     }
 
+    get isJumped() {
+        return this.whiteKing || this.whiteQueen || this.blackKing || this.blackQueen;
+    }
+
+    setProp(key: string, value: boolean) {
+        (this as any)[key] = value;
+    }
     applyJumping(propKey: string, move: Move) {
         if (!(this as any)[propKey]) {
-            const charCode = this.keyCodes[propKey];
-            move.jumpingCodes[charCode] = true;
-            (this as any)[propKey] = true;
+            move.kqJumping.setProp(propKey, true);
+            this.setProp(propKey, true);
         }
-    }
-
-    unJumped(code: string) {
-        const key = this.codeKeys[code];
-        (this as any)[key] = false;
     }
 
     checkKQMoved(move: Move) {
@@ -71,6 +75,23 @@ export default class KqJumped {
         str += `${this.blackKing ? PIECE_TYPE_KING : NOT_SET}`;
         str += `${this.blackQueen ? PIECE_TYPE_QUEEN : NOT_SET}`;
         return str;
+    }
+
+    toNumber() {
+        let str = `${this.whiteKing ? 1 : 0}`;
+        str += `${this.whiteQueen ? 1 : 0}`;
+        str += `${this.blackKing ? 1 : 0}`;
+        str += `${this.blackQueen ? 1 : 0}`;
+        return parseInt(str, 2);
+    }
+    public static fromNumber(n: number) {
+        const b = ('0000' + Number(n).toString(2)).substr(-4);
+        const kqJumped = new KqJumped();
+        kqJumped.whiteKing = b[0] === '1';
+        kqJumped.whiteQueen = b[1] === '1';
+        kqJumped.blackKing = b[2] === '1';
+        kqJumped.blackQueen = b[3] === '1';
+        return kqJumped;
     }
 }
 /*

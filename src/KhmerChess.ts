@@ -1,11 +1,8 @@
 import config from '../package.json';
 import KPGN from './kpgn/KPGN';
 import Move from './kpgn/Move';
-import BoardEventController, { BoardEvent } from './other/BoardEventController';
-import { ListenerType } from './other/EventHandler';
 import asciiTable from './other/table';
 import { PieceIndex } from './ren';
-import { EVENT_FLAG_ATTACK, EVENT_FLAG_WINN as EVENT_FLAG_WIN } from './ren/constant';
 import Point from './ren/Point';
 import REN from './ren/REN';
 
@@ -13,11 +10,9 @@ export default class KhmerChess {
     static title = config.name;
     static version = config.version;
     kpgn: KPGN;
-    boardEventController: BoardEventController;
     constructor(renStr?: string) {
         const ren = REN.fromString(renStr);
         this.kpgn = new KPGN(ren);
-        this.boardEventController = new BoardEventController();
     }
 
     loadKpng(option: object) {
@@ -86,7 +81,6 @@ export default class KhmerChess {
     move(moveFromIndex: number, moveToIndex: number): Move | null {
         const move = this.kpgn.ren.move(moveFromIndex, moveToIndex);
         this.kpgn.moves.push(move);
-        setTimeout(() => this.checkBoardEvent(), 1);
         return move;
     }
 
@@ -100,31 +94,6 @@ export default class KhmerChess {
 
     getHistories() {
         return this.kpgn.moves;
-    }
-
-    checkBoardEvent() {
-        const pieceIndex = this.kpgn.latestMove.attacker;
-        if (pieceIndex) {
-            const boardEvent = new BoardEvent({
-                flag: EVENT_FLAG_ATTACK,
-                actorPieceIndex: pieceIndex,
-            });
-            this.boardEventController.fireEvent(boardEvent);
-            const winColor = this.kpgn.latestMove.winColor;
-            if (winColor) {
-                const boardEvent = new BoardEvent({
-                    flag: EVENT_FLAG_WIN,
-                    actorPieceIndex: pieceIndex,
-                });
-                this.boardEventController.fireEvent(boardEvent);
-            }
-        }
-    }
-    addBoardEventListener(listener: ListenerType<BoardEvent>) {
-        this.boardEventController.addBoardEventListener(listener);
-    }
-    removeBoardEventListener(listener: ListenerType<BoardEvent>) {
-        this.boardEventController.removeBoardEventListener(listener);
     }
 }
 /*

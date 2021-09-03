@@ -13,6 +13,7 @@ export type OptionsType = {
     genCanMoveForAnother: boolean;
 };
 export type CalCountPropsType = {
+    color: string,
     piecesString: string;
     force: boolean;
 };
@@ -181,17 +182,8 @@ export default class MoveHelper implements OptionsType {
         };
     }
 
-    calCount(option: CalCountPropsType) {
-        return {
-            countingBlack: boardHelper.checkCount(
-                PIECE_COLOR_BLACK,
-                option.piecesString, option.force
-            ),
-            countingWhite: boardHelper.checkCount(
-                PIECE_COLOR_WHITE,
-                option.piecesString, option.force
-            ),
-        };
+    calCount({ color, piecesString, force }: CalCountPropsType) {
+        return boardHelper.checkCount(color, piecesString, force);
     }
 
     genCanMovePointsByPiecePoint(point: Point, piece: Piece,
