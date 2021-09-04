@@ -16,11 +16,9 @@ var Move = /** @class */ (function () {
             attacker: null,
             winColor: null,
             stuckColor: null,
-            startCountingColor: null,
-            countingDownColor: null,
             drawCountColor: null,
         };
-        this.startCountingFrom = 0;
+        this.isStartCounting = false;
         this.piece = piece;
         this.moveFrom = moveFrom;
         this.moveTo = moveTo;
@@ -37,6 +35,13 @@ var Move = /** @class */ (function () {
         ren.kqJumped.checkKQMoved(this);
         this.renStr = ren.toString();
     };
+    Object.defineProperty(Move.prototype, "isCanMoveNext", {
+        get: function () {
+            return !(this.boardStatus.drawCountColor || this.boardStatus.winColor || this.boardStatus.stuckColor);
+        },
+        enumerable: false,
+        configurable: true
+    });
     Object.defineProperty(Move.prototype, "isWhiteKingJumping", {
         get: function () {
             return !!this.kqJumping.whiteKing;
@@ -136,7 +141,7 @@ var Move = /** @class */ (function () {
         }
         var startCountingIndex = str.indexOf(constant_1.PIECE_FLAG_START_COUNTING);
         if (!!~startCountingIndex) {
-            move.startCountingFrom = Number(str.substr(startCountingIndex + 1).match(/^(\d+)/)[1]);
+            move.isStartCounting = true;
         }
         move.setRen(ren);
         return move;
@@ -155,8 +160,8 @@ var Move = /** @class */ (function () {
         if (this.isUpgrading) {
             flags += constant_1.PIECE_FLAG_UPGRADE;
         }
-        if (this.startCountingFrom) {
-            flags += constant_1.PIECE_FLAG_START_COUNTING + this.startCountingFrom;
+        if (this.isStartCounting) {
+            flags += constant_1.PIECE_FLAG_START_COUNTING;
         }
         return "" + pCode + fIndexCode + tIndexCode + flags;
     };

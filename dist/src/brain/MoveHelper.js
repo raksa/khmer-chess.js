@@ -124,8 +124,6 @@ var MoveHelper = /** @class */ (function () {
             whiteKingWillInDanger: this.whiteKingWillInDanger,
             winColor: this.winColor,
             stuckColor: this.stuckColor,
-            blackCountable: boardHelper_1.default.checkCountable(constant_1.PIECE_COLOR_BLACK, this.piecesString),
-            whiteCountable: boardHelper_1.default.checkCountable(constant_1.PIECE_COLOR_WHITE, this.piecesString),
         };
     };
     MoveHelper.prototype.calCount = function (_a) {

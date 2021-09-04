@@ -1,6 +1,11 @@
 import Point from '../ren/Point';
 import Piece from '../ren/Piece';
 import { PieceIndex } from '../ren';
+export declare class CountUpState {
+    countingFromNumber: number;
+    countingNumber: number;
+    constructor(countingNumber: number, countingFromNumber: number);
+}
 declare class BoardHelper {
     getCharPieceFromString(piecesString: string, index: number): string;
     getCharPieceInPos(index: number, piecesString: string): string;
@@ -28,7 +33,7 @@ declare class BoardHelper {
     };
     isStateCount(c: string, piecesString: string): boolean;
     checkCountable(color: string, piecesString: string): boolean;
-    checkCount(color: string, piecesString: string, force: boolean): number[];
+    checkCount(color: string, piecesString: string, force: boolean): CountUpState | null;
     isUpgradable(piece: Piece, point: Point): boolean;
 }
 declare const _default: BoardHelper;

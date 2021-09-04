@@ -19,6 +19,15 @@ import { PieceIndex } from '../ren';
 
 const mask = genMask();
 
+export class CountUpState {
+    countingFromNumber: number;
+    countingNumber: number;
+    constructor(countingNumber: number, countingFromNumber: number) {
+        this.countingNumber = countingNumber;
+        this.countingFromNumber = countingFromNumber;
+    }
+}
+
 class BoardHelper {
     getCharPieceFromString(piecesString: string, index: number) {
         if (Point.isIndexInBoard(index) && piecesString.length === CELL_COUNT) {
@@ -235,7 +244,7 @@ class BoardHelper {
         const stronger = pieceAll[Piece.oppositeColor(color)];
         return weaker.length <= 2 && stronger.length >= 2;
     }
-    checkCount(color: string, piecesString: string, force: boolean) {
+    checkCount(color: string, piecesString: string, force: boolean): CountUpState | null {
         const countChar = (str: string[], c: string) => {
             return str.join('').split(c).length - 1;
         };
@@ -259,11 +268,11 @@ class BoardHelper {
                 } else if (countChar(stronger, PIECE_TYPE_GENERAL)) {
                     count = 44;
                 }
-                return [stronger.length + 1, count];
+                return new CountUpState(stronger.length + 1, count);
             }
-            return [0, 64];
+            return new CountUpState(0, 64);
         } else if (force && this.checkCountable(color, piecesString)) {
-            return [0, 64];
+            return new CountUpState(0, 64);
         }
         return null;
     }

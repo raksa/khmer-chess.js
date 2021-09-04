@@ -47,9 +47,7 @@ export default class MoveHelper implements OptionsType {
         whiteKingWillInDanger: Point[];
         winColor: string;
         stuckColor: string;
-        blackCountable: boolean;
-        whiteCountable: boolean;
     };
-    calCount({ color, piecesString, force }: CalCountPropsType): number[];
+    calCount({ color, piecesString, force }: CalCountPropsType): import("./boardHelper").CountUpState;
     genCanMovePointsByPiecePoint(point: Point, piece: Piece, piecesString: string, isHasMoved?: boolean): Point[];
 }

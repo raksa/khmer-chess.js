@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.CountUpState = void 0;
 var jsis_1 = __importDefault(require("./jsis"));
 var genMask_1 = __importDefault(require("./genMask"));
 var constant_1 = require("./constant");
@@ -11,6 +12,14 @@ var Piece_1 = __importDefault(require("../ren/Piece"));
 var Rectangle_1 = __importDefault(require("./Rectangle"));
 var ren_1 = require("../ren");
 var mask = (0, genMask_1.default)();
+var CountUpState = /** @class */ (function () {
+    function CountUpState(countingNumber, countingFromNumber) {
+        this.countingNumber = countingNumber;
+        this.countingFromNumber = countingFromNumber;
+    }
+    return CountUpState;
+}());
+exports.CountUpState = CountUpState;
 var BoardHelper = /** @class */ (function () {
     function BoardHelper() {
         this.convertMask = function (point1, index, color) {
@@ -258,12 +267,12 @@ var BoardHelper = /** @class */ (function () {
                 else if (countChar(stronger, constant_1.PIECE_TYPE_GENERAL)) {
                     count = 44;
                 }
-                return [stronger.length + 1, count];
+                return new CountUpState(stronger.length + 1, count);
             }
-            return [0, 64];
+            return new CountUpState(0, 64);
         }
         else if (force && this.checkCountable(color, piecesString)) {
-            return [0, 64];
+            return new CountUpState(0, 64);
         }
         return null;
     };

@@ -9,5 +9,5 @@ export declare const EVENT_FLAG_ATTACK = "attack";
 export declare const EVENT_FLAG_WIN = "win";
 export declare const EVENT_FLAG_DRAW = "draw";
 export declare const EVENT_FLAG_START_COUNTING = "start-counting";
-export declare const EVENT_FLAG_COUNTING_DOWN = "counting-down";
-export declare const EVENT_FLAG_COUNT_DOWN_OUT = "count-down-out";
+export declare const EVENT_FLAG_COUNTING_UP = "counting-up";
+export declare const EVENT_FLAG_COUNT_UP_OUT = "count-up-out";

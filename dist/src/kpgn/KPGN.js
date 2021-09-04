@@ -28,6 +28,13 @@ var KPGN = /** @class */ (function () {
         this.ren = ren;
         this.moves = [];
     }
+    Object.defineProperty(KPGN.prototype, "isCanMoveNext", {
+        get: function () {
+            return this.latestMove.isCanMoveNext && this.ren.isCanMoveNext;
+        },
+        enumerable: false,
+        configurable: true
+    });
     Object.defineProperty(KPGN.prototype, "latestMove", {
         get: function () {
             return this.moves[this.moves.length - 1] || null;
@@ -37,6 +44,9 @@ var KPGN = /** @class */ (function () {
     });
     KPGN.prototype.loadRENStr = function (renStr) {
         this.ren = REN_1.default.fromString(renStr);
+        if (this.latestMove) {
+            this.ren.syncWithMove(this.latestMove);
+        }
     };
     KPGN.prototype.loadMovesStrings = function (moves) {
         var currentRen = this.ren;
@@ -45,6 +55,9 @@ var KPGN = /** @class */ (function () {
             currentRen = currentRen.backRen(move);
             return move;
         }).reverse();
+        if (this.latestMove) {
+            this.ren.syncWithMove(this.latestMove);
+        }
     };
     KPGN.prototype.validateOption = function (option) {
         // TODO: throw when invalid option's properties

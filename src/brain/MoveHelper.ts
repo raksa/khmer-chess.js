@@ -171,14 +171,6 @@ export default class MoveHelper implements OptionsType {
             whiteKingWillInDanger: this.whiteKingWillInDanger,
             winColor: this.winColor,
             stuckColor: this.stuckColor,
-            blackCountable: boardHelper.checkCountable(
-                PIECE_COLOR_BLACK,
-                this.piecesString
-            ),
-            whiteCountable: boardHelper.checkCountable(
-                PIECE_COLOR_WHITE,
-                this.piecesString
-            ),
         };
     }
 

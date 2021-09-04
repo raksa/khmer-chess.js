@@ -1,7 +1,7 @@
 import Board from './Board';
 import KqJumped from './KqJumped';
 import KAttacked from './KAttacked';
-import CountDown from './CountDown';
+import CountUp from './CountUp';
 import Graveyard from './Graveyard';
 import {
     DEFAULT_BOARD_STR,
@@ -13,19 +13,19 @@ import Point from './Point';
 import Piece from './Piece';
 import { PieceIndex } from '.';
 import MoveHelper from '../brain/MoveHelper';
-import { PIECE_COLOR_BLACK, PIECE_COLOR_WHITE } from '../brain/constant';
+import { PIECE_COLOR_WHITE } from '../brain/constant';
 import jsis from '../brain/jsis';
 
 /**
  * Raksa-Eng Notation
- * ren: <pieces on board> <turn w|b> <king&queen moved ----|SNsn> <king attack --|Kk> <countdown -.-|-.4> <pieces in graveyard>
+ * ren: <pieces on board> <turn w|b> <king&queen moved ----|SNsn> <king attack --|Kk> <countUp -.-|-.4> <pieces in graveyard>
  */
 export type RENPropType = {
     boardStr: string;
     turnStr: string;
     kqJumpedStr: string;
     kAttackedStr: string;
-    countdownStr: string;
+    countUpStr: string;
     graveyardStr: string;
 }
 export default class REN {
@@ -33,7 +33,7 @@ export default class REN {
     turn: string;
     kqJumped: KqJumped;
     kAttacked: KAttacked;
-    countdown: CountDown;
+    countUp: CountUp;
     graveyard: Graveyard;
     moveHelper: MoveHelper;
     constructor(renProps: RENPropType) {
@@ -46,14 +46,14 @@ export default class REN {
         turnStr,
         kqJumpedStr,
         kAttackedStr,
-        countdownStr,
+        countUpStr: countUpStr,
         graveyardStr }: RENPropType) {
         // TODO: improve by moving to fromString()
         this.board = new Board(boardStr);
         this.turn = turnStr || PIECE_COLOR_WHITE;
         this.kqJumped = new KqJumped(kqJumpedStr);
         this.kAttacked = new KAttacked(kAttackedStr);
-        this.countdown = CountDown.fromString(countdownStr);
+        this.countUp = CountUp.fromString(countUpStr);
         this.graveyard = new Graveyard(graveyardStr);
         const invalidPiecesString = this.isInvalidPieceCount();
         if (invalidPiecesString) {
@@ -92,7 +92,14 @@ export default class REN {
         return ren;
     }
 
+    get isCanMoveNext() {
+        return !this.countUp.isCountingOut;
+    }
+
     move(moveFromIndex: number, moveToIndex: number): Move | null {
+        if (!this.isCanMoveNext) {
+            return null;
+        }
         const piece = this.board.getPieceAtIndex(moveFromIndex);
         if (!piece) {
             return null;
@@ -145,12 +152,8 @@ export default class REN {
         if (move.kqJumping.blackQueen) {
             this.kqJumped.blackQueen = false;
         }
-        if (move.startCountingFrom) {
-            if (move.startCountingFrom === this.countdown.blackCountingDownNumber) {
-                this.countdown.blackCountingDownNumber = null;
-            } else if (move.startCountingFrom === this.countdown.whiteCountingDownNumber) {
-                this.countdown.whiteCountingDownNumber = null;
-            }
+        if (this.countUp) {
+            this.countUp.clear();
         }
         this.turn = piece.color;
         return true;
@@ -166,7 +169,7 @@ export default class REN {
             turnStr: renArr[1],
             kqJumpedStr: renArr[2],
             kAttackedStr: renArr[3],
-            countdownStr: renArr[4],
+            countUpStr: renArr[4],
             graveyardStr: renArr[5],
         });
     }
@@ -176,7 +179,7 @@ export default class REN {
         str += ` ${this.turn.toString()}`;
         str += ` ${this.kqJumped.toString()}`;
         str += ` ${this.kAttacked.toString()}`;
-        str += ` ${this.countdown.toString()}`;
+        str += ` ${this.countUp.toString()}`;
         str += ` ${this.graveyard.toString()}`;
         return str;
     }
@@ -221,26 +224,17 @@ export default class REN {
             this.board.toStringFullNoSeparate(), this.isHasMoved(piece));
     }
 
-    checkBoardStatus(move: Move) {
+    checkBoardStatus(move: Move, force?: boolean) {
+        const piecesString = this.board.toStringFullNoSeparate();
         // TODO: optimize by specific color
         const state = this.moveHelper.calcState({
-            piecesString: this.board.toStringFullNoSeparate(),
+            piecesString,
             currentTurn: this.turn,
             isQueenMoved: this.isQueenMoved,
             isKingMoved: this.isKingMoved,
             genCanMove: false,
             genCanMoveForAnother: false,
         });
-        const force = false; // // force: true => weaker color has 2 pieces but force to cal count
-        if (!this.countdown.isCountingDown && (state.blackCountable || state.whiteCountable)) {
-            const countState = this.moveHelper.calCount({
-                color: state.whiteCountable ? PIECE_COLOR_WHITE : PIECE_COLOR_BLACK,
-                piecesString: this.board.toStringFullNoSeparate(),
-                force,
-            });
-            // TODO: start counting
-            console.log(countState);
-        }
 
         const kingInDanger = state.blackKingInDanger || state.whiteKingInDanger;
         if (kingInDanger) {
@@ -253,7 +247,28 @@ export default class REN {
         }
         move.boardStatus.winColor = state.winColor;
         move.boardStatus.stuckColor = state.stuckColor;
-        // TODO: drawCountColor
+
+        if (move.isCanMoveNext) {
+            if (this.countUp.isCounting) {
+                move.isStartCounting = false;
+                this.countUp.checkUp(move.piece.color);
+                if (this.countUp.isCountingOut) {
+                    move.boardStatus.drawCountColor = this.countUp.color;
+                }
+            } else {
+                const color = Piece.oppositeColor(move.piece.color);
+                const countState = this.moveHelper.calCount({
+                    color: Piece.oppositeColor(move.piece.color),
+                    piecesString,
+                    force,
+                });
+                if (countState) {
+                    this.countUp.set(color, countState.countingFromNumber, countState.countingNumber);
+                    move.isStartCounting = true;
+                }
+            }
+        }
+
     }
     getWinColor(): string | null {
         const state = this.moveHelper.calcState({
@@ -265,6 +280,14 @@ export default class REN {
             genCanMoveForAnother: false,
         });
         return state.winColor;
+    }
+    syncWithMove(move: Move) {
+        if (move) {
+            const countUp = this.countUp;
+            if (countUp.isCounting && this.turn !== countUp.color && !move.isStartCounting) {
+                countUp.isCountingUp = true;
+            }
+        }
     }
 }
 /*

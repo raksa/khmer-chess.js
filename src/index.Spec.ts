@@ -51,7 +51,7 @@ import {
 // ren
 import {
     Board,
-    CountDown,
+    CountUp,
     Graveyard,
     KAttacked,
     KqJumped,

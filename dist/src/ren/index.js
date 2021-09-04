@@ -13,11 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Point = exports.REN = exports.PieceIndex = exports.Piece = exports.KqJumped = exports.KAttacked = exports.Graveyard = exports.CountDown = exports.Board = void 0;
+exports.Point = exports.REN = exports.PieceIndex = exports.Piece = exports.KqJumped = exports.KAttacked = exports.Graveyard = exports.CountUp = exports.Board = void 0;
 var Board_1 = require("./Board");
 Object.defineProperty(exports, "Board", { enumerable: true, get: function () { return __importDefault(Board_1).default; } });
-var CountDown_1 = require("./CountDown");
-Object.defineProperty(exports, "CountDown", { enumerable: true, get: function () { return __importDefault(CountDown_1).default; } });
+var CountUp_1 = require("./CountUp");
+Object.defineProperty(exports, "CountUp", { enumerable: true, get: function () { return __importDefault(CountUp_1).default; } });
 var Graveyard_1 = require("./Graveyard");
 Object.defineProperty(exports, "Graveyard", { enumerable: true, get: function () { return __importDefault(Graveyard_1).default; } });
 var KAttacked_1 = require("./KAttacked");

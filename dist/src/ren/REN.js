@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Board_1 = __importDefault(require("./Board"));
 var KqJumped_1 = __importDefault(require("./KqJumped"));
 var KAttacked_1 = __importDefault(require("./KAttacked"));
-var CountDown_1 = __importDefault(require("./CountDown"));
+var CountUp_1 = __importDefault(require("./CountUp"));
 var Graveyard_1 = __importDefault(require("./Graveyard"));
 var constant_1 = require("./constant");
 var kpgn_1 = require("../kpgn");
@@ -23,13 +23,13 @@ var REN = /** @class */ (function () {
         this.init(renProps);
     }
     REN.prototype.init = function (_a) {
-        var boardStr = _a.boardStr, turnStr = _a.turnStr, kqJumpedStr = _a.kqJumpedStr, kAttackedStr = _a.kAttackedStr, countdownStr = _a.countdownStr, graveyardStr = _a.graveyardStr;
+        var boardStr = _a.boardStr, turnStr = _a.turnStr, kqJumpedStr = _a.kqJumpedStr, kAttackedStr = _a.kAttackedStr, countUpStr = _a.countUpStr, graveyardStr = _a.graveyardStr;
         // TODO: improve by moving to fromString()
         this.board = new Board_1.default(boardStr);
         this.turn = turnStr || constant_2.PIECE_COLOR_WHITE;
         this.kqJumped = new KqJumped_1.default(kqJumpedStr);
         this.kAttacked = new KAttacked_1.default(kAttackedStr);
-        this.countdown = CountDown_1.default.fromString(countdownStr);
+        this.countUp = CountUp_1.default.fromString(countUpStr);
         this.graveyard = new Graveyard_1.default(graveyardStr);
         var invalidPiecesString = this.isInvalidPieceCount();
         if (invalidPiecesString) {
@@ -65,7 +65,17 @@ var REN = /** @class */ (function () {
         ren.moveBack(move);
         return ren;
     };
+    Object.defineProperty(REN.prototype, "isCanMoveNext", {
+        get: function () {
+            return !this.countUp.isCountingOut;
+        },
+        enumerable: false,
+        configurable: true
+    });
     REN.prototype.move = function (moveFromIndex, moveToIndex) {
+        if (!this.isCanMoveNext) {
+            return null;
+        }
         var piece = this.board.getPieceAtIndex(moveFromIndex);
         if (!piece) {
             return null;
@@ -117,13 +127,8 @@ var REN = /** @class */ (function () {
         if (move.kqJumping.blackQueen) {
             this.kqJumped.blackQueen = false;
         }
-        if (move.startCountingFrom) {
-            if (move.startCountingFrom === this.countdown.blackCountingDownNumber) {
-                this.countdown.blackCountingDownNumber = null;
-            }
-            else if (move.startCountingFrom === this.countdown.whiteCountingDownNumber) {
-                this.countdown.whiteCountingDownNumber = null;
-            }
+        if (this.countUp) {
+            this.countUp.clear();
         }
         this.turn = piece.color;
         return true;
@@ -138,7 +143,7 @@ var REN = /** @class */ (function () {
             turnStr: renArr[1],
             kqJumpedStr: renArr[2],
             kAttackedStr: renArr[3],
-            countdownStr: renArr[4],
+            countUpStr: renArr[4],
             graveyardStr: renArr[5],
         });
     };
@@ -147,7 +152,7 @@ var REN = /** @class */ (function () {
         str += " " + this.turn.toString();
         str += " " + this.kqJumped.toString();
         str += " " + this.kAttacked.toString();
-        str += " " + this.countdown.toString();
+        str += " " + this.countUp.toString();
         str += " " + this.graveyard.toString();
         return str;
     };
@@ -197,27 +202,18 @@ var REN = /** @class */ (function () {
         }
         return this.moveHelper.genCanMovePointsByPiecePoint(point, piece, this.board.toStringFullNoSeparate(), this.isHasMoved(piece));
     };
-    REN.prototype.checkBoardStatus = function (move) {
+    REN.prototype.checkBoardStatus = function (move, force) {
         var _this = this;
+        var piecesString = this.board.toStringFullNoSeparate();
         // TODO: optimize by specific color
         var state = this.moveHelper.calcState({
-            piecesString: this.board.toStringFullNoSeparate(),
+            piecesString: piecesString,
             currentTurn: this.turn,
             isQueenMoved: this.isQueenMoved,
             isKingMoved: this.isKingMoved,
             genCanMove: false,
             genCanMoveForAnother: false,
         });
-        var force = false; // // force: true => weaker color has 2 pieces but force to cal count
-        if (!this.countdown.isCountingDown && (state.blackCountable || state.whiteCountable)) {
-            var countState = this.moveHelper.calCount({
-                color: state.whiteCountable ? constant_2.PIECE_COLOR_WHITE : constant_2.PIECE_COLOR_BLACK,
-                piecesString: this.board.toStringFullNoSeparate(),
-                force: force,
-            });
-            // TODO: start counting
-            console.log(countState);
-        }
         var kingInDanger = state.blackKingInDanger || state.whiteKingInDanger;
         if (kingInDanger) {
             var pieceIndex = kingInDanger.map(function (point) {
@@ -229,7 +225,27 @@ var REN = /** @class */ (function () {
         }
         move.boardStatus.winColor = state.winColor;
         move.boardStatus.stuckColor = state.stuckColor;
-        // TODO: drawCountColor
+        if (move.isCanMoveNext) {
+            if (this.countUp.isCounting) {
+                move.isStartCounting = false;
+                this.countUp.checkUp(move.piece.color);
+                if (this.countUp.isCountingOut) {
+                    move.boardStatus.drawCountColor = this.countUp.color;
+                }
+            }
+            else {
+                var color = Piece_1.default.oppositeColor(move.piece.color);
+                var countState = this.moveHelper.calCount({
+                    color: Piece_1.default.oppositeColor(move.piece.color),
+                    piecesString: piecesString,
+                    force: force,
+                });
+                if (countState) {
+                    this.countUp.set(color, countState.countingFromNumber, countState.countingNumber);
+                    move.isStartCounting = true;
+                }
+            }
+        }
     };
     REN.prototype.getWinColor = function () {
         var state = this.moveHelper.calcState({
@@ -241,6 +257,14 @@ var REN = /** @class */ (function () {
             genCanMoveForAnother: false,
         });
         return state.winColor;
+    };
+    REN.prototype.syncWithMove = function (move) {
+        if (move) {
+            var countUp = this.countUp;
+            if (countUp.isCounting && this.turn !== countUp.color && !move.isStartCounting) {
+                countUp.isCountingUp = true;
+            }
+        }
     };
     return REN;
 }());

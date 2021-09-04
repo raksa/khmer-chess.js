@@ -24,18 +24,14 @@ export default class Move {
         attacker: PieceIndex | null,
         winColor: string | null,
         stuckColor: string | null,
-        startCountingColor: string | null,
-        countingDownColor: string | null,
         drawCountColor: string | null,
     } = {
             attacker: null,
             winColor: null,
             stuckColor: null,
-            startCountingColor: null,
-            countingDownColor: null,
             drawCountColor: null,
         };
-    startCountingFrom = 0;
+    isStartCounting = false;
     kqJumping: KqJumped
     piece: Piece;
     moveFrom: Point;
@@ -61,6 +57,10 @@ export default class Move {
         ren.checkBoardStatus(this);
         ren.kqJumped.checkKQMoved(this);
         this.renStr = ren.toString();
+    }
+
+    get isCanMoveNext() {
+        return !(this.boardStatus.drawCountColor || this.boardStatus.winColor || this.boardStatus.stuckColor);
     }
 
     get isWhiteKingJumping() {
@@ -130,7 +130,7 @@ export default class Move {
         }
         const startCountingIndex = str.indexOf(PIECE_FLAG_START_COUNTING);
         if (!!~startCountingIndex) {
-            move.startCountingFrom = Number(str.substr(startCountingIndex + 1).match(/^(\d+)/)[1]);
+            move.isStartCounting = true;
         }
         move.setRen(ren);
         return move;
@@ -150,8 +150,8 @@ export default class Move {
         if (this.isUpgrading) {
             flags += PIECE_FLAG_UPGRADE;
         }
-        if (this.startCountingFrom) {
-            flags += PIECE_FLAG_START_COUNTING + this.startCountingFrom;
+        if (this.isStartCounting) {
+            flags += PIECE_FLAG_START_COUNTING;
         }
         return `${pCode}${fIndexCode}${tIndexCode}${flags}`;
     }

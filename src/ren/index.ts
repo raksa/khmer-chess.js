@@ -1,5 +1,5 @@
 export { default as Board } from './Board';
-export { default as CountDown } from './CountDown';
+export { default as CountUp } from './CountUp';
 export { default as Graveyard } from './Graveyard';
 export { default as KAttacked } from './KAttacked';
 export { default as KqJumped } from './KqJumped';

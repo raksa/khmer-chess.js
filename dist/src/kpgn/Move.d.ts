@@ -15,11 +15,9 @@ export default class Move {
         attacker: PieceIndex | null;
         winColor: string | null;
         stuckColor: string | null;
-        startCountingColor: string | null;
-        countingDownColor: string | null;
         drawCountColor: string | null;
     };
-    startCountingFrom: number;
+    isStartCounting: boolean;
     kqJumping: KqJumped;
     piece: Piece;
     moveFrom: Point;
@@ -28,6 +26,7 @@ export default class Move {
     captured: Captured | null;
     constructor({ piece, moveFrom, moveTo, isUpgrading, captured, }: Option);
     setRen(ren: REN): void;
+    get isCanMoveNext(): boolean;
     get isWhiteKingJumping(): boolean;
     get isWhiteQueenJumping(): boolean;
     get isBlackKingJumping(): boolean;

@@ -52,12 +52,19 @@ export default class KPGN {
         this.moves = [];
     }
 
+    get isCanMoveNext() {
+        return this.latestMove.isCanMoveNext && this.ren.isCanMoveNext;
+    }
+
     get latestMove() {
         return this.moves[this.moves.length - 1] || null;
     }
 
     loadRENStr(renStr?: string) {
         this.ren = REN.fromString(renStr);
+        if (this.latestMove) {
+            this.ren.syncWithMove(this.latestMove);
+        }
     }
 
     loadMovesStrings(moves: string[]) {
@@ -67,6 +74,9 @@ export default class KPGN {
             currentRen = currentRen.backRen(move);
             return move;
         }).reverse();
+        if (this.latestMove) {
+            this.ren.syncWithMove(this.latestMove);
+        }
     }
 
     validateOption(option: Option) {

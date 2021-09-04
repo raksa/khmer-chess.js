@@ -1,21 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EVENT_FLAG_COUNT_DOWN_OUT = exports.EVENT_FLAG_COUNTING_DOWN = exports.EVENT_FLAG_START_COUNTING = exports.EVENT_FLAG_DRAW = exports.EVENT_FLAG_WIN = exports.EVENT_FLAG_ATTACK = exports.PIECE_FLAG_START_COUNTING = exports.PIECE_FLAG_UPGRADE = exports.PIECE_FLAG_JUMP = exports.PIECE_FLAG_KILL = exports.NOT_SET = exports.DEFAULT_BOARD_STR = exports.STRING_COUNT = void 0;
+exports.EVENT_FLAG_COUNT_UP_OUT = exports.EVENT_FLAG_COUNTING_UP = exports.EVENT_FLAG_START_COUNTING = exports.EVENT_FLAG_DRAW = exports.EVENT_FLAG_WIN = exports.EVENT_FLAG_ATTACK = exports.PIECE_FLAG_START_COUNTING = exports.PIECE_FLAG_UPGRADE = exports.PIECE_FLAG_JUMP = exports.PIECE_FLAG_KILL = exports.NOT_SET = exports.DEFAULT_BOARD_STR = exports.STRING_COUNT = void 0;
 // BHGQKGHB/8/FFFFFFFF/8/8/ffffffff/8/bhgkqghb w ---- -- -.-
 exports.STRING_COUNT = 'B2F8G2H2K1Q1b2f8g2h2k1q1';
 // BHGQKGHB/8/FFFFFFFF/8/8/ffffffff/8/bhgkqghb w ---- -- -.-
 exports.DEFAULT_BOARD_STR = 'BHGKQGHB/8/FFFFFFFF/8/8/ffffffff/8/bhgqkghb';
 exports.NOT_SET = '-';
-exports.PIECE_FLAG_KILL = 'x';
-exports.PIECE_FLAG_JUMP = 'j';
-exports.PIECE_FLAG_UPGRADE = 'u';
-exports.PIECE_FLAG_START_COUNTING = 'z';
+exports.PIECE_FLAG_KILL = 'x'; // TODO: <
+exports.PIECE_FLAG_JUMP = 'j'; // TODO: ^
+exports.PIECE_FLAG_UPGRADE = 'u'; // TODO: *
+exports.PIECE_FLAG_START_COUNTING = 'z'; // TODO: #
 exports.EVENT_FLAG_ATTACK = 'attack';
 exports.EVENT_FLAG_WIN = 'win';
 exports.EVENT_FLAG_DRAW = 'draw';
 exports.EVENT_FLAG_START_COUNTING = 'start-counting';
-exports.EVENT_FLAG_COUNTING_DOWN = 'counting-down';
-exports.EVENT_FLAG_COUNT_DOWN_OUT = 'count-down-out';
+exports.EVENT_FLAG_COUNTING_UP = 'counting-up';
+exports.EVENT_FLAG_COUNT_UP_OUT = 'count-up-out';
 /*
  * Copyright (c) 2021, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
