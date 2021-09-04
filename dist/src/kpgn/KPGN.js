@@ -43,6 +43,13 @@ var KPGN = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    KPGN.prototype.addMove = function (move) {
+        if (move) {
+            this.moves.push(move);
+            return true;
+        }
+        return false;
+    };
     KPGN.prototype.getMove = function (index) {
         return this.moves[index] || null;
     };
@@ -89,6 +96,10 @@ var KPGN = /** @class */ (function () {
         this.timer = new Timer_1.default(timer || {});
     };
     KPGN.prototype.toJson = function () {
+        var renStr = this.ren.toString();
+        if (this.latestMove) {
+            renStr = this.latestMove.renStr;
+        }
         return {
             event: this.event,
             date: this.date ? this.date.toString() : '',
@@ -106,7 +117,7 @@ var KPGN = /** @class */ (function () {
             },
             timer: this.timer.toJson(),
             moves: this.moves.map(function (m) { return m.toString(); }),
-            ren: this.ren.toString(),
+            ren: renStr,
         };
     };
     KPGN.prototype.fromBase64 = function (str) {

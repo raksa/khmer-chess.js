@@ -46,6 +46,7 @@ export default class KPGN {
     constructor(ren: REN);
     get isCanMoveNext(): boolean;
     get latestMove(): Move;
+    addMove(move: Move): boolean;
     getMove(index: number): Move;
     loadRENStr(renStr?: string): void;
     loadMovesStrings(moves: string[]): void;

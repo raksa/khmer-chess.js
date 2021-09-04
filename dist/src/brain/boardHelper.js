@@ -267,7 +267,12 @@ var BoardHelper = /** @class */ (function () {
                 else if (countChar(stronger, constant_1.PIECE_TYPE_GENERAL)) {
                     count = 44;
                 }
-                return new CountUpState(stronger.length + 1, count);
+                // FIXME: when touk 2 and stronger.length > 8 => start > count
+                var start = stronger.length;
+                if (start > 4) {
+                    start = 4;
+                }
+                return new CountUpState(start, count);
             }
             return new CountUpState(0, 64);
         }

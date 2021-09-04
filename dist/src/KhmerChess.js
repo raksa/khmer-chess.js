@@ -81,7 +81,7 @@ var KhmerChess = /** @class */ (function () {
     });
     KhmerChess.prototype.move = function (moveFromIndex, moveToIndex) {
         var move = this.kpgn.ren.move(moveFromIndex, moveToIndex);
-        this.kpgn.moves.push(move);
+        this.kpgn.addMove(move);
         return move;
     };
     /**
