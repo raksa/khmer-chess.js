@@ -5,7 +5,7 @@ var constant_1 = require("./constant");
 // 23.-
 var CountUp = /** @class */ (function () {
     function CountUp() {
-        this.countingFromNumber = null;
+        this.countingToNumber = null;
         this.countingNumber = null;
         this.isCountingUp = false;
         this.color = null;
@@ -40,26 +40,26 @@ var CountUp = /** @class */ (function () {
     });
     Object.defineProperty(CountUp.prototype, "isCounting", {
         get: function () {
-            return this.countingFromNumber !== null;
+            return this.countingToNumber !== null;
         },
         enumerable: false,
         configurable: true
     });
     Object.defineProperty(CountUp.prototype, "isCountingOut", {
         get: function () {
-            return this.isCounting && this.countingNumber >= this.countingFromNumber;
+            return this.isCounting && this.countingNumber >= this.countingToNumber;
         },
         enumerable: false,
         configurable: true
     });
-    CountUp.prototype.set = function (color, countingFromNumber, countingNumber) {
+    CountUp.prototype.set = function (color, countingToNumber, countingNumber) {
         this.color = color;
-        this.countingFromNumber = countingFromNumber;
+        this.countingToNumber = countingToNumber;
         this.countingNumber = countingNumber;
     };
     CountUp.prototype.clear = function () {
         this.color = null;
-        this.countingFromNumber = null;
+        this.countingToNumber = null;
         this.countingNumber = null;
     };
     CountUp.prototype.checkUp = function (color) {
@@ -78,7 +78,7 @@ var CountUp = /** @class */ (function () {
         var countUp = new CountUp();
         var countingUp = countUpStr.split('@');
         if (countingUp[1] !== constant_1.NOT_SET) {
-            countUp.countingFromNumber = Number(countingUp[1]);
+            countUp.countingToNumber = Number(countingUp[1]);
         }
         var countingUpWB = countingUp[0].split('.');
         if (countingUpWB[0] !== constant_1.NOT_SET) {
@@ -96,7 +96,7 @@ var CountUp = /** @class */ (function () {
         var blackCountingDow = this.isCounting && !this.isWhite ? this.countingNumber : constant_1.NOT_SET;
         var str = "" + whiteCountingDow;
         str += "." + blackCountingDow;
-        str += "@" + (this.isCounting ? this.countingFromNumber : constant_1.NOT_SET);
+        str += "@" + (this.isCounting ? this.countingToNumber : constant_1.NOT_SET);
         return str;
     };
     return CountUp;

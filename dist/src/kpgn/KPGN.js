@@ -8,6 +8,7 @@ var Move_1 = __importDefault(require("./Move"));
 var Player_1 = __importDefault(require("./Player"));
 var Result_1 = __importDefault(require("./Result"));
 var Timer_1 = __importDefault(require("./Timer"));
+var base64Helper_1 = __importDefault(require("../other/base64Helper"));
 var KPGN = /** @class */ (function () {
     function KPGN(ren) {
         this.event = '';
@@ -42,6 +43,9 @@ var KPGN = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    KPGN.prototype.getMove = function (index) {
+        return this.moves[index] || null;
+    };
     KPGN.prototype.loadRENStr = function (renStr) {
         this.ren = REN_1.default.fromString(renStr);
         if (this.latestMove) {
@@ -106,11 +110,12 @@ var KPGN = /** @class */ (function () {
         };
     };
     KPGN.prototype.fromBase64 = function (str) {
-        // TODO:
+        var json = JSON.parse(base64Helper_1.default.decode(str));
+        this.fromJson(json);
     };
     KPGN.prototype.toBase64 = function () {
-        // TODO:
-        return '';
+        var jsStr = JSON.stringify(this.toJson());
+        return base64Helper_1.default.encode(jsStr);
     };
     return KPGN;
 }());

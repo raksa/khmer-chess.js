@@ -6,6 +6,7 @@ import Timer from './Timer';
 import type { Option as TimeOption } from './Timer';
 import type { Option as ResultOption } from './Result';
 import type { Option as PlayerOption } from './Player';
+import base64Helper from '../other/base64Helper';
 
 export type Option = {
     event?: string;
@@ -58,6 +59,10 @@ export default class KPGN {
 
     get latestMove() {
         return this.moves[this.moves.length - 1] || null;
+    }
+
+    getMove(index: number) {
+        return this.moves[index] || null;
     }
 
     loadRENStr(renStr?: string) {
@@ -131,11 +136,12 @@ export default class KPGN {
     }
 
     fromBase64(str: string) {
-        // TODO:
+        const json = JSON.parse(base64Helper.decode(str));
+        this.fromJson(json);
     }
     toBase64() {
-        // TODO:
-        return '';
+        const jsStr = JSON.stringify(this.toJson());
+        return base64Helper.encode(jsStr);
     }
 }
 /*

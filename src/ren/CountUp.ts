@@ -3,7 +3,7 @@ import { NOT_SET } from './constant';
 
 // 23.-
 export default class CountUp {
-    countingFromNumber: number | null = null;
+    countingToNumber: number | null = null;
     countingNumber: number | null = null;
     isCountingUp = false;
     color: string | null = null;
@@ -21,21 +21,21 @@ export default class CountUp {
         return this.isCounting && !this.isWhite;
     }
     get isCounting() {
-        return this.countingFromNumber !== null;
+        return this.countingToNumber !== null;
     }
     get isCountingOut() {
-        return this.isCounting && this.countingNumber >= this.countingFromNumber;
+        return this.isCounting && this.countingNumber >= this.countingToNumber;
     }
 
-    set(color: string, countingFromNumber: number, countingNumber: number) {
+    set(color: string, countingToNumber: number, countingNumber: number) {
         this.color = color;
-        this.countingFromNumber = countingFromNumber;
+        this.countingToNumber = countingToNumber;
         this.countingNumber = countingNumber;
     }
 
     clear() {
         this.color = null;
-        this.countingFromNumber = null;
+        this.countingToNumber = null;
         this.countingNumber = null;
     }
 
@@ -55,7 +55,7 @@ export default class CountUp {
         const countUp = new CountUp();
         const countingUp = countUpStr.split('@');
         if (countingUp[1] !== NOT_SET) {
-            countUp.countingFromNumber = Number(countingUp[1]);
+            countUp.countingToNumber = Number(countingUp[1]);
         }
         const countingUpWB = countingUp[0].split('.');
         if (countingUpWB[0] !== NOT_SET) {
@@ -74,7 +74,7 @@ export default class CountUp {
         const blackCountingDow = this.isCounting && !this.isWhite ? this.countingNumber : NOT_SET;
         let str = `${whiteCountingDow}`;
         str += `.${blackCountingDow}`;
-        str += `@${this.isCounting ? this.countingFromNumber : NOT_SET}`;
+        str += `@${this.isCounting ? this.countingToNumber : NOT_SET}`;
         return str;
     }
 }

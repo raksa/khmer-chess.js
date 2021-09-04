@@ -56,6 +56,9 @@ export default class Move {
     setRen(ren: REN) {
         ren.checkBoardStatus(this);
         ren.kqJumped.checkKQMoved(this);
+        ren.checkCountStatus(this);
+    }
+    syncRen(ren: REN) {
         this.renStr = ren.toString();
     }
 

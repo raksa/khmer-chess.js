@@ -1,5 +1,5 @@
 export default class CountUp {
-    countingFromNumber: number | null;
+    countingToNumber: number | null;
     countingNumber: number | null;
     isCountingUp: boolean;
     color: string | null;
@@ -9,7 +9,7 @@ export default class CountUp {
     get isBlackCounting(): boolean;
     get isCounting(): boolean;
     get isCountingOut(): boolean;
-    set(color: string, countingFromNumber: number, countingNumber: number): void;
+    set(color: string, countingToNumber: number, countingNumber: number): void;
     clear(): void;
     checkUp(color: string): void;
     static fromString(countUpStr: string): CountUp;

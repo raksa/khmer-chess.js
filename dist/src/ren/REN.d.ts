@@ -43,6 +43,7 @@ export default class REN {
     isHasMoved(piece: Piece): boolean;
     getCanMovePointsByPoint(point: Point): Point[];
     checkBoardStatus(move: Move, force?: boolean): void;
+    checkCountStatus(move: Move, force?: boolean): void;
     getWinColor(): string | null;
     syncWithMove(move: Move): void;
 }

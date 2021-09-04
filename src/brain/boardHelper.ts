@@ -20,11 +20,11 @@ import { PieceIndex } from '../ren';
 const mask = genMask();
 
 export class CountUpState {
-    countingFromNumber: number;
+    countingToNumber: number;
     countingNumber: number;
-    constructor(countingNumber: number, countingFromNumber: number) {
+    constructor(countingNumber: number, countingToNumber: number) {
         this.countingNumber = countingNumber;
-        this.countingFromNumber = countingFromNumber;
+        this.countingToNumber = countingToNumber;
     }
 }
 

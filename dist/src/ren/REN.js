@@ -86,6 +86,9 @@ var REN = /** @class */ (function () {
             moveTo: Point_1.default.fromIndex(moveToIndex),
             piece: piece.clone(),
         });
+        if (move.isUpgrading) {
+            piece.upgrade();
+        }
         var targetPiece = this.board.getPieceAtIndex(moveToIndex);
         if (targetPiece) {
             this.graveyard.pieces.push(targetPiece);
@@ -225,7 +228,10 @@ var REN = /** @class */ (function () {
         }
         move.boardStatus.winColor = state.winColor;
         move.boardStatus.stuckColor = state.stuckColor;
+    };
+    REN.prototype.checkCountStatus = function (move, force) {
         if (move.isCanMoveNext) {
+            var piecesString = this.board.toStringFullNoSeparate();
             if (this.countUp.isCounting) {
                 move.isStartCounting = false;
                 this.countUp.checkUp(move.piece.color);
@@ -241,11 +247,12 @@ var REN = /** @class */ (function () {
                     force: force,
                 });
                 if (countState) {
-                    this.countUp.set(color, countState.countingFromNumber, countState.countingNumber);
+                    this.countUp.set(color, countState.countingToNumber, countState.countingNumber);
                     move.isStartCounting = true;
                 }
             }
         }
+        move.syncRen(this);
     };
     REN.prototype.getWinColor = function () {
         var state = this.moveHelper.calcState({

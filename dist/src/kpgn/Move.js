@@ -33,6 +33,9 @@ var Move = /** @class */ (function () {
     Move.prototype.setRen = function (ren) {
         ren.checkBoardStatus(this);
         ren.kqJumped.checkKQMoved(this);
+        ren.checkCountStatus(this);
+    };
+    Move.prototype.syncRen = function (ren) {
         this.renStr = ren.toString();
     };
     Object.defineProperty(Move.prototype, "isCanMoveNext", {

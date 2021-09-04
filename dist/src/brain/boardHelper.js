@@ -13,9 +13,9 @@ var Rectangle_1 = __importDefault(require("./Rectangle"));
 var ren_1 = require("../ren");
 var mask = (0, genMask_1.default)();
 var CountUpState = /** @class */ (function () {
-    function CountUpState(countingNumber, countingFromNumber) {
+    function CountUpState(countingNumber, countingToNumber) {
         this.countingNumber = countingNumber;
-        this.countingFromNumber = countingFromNumber;
+        this.countingToNumber = countingToNumber;
     }
     return CountUpState;
 }());

@@ -2,9 +2,9 @@ import Point from '../ren/Point';
 import Piece from '../ren/Piece';
 import { PieceIndex } from '../ren';
 export declare class CountUpState {
-    countingFromNumber: number;
+    countingToNumber: number;
     countingNumber: number;
-    constructor(countingNumber: number, countingFromNumber: number);
+    constructor(countingNumber: number, countingToNumber: number);
 }
 declare class BoardHelper {
     getCharPieceFromString(piecesString: string, index: number): string;

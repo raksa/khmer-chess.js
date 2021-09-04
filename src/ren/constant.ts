@@ -3,10 +3,10 @@ export const STRING_COUNT = 'B2F8G2H2K1Q1b2f8g2h2k1q1';
 // BHGQKGHB/8/FFFFFFFF/8/8/ffffffff/8/bhgkqghb w ---- -- -.-
 export const DEFAULT_BOARD_STR = 'BHGKQGHB/8/FFFFFFFF/8/8/ffffffff/8/bhgqkghb';
 export const NOT_SET = '-';
-export const PIECE_FLAG_KILL = 'x'; // TODO: <
-export const PIECE_FLAG_JUMP = 'j'; // TODO: ^
-export const PIECE_FLAG_UPGRADE = 'u'; // TODO: *
-export const PIECE_FLAG_START_COUNTING = 'z'; // TODO: #
+export const PIECE_FLAG_KILL = '<';
+export const PIECE_FLAG_JUMP = '^';
+export const PIECE_FLAG_UPGRADE = '*';
+export const PIECE_FLAG_START_COUNTING = '#';
 export const EVENT_FLAG_ATTACK = 'attack';
 export const EVENT_FLAG_WIN = 'win';
 export const EVENT_FLAG_DRAW = 'draw';

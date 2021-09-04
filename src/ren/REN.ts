@@ -110,6 +110,9 @@ export default class REN {
             moveTo: Point.fromIndex(moveToIndex),
             piece: piece.clone(),
         });
+        if (move.isUpgrading) {
+            piece.upgrade();
+        }
         const targetPiece = this.board.getPieceAtIndex(moveToIndex);
         if (targetPiece) {
             this.graveyard.pieces.push(targetPiece);
@@ -247,8 +250,11 @@ export default class REN {
         }
         move.boardStatus.winColor = state.winColor;
         move.boardStatus.stuckColor = state.stuckColor;
+    }
 
+    checkCountStatus(move: Move, force?: boolean) {
         if (move.isCanMoveNext) {
+            const piecesString = this.board.toStringFullNoSeparate();
             if (this.countUp.isCounting) {
                 move.isStartCounting = false;
                 this.countUp.checkUp(move.piece.color);
@@ -263,13 +269,14 @@ export default class REN {
                     force,
                 });
                 if (countState) {
-                    this.countUp.set(color, countState.countingFromNumber, countState.countingNumber);
+                    this.countUp.set(color, countState.countingToNumber, countState.countingNumber);
                     move.isStartCounting = true;
                 }
             }
         }
-
+        move.syncRen(this);
     }
+
     getWinColor(): string | null {
         const state = this.moveHelper.calcState({
             piecesString: this.board.toStringFullNoSeparate(),

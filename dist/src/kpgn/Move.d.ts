@@ -26,6 +26,7 @@ export default class Move {
     captured: Captured | null;
     constructor({ piece, moveFrom, moveTo, isUpgrading, captured, }: Option);
     setRen(ren: REN): void;
+    syncRen(ren: REN): void;
     get isCanMoveNext(): boolean;
     get isWhiteKingJumping(): boolean;
     get isWhiteQueenJumping(): boolean;

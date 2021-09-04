@@ -6,10 +6,10 @@ exports.STRING_COUNT = 'B2F8G2H2K1Q1b2f8g2h2k1q1';
 // BHGQKGHB/8/FFFFFFFF/8/8/ffffffff/8/bhgkqghb w ---- -- -.-
 exports.DEFAULT_BOARD_STR = 'BHGKQGHB/8/FFFFFFFF/8/8/ffffffff/8/bhgqkghb';
 exports.NOT_SET = '-';
-exports.PIECE_FLAG_KILL = 'x'; // TODO: <
-exports.PIECE_FLAG_JUMP = 'j'; // TODO: ^
-exports.PIECE_FLAG_UPGRADE = 'u'; // TODO: *
-exports.PIECE_FLAG_START_COUNTING = 'z'; // TODO: #
+exports.PIECE_FLAG_KILL = '<';
+exports.PIECE_FLAG_JUMP = '^';
+exports.PIECE_FLAG_UPGRADE = '*';
+exports.PIECE_FLAG_START_COUNTING = '#';
 exports.EVENT_FLAG_ATTACK = 'attack';
 exports.EVENT_FLAG_WIN = 'win';
 exports.EVENT_FLAG_DRAW = 'draw';
