@@ -80,7 +80,7 @@ export default class KhmerChess {
 
     move(moveFromIndex: number, moveToIndex: number): Move | null {
         const move = this.kpgn.ren.move(moveFromIndex, moveToIndex);
-        this.kpgn.moves.push(move);
+        this.kpgn.addMove(move);
         return move;
     }
 

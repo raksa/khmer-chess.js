@@ -61,6 +61,13 @@ export default class KPGN {
         return this.moves[this.moves.length - 1] || null;
     }
 
+    addMove(move: Move) {
+        if (move) {
+            this.moves.push(move);
+            return true;
+        }
+        return false;
+    }
     getMove(index: number) {
         return this.moves[index] || null;
     }
@@ -114,6 +121,10 @@ export default class KPGN {
     }
 
     toJson(): Option {
+        let renStr = this.ren.toString();
+        if (this.latestMove) {
+            renStr = this.latestMove.renStr;
+        }
         return {
             event: this.event,
             date: this.date ? this.date.toString() : '',
@@ -131,7 +142,7 @@ export default class KPGN {
             },
             timer: this.timer.toJson(),
             moves: this.moves.map((m) => m.toString()),
-            ren: this.ren.toString(),
+            ren: renStr,
         };
     }
 

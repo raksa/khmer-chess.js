@@ -268,7 +268,12 @@ class BoardHelper {
                 } else if (countChar(stronger, PIECE_TYPE_GENERAL)) {
                     count = 44;
                 }
-                return new CountUpState(stronger.length + 1, count);
+                // FIXME: when touk 2 and stronger.length > 8 => start > count
+                let start = stronger.length;
+                if (start > 4) {
+                    start = 4;
+                }
+                return new CountUpState(start, count);
             }
             return new CountUpState(0, 64);
         } else if (force && this.checkCountable(color, piecesString)) {
