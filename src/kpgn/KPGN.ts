@@ -61,7 +61,7 @@ export default class KPGN {
         return this.moves[this.moves.length - 1] || null;
     }
 
-    addMove(move: Move) {
+    addMove(move: Move | null) {
         if (move) {
             this.moves.push(move);
             return true;
@@ -81,8 +81,11 @@ export default class KPGN {
 
     loadMovesStrings(moves: string[]) {
         let currentRen = this.ren;
-        this.moves = moves.reverse().map((moveStr) => {
+        this.moves = moves.reverse().map((moveStr): Move | never => {
             const move = Move.fromString(moveStr, currentRen);
+            if (move === null) {
+                throw new Error('Invalid move string');
+            }
             currentRen = currentRen.backRen(move);
             return move;
         }).reverse();
@@ -91,36 +94,37 @@ export default class KPGN {
         }
     }
 
-    validateOption(option: Option) {
-        // TODO: throw when invalid option's properties
-    }
-
     fromJson(option: Option) {
-        this.validateOption(option);
-        const { ren, moves, timer, result,
-            players, location, date, event } = option;
+        try {
+            const { ren, moves, timer, result,
+                players, location, date, event } = option;
 
-        this.event = event || this.event;
-        this.date = date ? new Date(date) : this.date;
-        this.location = location || this.location;
-        if (players) {
-            this.players = {
-                white: new Player(players.white),
-                black: new Player(players.black),
-            };
+            this.event = event || this.event;
+            this.date = date ? new Date(date) : this.date;
+            this.location = location || this.location;
+            if (players) {
+                this.players = {
+                    white: new Player(players.white),
+                    black: new Player(players.black),
+                };
+            }
+            if (result) {
+                this.result = {
+                    last: result.last,
+                    white: new Result(result.white),
+                };
+            }
+            this.ren = REN.fromString(ren || '');
+            this.loadMovesStrings(moves || []);
+            this.timer = new Timer(timer || {});
+            return true;
+        } catch (error) {
+            console.log(error);
+            return false;
         }
-        if (result) {
-            this.result = {
-                last: result.last,
-                white: new Result(result.white),
-            };
-        }
-        this.ren = REN.fromString(ren || '');
-        this.loadMovesStrings(moves || []);
-        this.timer = new Timer(timer || {});
     }
 
-    toJson(): Option {
+    toJson() {
         let renStr = this.ren.toString();
         if (this.latestMove) {
             renStr = this.latestMove.renStr;
@@ -148,7 +152,7 @@ export default class KPGN {
 
     fromBase64(str: string) {
         const json = JSON.parse(base64Helper.decode(str));
-        this.fromJson(json);
+        return this.fromJson(json);
     }
     toBase64() {
         const jsStr = JSON.stringify(this.toJson());

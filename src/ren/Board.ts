@@ -34,7 +34,9 @@ export default class Board {
     get piecesMultiArray() {
         const arr: Piece[][] = [[], [], [], [], [], [], [], []];
         this.pieceIndices.forEach((pieceIndex) => {
-            arr[pieceIndex.point.y][pieceIndex.point.x] = pieceIndex.piece;
+            if (pieceIndex.piece !== null) {
+                arr[pieceIndex.point.y][pieceIndex.point.x] = pieceIndex.piece;
+            }
         });
         return arr;
     }

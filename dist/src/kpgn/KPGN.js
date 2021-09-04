@@ -63,6 +63,9 @@ var KPGN = /** @class */ (function () {
         var currentRen = this.ren;
         this.moves = moves.reverse().map(function (moveStr) {
             var move = Move_1.default.fromString(moveStr, currentRen);
+            if (move === null) {
+                throw new Error('Invalid move string');
+            }
             currentRen = currentRen.backRen(move);
             return move;
         }).reverse();
@@ -70,30 +73,33 @@ var KPGN = /** @class */ (function () {
             this.ren.syncWithMove(this.latestMove);
         }
     };
-    KPGN.prototype.validateOption = function (option) {
-        // TODO: throw when invalid option's properties
-    };
     KPGN.prototype.fromJson = function (option) {
-        this.validateOption(option);
-        var ren = option.ren, moves = option.moves, timer = option.timer, result = option.result, players = option.players, location = option.location, date = option.date, event = option.event;
-        this.event = event || this.event;
-        this.date = date ? new Date(date) : this.date;
-        this.location = location || this.location;
-        if (players) {
-            this.players = {
-                white: new Player_1.default(players.white),
-                black: new Player_1.default(players.black),
-            };
+        try {
+            var ren = option.ren, moves = option.moves, timer = option.timer, result = option.result, players = option.players, location = option.location, date = option.date, event = option.event;
+            this.event = event || this.event;
+            this.date = date ? new Date(date) : this.date;
+            this.location = location || this.location;
+            if (players) {
+                this.players = {
+                    white: new Player_1.default(players.white),
+                    black: new Player_1.default(players.black),
+                };
+            }
+            if (result) {
+                this.result = {
+                    last: result.last,
+                    white: new Result_1.default(result.white),
+                };
+            }
+            this.ren = REN_1.default.fromString(ren || '');
+            this.loadMovesStrings(moves || []);
+            this.timer = new Timer_1.default(timer || {});
+            return true;
         }
-        if (result) {
-            this.result = {
-                last: result.last,
-                white: new Result_1.default(result.white),
-            };
+        catch (error) {
+            console.log(error);
+            return false;
         }
-        this.ren = REN_1.default.fromString(ren || '');
-        this.loadMovesStrings(moves || []);
-        this.timer = new Timer_1.default(timer || {});
     };
     KPGN.prototype.toJson = function () {
         var renStr = this.ren.toString();
@@ -122,7 +128,7 @@ var KPGN = /** @class */ (function () {
     };
     KPGN.prototype.fromBase64 = function (str) {
         var json = JSON.parse(base64Helper_1.default.decode(str));
-        this.fromJson(json);
+        return this.fromJson(json);
     };
     KPGN.prototype.toBase64 = function () {
         var jsStr = JSON.stringify(this.toJson());

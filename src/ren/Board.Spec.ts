@@ -29,7 +29,7 @@ import { KhmerChess, Point } from '../../src/index';
 import { demo1, demoBoard1 } from '../test/helper';
 
 describe('Should import successfully', function () {
-    let kc: KhmerChess = null;
+    let kc: KhmerChess;
     const point = new Point(1, 0);
 
     beforeAll(() => {
@@ -43,6 +43,6 @@ describe('Should import successfully', function () {
 
     it('should has return H', () => {
         const piece = kc.kpgn.ren.board.getPieceAtIndex(point.index);
-        expect(piece.pieceCharCode).toBe('H');
+        expect(piece?.pieceCharCode).toBe('H');
     });
 });

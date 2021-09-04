@@ -24,7 +24,11 @@ export default class CountUp {
         return this.countingToNumber !== null;
     }
     get isCountingOut() {
-        return this.isCounting && this.countingNumber >= this.countingToNumber;
+        if (!this.isCounting || this.countingNumber === null ||
+            this.countingToNumber === null) {
+            return false;
+        }
+        return this.countingNumber >= this.countingToNumber;
     }
 
     set(color: string, countingToNumber: number, countingNumber: number) {
@@ -40,7 +44,7 @@ export default class CountUp {
     }
 
     checkUp(color: string) {
-        if (color === this.color) {
+        if (this.countingNumber !== null && color === this.color) {
             this.countingNumber++;
             this.isCountingUp = true;
         } else {

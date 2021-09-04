@@ -5,6 +5,6 @@ export default class PieceIndex {
     piece: Piece | null;
     canMovePoints: Point[];
     constructor(point: Point, piece: Piece | null);
-    toCode(): string;
+    toCode(): string | null;
     toPieceCharCode(): string;
 }

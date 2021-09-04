@@ -18,9 +18,42 @@ export default class KhmerChess {
     };
     getRENStr(): string;
     get piecesInBoardMultiArray(): import("./ren").Piece[][];
-    get piecesInBoard(): import("./ren").Piece[];
+    get piecesInBoard(): (import("./ren").Piece | null)[];
     get piecesInGraveyard(): import("./ren").Piece[];
-    getKPGN(): import("./kpgn/KPGN").Option;
+    getKPGN(): {
+        event: string;
+        date: string;
+        location: string;
+        players: {
+            white: {
+                id: string | null;
+                name: string | null;
+            };
+            black: {
+                id: string | null;
+                name: string | null;
+            };
+        };
+        result: {
+            last: {
+                whiteWin: boolean;
+                blackWin: boolean;
+            };
+            white: {
+                win: number;
+                draw: number;
+                lost: number;
+            };
+        };
+        timer: {
+            totalSecond: number;
+            bonusTime: number;
+            currentWhite: number;
+            currentBlack: number;
+        };
+        moves: string[];
+        ren: string;
+    };
     loadKpgn(kpgnJosn: any, options: any): void;
     drawAscii(): string;
     get turn(): string;

@@ -40,11 +40,13 @@ var MoveHelper = /** @class */ (function () {
         var genMoves = function (pieceIndices) {
             pieceIndices.forEach(function (pieceIndex) {
                 var isHaveMoved = _this.isKingMoved;
-                if (!pieceIndex.piece.isTypeKing) {
-                    isHaveMoved = pieceIndex.piece.isTypeQueen ? _this.isQueenMoved : false;
+                if (pieceIndex.piece !== null) {
+                    if (pieceIndex.piece !== null && !pieceIndex.piece.isTypeKing) {
+                        isHaveMoved = pieceIndex.piece.isTypeQueen ? _this.isQueenMoved : false;
+                    }
+                    var canMovePoints = _this.genCanMovePointsByPiecePoint(pieceIndex.point, pieceIndex.piece, _this.piecesString, isHaveMoved);
+                    pieceIndex.canMovePoints = canMovePoints;
                 }
-                var canMovePoints = _this.genCanMovePointsByPiecePoint(pieceIndex.point, pieceIndex.piece, _this.piecesString, isHaveMoved);
-                pieceIndex.canMovePoints = canMovePoints;
             });
         };
         genMoves(this.whiteMoves);

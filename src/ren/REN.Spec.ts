@@ -29,7 +29,7 @@ import { KhmerChess, Point } from '../../src/index';
 import { demo1 } from '../test/helper';
 
 describe('Should import successfully', function () {
-    let kc: KhmerChess = null;
+    let kc: KhmerChess;
     const point = new Point(1, 0);
 
     beforeAll(() => {

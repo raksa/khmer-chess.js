@@ -30,7 +30,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var index_1 = require("../../src/index");
 var helper_1 = require("../test/helper");
 describe('Should import successfully', function () {
-    var kc = null;
+    var kc;
     beforeAll(function () {
         kc = new index_1.KhmerChess(helper_1.demo1);
     });

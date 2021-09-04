@@ -58,7 +58,7 @@ class BoardHelper {
         const pieceIndices: number[] = [];
         mask[piece.type].forEach((_pos: number[]) => {
             const newIndex = this.convertMask(new Point(_pos[0], _pos[1]), index, piece.color);
-            if (!jsis.isNull(newIndex)) {
+            if (newIndex !== null) {
                 pieceIndices.push(newIndex);
             }
         });
@@ -66,14 +66,14 @@ class BoardHelper {
     }
     getPieceCanMovePosesValid(index: number, piece: Piece, piecesString: string) {
         const _poses = this.getPieceCanMovePoses(index, piece);
-        const pieceIndices = [];
+        const pieceIndices: number[] = [];
         const n = _poses.length;
         const thisPos = Point.fromIndex(index);
         for (let i = 0; i < n; i++) {
-            let p = Point.fromIndex(_poses[i]);
+            let p: Point | null = Point.fromIndex(_poses[i]);
             const distPiece = this.getPieceByIndex(p.index, piecesString);
             if (distPiece.isValidPiece) {
-                if (piece.color === distPiece.piece.color ||
+                if (distPiece.piece && piece.color === distPiece.piece.color ||
                     (piece.isTypeFish && p.x === thisPos.x)) {
                     p = null;
                 }
@@ -82,7 +82,7 @@ class BoardHelper {
                     p = null;
                 }
             }
-            if (!jsis.isNull(p) && piece.isTypeBoat) {
+            if (p !== null && piece.isTypeBoat) {
                 const _x = thisPos.x;
                 const _y = thisPos.y;
                 if (p.x === thisPos.x) {
@@ -128,7 +128,7 @@ class BoardHelper {
         const n = piecesString.length;
         for (let i = 0; i < n; i++) {
             const p = this.getPieceByIndex(i, piecesString);
-            if (p.isValidPiece && p.piece.color !== color &&
+            if (p.piece !== null && p.isValidPiece && p.piece.color !== color &&
                 p.piece.isTypeBoat) {
                 const _poses = this.getPieceCanMovePoses(i, p.piece);
                 for (let j = 0; j < _poses.length; j++) {
@@ -145,7 +145,7 @@ class BoardHelper {
         const n = piecesString.length;
         for (let i = 0; i < n; i++) {
             const p = this.getPieceByIndex(i, piecesString);
-            if (p.isValidPiece && p.piece.color !== color) {
+            if (p.piece !== null && p.isValidPiece && p.piece.color !== color) {
                 const _poses = this.getPieceCanMovePosesValid(i, p.piece, piecesString);
                 for (let j = 0; j < _poses.length; j++) {
                     if (_poses[j] === kingPos) {
@@ -183,7 +183,7 @@ class BoardHelper {
         const points: Point[] = [];
         for (let i = 0; i < n; i++) {
             const str = this.injectPiece(piecesString, index, _poses[i]);
-            if (jsis.isNull(this.getKingInDanger(piece.color, str))) {
+            if (str !== null && this.getKingInDanger(piece.color, str) === null) {
                 points.push(Point.fromIndex(_poses[i]));
             }
         }
@@ -207,7 +207,7 @@ class BoardHelper {
             const charCode = piecesString[i];
             if (Piece.isValidPiece(charCode)) {
                 const pieceIndex = new PieceIndex(Point.fromIndex(i), Piece.fromCharCode(charCode));
-                if (pieceIndex.piece.isColorWhite) {
+                if (pieceIndex.piece !== null && pieceIndex.piece.isColorWhite) {
                     whitePieces.push(pieceIndex);
                 } else {
                     blackPieces.push(pieceIndex);
@@ -230,7 +230,9 @@ class BoardHelper {
                 return;
             }
             const piece = Piece.fromCharCode(charCode);
-            pieceAll[piece.color].push(piece.type);
+            if (piece) {
+                pieceAll[piece.color].push(piece.type);
+            }
         });
         return pieceAll;
     }

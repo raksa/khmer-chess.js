@@ -65,16 +65,18 @@ export default class MoveHelper implements OptionsType {
         const genMoves = (pieceIndices: PieceIndex[]) => {
             pieceIndices.forEach((pieceIndex) => {
                 let isHaveMoved = this.isKingMoved;
-                if (!pieceIndex.piece.isTypeKing) {
-                    isHaveMoved = pieceIndex.piece.isTypeQueen ? this.isQueenMoved : false;
+                if (pieceIndex.piece !== null) {
+                    if (pieceIndex.piece !== null && !pieceIndex.piece.isTypeKing) {
+                        isHaveMoved = pieceIndex.piece.isTypeQueen ? this.isQueenMoved : false;
+                    }
+                    const canMovePoints = this.genCanMovePointsByPiecePoint(
+                        pieceIndex.point,
+                        pieceIndex.piece,
+                        this.piecesString,
+                        isHaveMoved
+                    );
+                    pieceIndex.canMovePoints = canMovePoints;
                 }
-                const canMovePoints = this.genCanMovePointsByPiecePoint(
-                    pieceIndex.point,
-                    pieceIndex.piece,
-                    this.piecesString,
-                    isHaveMoved
-                );
-                pieceIndex.canMovePoints = canMovePoints;
             });
         };
         genMoves(this.whiteMoves);

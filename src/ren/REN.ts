@@ -14,7 +14,6 @@ import Piece from './Piece';
 import { PieceIndex } from '.';
 import MoveHelper from '../brain/MoveHelper';
 import { PIECE_COLOR_WHITE } from '../brain/constant';
-import jsis from '../brain/jsis';
 
 /**
  * Raksa-Eng Notation
@@ -68,8 +67,8 @@ export default class REN {
         const pieces = this.board.pieceIndices.map((pos) => {
             return pos.piece;
         }).filter((p) => {
-            return !jsis.isNull(p);
-        }).concat(this.graveyard.pieces).map((p) => {
+            return p !== null;
+        }).concat(this.graveyard.pieces).map((p: Piece) => {
             return p.originPiece;
         });
         const piecesCount = pieces.reduce((obj: any, p) => {
@@ -220,7 +219,7 @@ export default class REN {
     }
     getCanMovePointsByPoint(point: Point): Point[] {
         const piece = this.board.getPieceAtIndex(point.index);
-        if (jsis.isNull(piece)) {
+        if (piece === null) {
             return [];
         }
         return this.moveHelper.genCanMovePointsByPiecePoint(point, piece,
@@ -244,7 +243,7 @@ export default class REN {
             const pieceIndex = kingInDanger.map((point) => {
                 return new PieceIndex(point, this.board.getPieceAtIndex(point.index));
             }).filter((pieceIndex) => {
-                return !pieceIndex.piece.isTypeKing;
+                return pieceIndex.piece !== null && !pieceIndex.piece.isTypeKing;
             })[0];
             move.boardStatus.attacker = pieceIndex;
         }
@@ -266,7 +265,7 @@ export default class REN {
                 const countState = this.moveHelper.calCount({
                     color: Piece.oppositeColor(move.piece.color),
                     piecesString,
-                    force,
+                    force: !!force,
                 });
                 if (countState) {
                     this.countUp.set(color, countState.countingToNumber, countState.countingNumber);

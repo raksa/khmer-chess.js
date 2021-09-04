@@ -7,7 +7,7 @@ export default class Player {
     id: string | null;
     constructor({ id, name }: Option);
     toJson(): {
-        id: string;
-        name: string;
+        id: string | null;
+        name: string | null;
     };
 }

@@ -7,10 +7,10 @@ export default class Board {
     pieceIndices: PieceIndex[];
     constructor(boardStr?: string);
     get piecesMultiArray(): Piece[][];
-    get pieces(): Piece[];
-    get whiteKing(): PieceIndex;
-    get blackKing(): PieceIndex;
-    getKing(color: string): PieceIndex;
+    get pieces(): (Piece | null)[];
+    get whiteKing(): PieceIndex | undefined;
+    get blackKing(): PieceIndex | undefined;
+    getKing(color: string): PieceIndex | undefined;
     compress(str: string): string;
     extract(str: string): string;
     toStringFull(pieceIndices?: PieceIndex[]): string;

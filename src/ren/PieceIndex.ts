@@ -1,5 +1,4 @@
 import { EMPTY_PIECE } from '../brain/constant';
-import jsis from '../brain/jsis';
 import Piece from './Piece';
 import Point from './Point';
 
@@ -13,11 +12,11 @@ export default class PieceIndex {
     }
 
     toCode() {
-        return jsis.isNull(this.piece) ? `${this.piece.pieceCharCode}${this.point.indexCode}` : null;
+        return this.piece != null ? `${this.piece.pieceCharCode}${this.point.indexCode}` : null;
     }
 
     toPieceCharCode() {
-        return jsis.isNull(this.piece) ? EMPTY_PIECE : this.piece.pieceCharCode;
+        return this.piece !== null ? this.piece.pieceCharCode : EMPTY_PIECE;
     }
 }
 /*

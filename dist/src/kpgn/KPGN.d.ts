@@ -46,13 +46,45 @@ export default class KPGN {
     constructor(ren: REN);
     get isCanMoveNext(): boolean;
     get latestMove(): Move;
-    addMove(move: Move): boolean;
+    addMove(move: Move | null): boolean;
     getMove(index: number): Move;
     loadRENStr(renStr?: string): void;
     loadMovesStrings(moves: string[]): void;
-    validateOption(option: Option): void;
-    fromJson(option: Option): void;
-    toJson(): Option;
-    fromBase64(str: string): void;
+    fromJson(option: Option): boolean;
+    toJson(): {
+        event: string;
+        date: string;
+        location: string;
+        players: {
+            white: {
+                id: string | null;
+                name: string | null;
+            };
+            black: {
+                id: string | null;
+                name: string | null;
+            };
+        };
+        result: {
+            last: {
+                whiteWin: boolean;
+                blackWin: boolean;
+            };
+            white: {
+                win: number;
+                draw: number;
+                lost: number;
+            };
+        };
+        timer: {
+            totalSecond: number;
+            bonusTime: number;
+            currentWhite: number;
+            currentBlack: number;
+        };
+        moves: string[];
+        ren: string;
+    };
+    fromBase64(str: string): boolean;
     toBase64(): string;
 }

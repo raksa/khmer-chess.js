@@ -117,6 +117,9 @@ var Move = /** @class */ (function () {
     });
     Move.fromString = function (str, ren) {
         var piece = Piece_1.default.fromCharCode(str[0]);
+        if (piece === null) {
+            return null;
+        }
         var moveFrom = Point_1.default.fromIndexCode(str.substr(1, 2));
         var moveTo = Point_1.default.fromIndexCode(str.substr(3, 2));
         var move = new Move({
@@ -126,7 +129,11 @@ var Move = /** @class */ (function () {
         });
         var killIndex = str.indexOf(constant_1.PIECE_FLAG_KILL);
         if (!!~killIndex) {
-            var gyIndex = Number(str.substr(killIndex + 1).match(/^(\d+)/)[1]);
+            var match = str.substr(killIndex + 1).match(/^(\d+)/);
+            if (match === null) {
+                return null;
+            }
+            var gyIndex = Number(match[1]);
             var capturedPiece = ren.graveyard.get(gyIndex);
             if (!capturedPiece) {
                 throw new Error('Invalid captured index');
@@ -139,7 +146,11 @@ var Move = /** @class */ (function () {
         }
         var jumpingIndex = str.indexOf(constant_1.PIECE_FLAG_JUMP);
         if (!!~jumpingIndex) {
-            var n = Number(str.substr(jumpingIndex + 1).match(/^(\d+)/)[1]);
+            var match = str.substr(jumpingIndex + 1).match(/^(\d+)/);
+            if (match === null) {
+                return null;
+            }
+            var n = Number(match[1]);
             move.kqJumping = ren_1.KqJumped.fromNumber(n);
         }
         var startCountingIndex = str.indexOf(constant_1.PIECE_FLAG_START_COUNTING);

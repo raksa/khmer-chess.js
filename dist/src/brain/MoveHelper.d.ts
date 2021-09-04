@@ -41,13 +41,13 @@ export default class MoveHelper implements OptionsType {
         anotherMoves: PieceIndex[];
     };
     calcState(option: OptionsType): {
-        blackKingInDanger: Point[];
-        whiteKingInDanger: Point[];
-        blackKingWillInDanger: Point[];
-        whiteKingWillInDanger: Point[];
-        winColor: string;
-        stuckColor: string;
+        blackKingInDanger: Point[] | null;
+        whiteKingInDanger: Point[] | null;
+        blackKingWillInDanger: Point[] | null;
+        whiteKingWillInDanger: Point[] | null;
+        winColor: string | null;
+        stuckColor: string | null;
     };
-    calCount({ color, piecesString, force }: CalCountPropsType): import("./boardHelper").CountUpState;
+    calCount({ color, piecesString, force }: CalCountPropsType): import("./boardHelper").CountUpState | null;
     genCanMovePointsByPiecePoint(point: Point, piece: Piece, piecesString: string, isHasMoved?: boolean): Point[];
 }

@@ -29,14 +29,15 @@ import { KhmerChess } from '../../src/index';
 import { demo1 } from '../test/helper';
 
 describe('Should import successfully', function () {
-    let kc: KhmerChess = null;
+    let kc: KhmerChess;
 
     beforeAll(() => {
         kc = new KhmerChess(demo1);
     });
 
     it('should return drawable table', () => {
-        expect(kc.drawAscii()).toBe(`  ┏━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┓
+        expect(kc.drawAscii()).toBe(
+`  ┏━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┓
 8 ┃ b ┃ h ┃ g ┃ k ┃   ┃   ┃ h ┃   ┃
   ┣━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━┫
 7 ┃   ┃   ┃ q ┃ g ┃   ┃   ┃ b ┃   ┃

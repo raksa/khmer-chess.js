@@ -1,10 +1,6 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var constant_1 = require("../brain/constant");
-var jsis_1 = __importDefault(require("../brain/jsis"));
 var PieceIndex = /** @class */ (function () {
     function PieceIndex(point, piece) {
         this.canMovePoints = [];
@@ -12,10 +8,10 @@ var PieceIndex = /** @class */ (function () {
         this.piece = piece;
     }
     PieceIndex.prototype.toCode = function () {
-        return jsis_1.default.isNull(this.piece) ? "" + this.piece.pieceCharCode + this.point.indexCode : null;
+        return this.piece != null ? "" + this.piece.pieceCharCode + this.point.indexCode : null;
     };
     PieceIndex.prototype.toPieceCharCode = function () {
-        return jsis_1.default.isNull(this.piece) ? constant_1.EMPTY_PIECE : this.piece.pieceCharCode;
+        return this.piece !== null ? this.piece.pieceCharCode : constant_1.EMPTY_PIECE;
     };
     return PieceIndex;
 }());

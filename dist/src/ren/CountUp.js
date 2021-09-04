@@ -47,7 +47,11 @@ var CountUp = /** @class */ (function () {
     });
     Object.defineProperty(CountUp.prototype, "isCountingOut", {
         get: function () {
-            return this.isCounting && this.countingNumber >= this.countingToNumber;
+            if (!this.isCounting || this.countingNumber === null ||
+                this.countingToNumber === null) {
+                return false;
+            }
+            return this.countingNumber >= this.countingToNumber;
         },
         enumerable: false,
         configurable: true
@@ -63,7 +67,7 @@ var CountUp = /** @class */ (function () {
         this.countingNumber = null;
     };
     CountUp.prototype.checkUp = function (color) {
-        if (color === this.color) {
+        if (this.countingNumber !== null && color === this.color) {
             this.countingNumber++;
             this.isCountingUp = true;
         }

@@ -22,11 +22,10 @@ export default class Graveyard {
             }
             this.pieces = graveyardStr.split('').map((charCode, i) => {
                 const p = Piece.fromCharCode(charCode);
-                if (p.isTypeKing) {
-                    throw new Error(`King cannot die graveyard:${graveyardStr}`);
-                }
                 return p;
-            });
+            }).filter((piece) => {
+                return piece !== null;
+            }) as Piece[];
         }
     }
 

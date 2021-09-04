@@ -51,7 +51,7 @@ var BoardHelper = /** @class */ (function () {
         var pieceIndices = [];
         mask[piece.type].forEach(function (_pos) {
             var newIndex = _this.convertMask(new Point_1.default(_pos[0], _pos[1]), index, piece.color);
-            if (!jsis_1.default.isNull(newIndex)) {
+            if (newIndex !== null) {
                 pieceIndices.push(newIndex);
             }
         });
@@ -66,7 +66,7 @@ var BoardHelper = /** @class */ (function () {
             var p = Point_1.default.fromIndex(_poses[i]);
             var distPiece = this.getPieceByIndex(p.index, piecesString);
             if (distPiece.isValidPiece) {
-                if (piece.color === distPiece.piece.color ||
+                if (distPiece.piece && piece.color === distPiece.piece.color ||
                     (piece.isTypeFish && p.x === thisPos.x)) {
                     p = null;
                 }
@@ -76,7 +76,7 @@ var BoardHelper = /** @class */ (function () {
                     p = null;
                 }
             }
-            if (!jsis_1.default.isNull(p) && piece.isTypeBoat) {
+            if (p !== null && piece.isTypeBoat) {
                 var _x = thisPos.x;
                 var _y = thisPos.y;
                 if (p.x === thisPos.x) {
@@ -123,7 +123,7 @@ var BoardHelper = /** @class */ (function () {
         var n = piecesString.length;
         for (var i = 0; i < n; i++) {
             var p = this.getPieceByIndex(i, piecesString);
-            if (p.isValidPiece && p.piece.color !== color &&
+            if (p.piece !== null && p.isValidPiece && p.piece.color !== color &&
                 p.piece.isTypeBoat) {
                 var _poses = this.getPieceCanMovePoses(i, p.piece);
                 for (var j = 0; j < _poses.length; j++) {
@@ -140,7 +140,7 @@ var BoardHelper = /** @class */ (function () {
         var n = piecesString.length;
         for (var i = 0; i < n; i++) {
             var p = this.getPieceByIndex(i, piecesString);
-            if (p.isValidPiece && p.piece.color !== color) {
+            if (p.piece !== null && p.isValidPiece && p.piece.color !== color) {
                 var _poses = this.getPieceCanMovePosesValid(i, p.piece, piecesString);
                 for (var j = 0; j < _poses.length; j++) {
                     if (_poses[j] === kingPos) {
@@ -178,7 +178,7 @@ var BoardHelper = /** @class */ (function () {
         var points = [];
         for (var i = 0; i < n; i++) {
             var str = this.injectPiece(piecesString, index, _poses[i]);
-            if (jsis_1.default.isNull(this.getKingInDanger(piece.color, str))) {
+            if (str !== null && this.getKingInDanger(piece.color, str) === null) {
                 points.push(Point_1.default.fromIndex(_poses[i]));
             }
         }
@@ -202,7 +202,7 @@ var BoardHelper = /** @class */ (function () {
             var charCode = piecesString[i];
             if (Piece_1.default.isValidPiece(charCode)) {
                 var pieceIndex = new ren_1.PieceIndex(Point_1.default.fromIndex(i), Piece_1.default.fromCharCode(charCode));
-                if (pieceIndex.piece.isColorWhite) {
+                if (pieceIndex.piece !== null && pieceIndex.piece.isColorWhite) {
                     whitePieces.push(pieceIndex);
                 }
                 else {
@@ -227,7 +227,9 @@ var BoardHelper = /** @class */ (function () {
                 return;
             }
             var piece = Piece_1.default.fromCharCode(charCode);
-            pieceAll[piece.color].push(piece.type);
+            if (piece) {
+                pieceAll[piece.color].push(piece.type);
+            }
         });
         return pieceAll;
     };

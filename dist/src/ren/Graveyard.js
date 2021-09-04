@@ -14,10 +14,9 @@ var Graveyard = /** @class */ (function () {
             }
             this.pieces = graveyardStr.split('').map(function (charCode, i) {
                 var p = Piece_1.default.fromCharCode(charCode);
-                if (p.isTypeKing) {
-                    throw new Error("King cannot die graveyard:" + graveyardStr);
-                }
                 return p;
+            }).filter(function (piece) {
+                return piece !== null;
             });
         }
     }

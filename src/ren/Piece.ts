@@ -160,8 +160,8 @@ export default class Piece {
         }
         return false;
     }
-    clone() {
-        return Piece.fromCharCode(this.pieceCharCode);
+    clone():Piece {
+        return Piece.fromCharCode(this.pieceCharCode) as Piece;
     }
 }
 

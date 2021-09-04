@@ -16,7 +16,6 @@ var Piece_1 = __importDefault(require("./Piece"));
 var _1 = require(".");
 var MoveHelper_1 = __importDefault(require("../brain/MoveHelper"));
 var constant_2 = require("../brain/constant");
-var jsis_1 = __importDefault(require("../brain/jsis"));
 var REN = /** @class */ (function () {
     function REN(renProps) {
         this.moveHelper = new MoveHelper_1.default();
@@ -43,7 +42,7 @@ var REN = /** @class */ (function () {
         var pieces = this.board.pieceIndices.map(function (pos) {
             return pos.piece;
         }).filter(function (p) {
-            return !jsis_1.default.isNull(p);
+            return p !== null;
         }).concat(this.graveyard.pieces).map(function (p) {
             return p.originPiece;
         });
@@ -200,7 +199,7 @@ var REN = /** @class */ (function () {
     };
     REN.prototype.getCanMovePointsByPoint = function (point) {
         var piece = this.board.getPieceAtIndex(point.index);
-        if (jsis_1.default.isNull(piece)) {
+        if (piece === null) {
             return [];
         }
         return this.moveHelper.genCanMovePointsByPiecePoint(point, piece, this.board.toStringFullNoSeparate(), this.isHasMoved(piece));
@@ -222,7 +221,7 @@ var REN = /** @class */ (function () {
             var pieceIndex = kingInDanger.map(function (point) {
                 return new _1.PieceIndex(point, _this.board.getPieceAtIndex(point.index));
             }).filter(function (pieceIndex) {
-                return !pieceIndex.piece.isTypeKing;
+                return pieceIndex.piece !== null && !pieceIndex.piece.isTypeKing;
             })[0];
             move.boardStatus.attacker = pieceIndex;
         }
@@ -244,7 +243,7 @@ var REN = /** @class */ (function () {
                 var countState = this.moveHelper.calCount({
                     color: Piece_1.default.oppositeColor(move.piece.color),
                     piecesString: piecesString,
-                    force: force,
+                    force: !!force,
                 });
                 if (countState) {
                     this.countUp.set(color, countState.countingToNumber, countState.countingNumber);

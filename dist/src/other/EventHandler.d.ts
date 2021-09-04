@@ -1,4 +1,4 @@
-export declare type ListenerType<T> = (data?: T) => any;
+export declare type ListenerType<T> = (data: T) => any;
 export default class EventHandler {
     _onEventListeners: {
         [key: string]: any;

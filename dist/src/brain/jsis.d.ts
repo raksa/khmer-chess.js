@@ -2,16 +2,16 @@ declare const jsis: {
     isValid(v: any): boolean;
     isNull(v: any): boolean;
     isUndefined(v: any): boolean;
-    isString(str: any): boolean;
-    isNotEmpty(str: string): boolean;
-    isNumber(n: any): boolean;
-    isStringNumber(n: string): boolean;
-    isArray(arr: any): boolean;
-    isFunction(f: any): boolean;
-    isObject(o: any): boolean;
-    isBoolean(b: any): boolean;
+    isString(str: any): any;
+    isNotEmpty(str: string): any;
+    isNumber(n: any): any;
+    isStringNumber(n: string): any;
+    isArray(arr: any): any;
+    isFunction(f: any): any;
+    isObject(o: any): any;
+    isBoolean(b: any): any;
     isTrue(b: any): any;
-    isFalse(b: any): boolean;
+    isFalse(b: any): any;
     isPoint(p: {
         x: any;
         y: any;

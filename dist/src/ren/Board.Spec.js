@@ -30,7 +30,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var index_1 = require("../../src/index");
 var helper_1 = require("../test/helper");
 describe('Should import successfully', function () {
-    var kc = null;
+    var kc;
     var point = new index_1.Point(1, 0);
     beforeAll(function () {
         kc = new index_1.KhmerChess(helper_1.demo1);
@@ -41,7 +41,7 @@ describe('Should import successfully', function () {
     });
     it('should has return H', function () {
         var piece = kc.kpgn.ren.board.getPieceAtIndex(point.index);
-        expect(piece.pieceCharCode).toBe('H');
+        expect(piece === null || piece === void 0 ? void 0 : piece.pieceCharCode).toBe('H');
     });
 });
 //# sourceMappingURL=Board.Spec.js.map

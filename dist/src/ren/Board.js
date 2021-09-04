@@ -36,7 +36,9 @@ var Board = /** @class */ (function () {
         get: function () {
             var arr = [[], [], [], [], [], [], [], []];
             this.pieceIndices.forEach(function (pieceIndex) {
-                arr[pieceIndex.point.y][pieceIndex.point.x] = pieceIndex.piece;
+                if (pieceIndex.piece !== null) {
+                    arr[pieceIndex.point.y][pieceIndex.point.x] = pieceIndex.piece;
+                }
             });
             return arr;
         },

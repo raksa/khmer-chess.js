@@ -105,6 +105,9 @@ export default class Move {
 
     static fromString(str: string, ren: REN) {
         const piece = Piece.fromCharCode(str[0]);
+        if (piece === null) {
+            return null;
+        }
         const moveFrom = Point.fromIndexCode(str.substr(1, 2));
         const moveTo = Point.fromIndexCode(str.substr(3, 2));
         const move = new Move({
@@ -114,7 +117,11 @@ export default class Move {
         });
         const killIndex = str.indexOf(PIECE_FLAG_KILL);
         if (!!~killIndex) {
-            const gyIndex = Number(str.substr(killIndex + 1).match(/^(\d+)/)[1]);
+            const match = str.substr(killIndex + 1).match(/^(\d+)/);
+            if (match === null) {
+                return null;
+            }
+            const gyIndex = Number(match[1]);
             const capturedPiece = ren.graveyard.get(gyIndex);
             if (!capturedPiece) {
                 throw new Error('Invalid captured index');
@@ -128,7 +135,11 @@ export default class Move {
         }
         const jumpingIndex = str.indexOf(PIECE_FLAG_JUMP);
         if (!!~jumpingIndex) {
-            const n = Number(str.substr(jumpingIndex + 1).match(/^(\d+)/)[1]);
+            const match = str.substr(jumpingIndex + 1).match(/^(\d+)/);
+            if (match === null) {
+                return null;
+            }
+            const n = Number(match[1]);
             move.kqJumping = KqJumped.fromNumber(n);
         }
         const startCountingIndex = str.indexOf(PIECE_FLAG_START_COUNTING);

@@ -17,7 +17,7 @@ export default class Piece {
     get isColorBlack(): boolean;
     get isColorWhite(): boolean;
     constructor(type: string, color: string);
-    static fromCharCode(charCode: string): Piece;
+    static fromCharCode(charCode: string): Piece | null;
     get originPiece(): Piece;
     static get pieceChars(): string[];
     static get colorChars(): string[];

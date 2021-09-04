@@ -13,12 +13,12 @@ declare class BoardHelper {
         isValidPiece: boolean;
         piece: Piece | null;
     };
-    convertMask: (point1: Point, index: number, color: string) => number;
+    convertMask: (point1: Point, index: number, color: string) => number | null;
     getPieceCanMovePoses(index: number, piece: Piece): number[];
-    getPieceCanMovePosesValid(index: number, piece: Piece, piecesString: string): any[];
+    getPieceCanMovePosesValid(index: number, piece: Piece, piecesString: string): number[];
     replacePiecesStringAtIndex(piecesString: string, charCode: string, index: number): string;
-    injectPiece(piecesString: string, index1: number, index2: number): string;
-    getKingWillInDanger(color: string, piecesString: string): Point[];
+    injectPiece(piecesString: string, index1: number, index2: number): string | null;
+    getKingWillInDanger(color: string, piecesString: string): Point[] | null;
     getKingInDanger(color: string, piecesString: string): Point[] | null;
     genCanMovePointsByPiecePoint(index: number, piece: Piece, piecesString: string, isHasMoved?: boolean): Point[];
     isCharPiecesInBoard(code: string, piecesString: string): boolean;
