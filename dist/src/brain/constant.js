@@ -46,11 +46,9 @@ exports.ROW_LAST_INDEX = 7;
 exports.CELL_COUNT = exports.ROW_NUMBER * exports.ROW_NUMBER;
 exports.HORIZONTAL_CODE_LETTERS = 'abcdefgh';
 exports.HORIZONTAL_NOTE_LETTERS = ['ក', 'ខ', 'គ', 'ឃ', 'ង', 'ច', 'ឆ', 'ជ'];
-exports.VERTICAL_NOTE_LETTERS = ['១', '២', '៣', '៤', '៥', '៦', '៧', '៨', '៩', '១០',
-    '១១', '១២', '១៣', '១៤', '១៥', '១៦', '១៧', '១៨', '១៩', '២០',
-    '២១', '២២', '២៣', '២៤', '២៥', '២៦', '២៧', '២៨', '២៩', '៣០'];
+exports.VERTICAL_NOTE_LETTERS = ['០', '១', '២', '៣', '៤', '៥', '៦', '៧', '៨', '៩'];
 exports.HORIZONTAL_NOTE_LETTERS_ENGLISH = 'abcdefgh';
-exports.VERTICAL_NOTE_LETTERS_ENGLISH = Array.from({ length: 30 }, function (_, i) { return "" + (i + 1); });
+exports.VERTICAL_NOTE_LETTERS_ENGLISH = Array.from({ length: 10 }, function (_, i) { return "" + i; });
 /*
  * Copyright (c) 2021, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>

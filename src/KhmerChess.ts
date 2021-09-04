@@ -1,4 +1,5 @@
 import config from '../package.json';
+import { VERTICAL_NOTE_LETTERS, VERTICAL_NOTE_LETTERS_ENGLISH } from './brain/constant';
 import KPGN from './kpgn/KPGN';
 import Move from './kpgn/Move';
 import asciiTable from './other/table';
@@ -94,6 +95,14 @@ export default class KhmerChess {
 
     getHistories() {
         return this.kpgn.moves;
+    }
+
+    static toKhmerNum(englishNum: number) {
+        const str = `${englishNum}`;
+        const result = str.split('').map((c) => {
+            return VERTICAL_NOTE_LETTERS[VERTICAL_NOTE_LETTERS_ENGLISH.indexOf(c)];
+        }).join('');
+        return result;
     }
 }
 /*

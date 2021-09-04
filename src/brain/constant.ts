@@ -45,11 +45,9 @@ export const CELL_COUNT = ROW_NUMBER * ROW_NUMBER;
 
 export const HORIZONTAL_CODE_LETTERS = 'abcdefgh';
 export const HORIZONTAL_NOTE_LETTERS = ['ក', 'ខ', 'គ', 'ឃ', 'ង', 'ច', 'ឆ', 'ជ'];
-export const VERTICAL_NOTE_LETTERS = ['១', '២', '៣', '៤', '៥', '៦', '៧', '៨', '៩', '១០',
-    '១១', '១២', '១៣', '១៤', '១៥', '១៦', '១៧', '១៨', '១៩', '២០',
-    '២១', '២២', '២៣', '២៤', '២៥', '២៦', '២៧', '២៨', '២៩', '៣០'];
+export const VERTICAL_NOTE_LETTERS = ['០','១', '២', '៣', '៤', '៥', '៦', '៧', '៨', '៩'];
 export const HORIZONTAL_NOTE_LETTERS_ENGLISH = 'abcdefgh';
-export const VERTICAL_NOTE_LETTERS_ENGLISH = Array.from({ length: 30 }, (_, i) => `${i + 1}`);
+export const VERTICAL_NOTE_LETTERS_ENGLISH = Array.from({ length: 10 }, (_, i) => `${i}`);
 /*
  * Copyright (c) 2021, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>

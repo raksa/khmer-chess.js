@@ -68,7 +68,7 @@ export default class KPGN {
         }
         return false;
     }
-    getMove(index: number) {
+    getMove(index: number): Move | null {
         return this.moves[index] || null;
     }
 

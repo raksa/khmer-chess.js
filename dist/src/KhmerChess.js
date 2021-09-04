@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var package_json_1 = __importDefault(require("../package.json"));
+var constant_1 = require("./brain/constant");
 var KPGN_1 = __importDefault(require("./kpgn/KPGN"));
 var table_1 = __importDefault(require("./other/table"));
 var REN_1 = __importDefault(require("./ren/REN"));
@@ -93,6 +94,13 @@ var KhmerChess = /** @class */ (function () {
     };
     KhmerChess.prototype.getHistories = function () {
         return this.kpgn.moves;
+    };
+    KhmerChess.toKhmerNum = function (englishNum) {
+        var str = "" + englishNum;
+        var result = str.split('').map(function (c) {
+            return constant_1.VERTICAL_NOTE_LETTERS[constant_1.VERTICAL_NOTE_LETTERS_ENGLISH.indexOf(c)];
+        }).join('');
+        return result;
     };
     KhmerChess.title = package_json_1.default.name;
     KhmerChess.version = package_json_1.default.version;

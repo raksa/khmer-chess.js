@@ -47,7 +47,7 @@ export default class KPGN {
     get isCanMoveNext(): boolean;
     get latestMove(): Move;
     addMove(move: Move | null): boolean;
-    getMove(index: number): Move;
+    getMove(index: number): Move | null;
     loadRENStr(renStr?: string): void;
     loadMovesStrings(moves: string[]): void;
     fromJson(option: Option): boolean;

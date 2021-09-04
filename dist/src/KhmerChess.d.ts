@@ -65,4 +65,5 @@ export default class KhmerChess {
      */
     clearBoard(): void;
     getHistories(): Move[];
+    static toKhmerNum(englishNum: number): string;
 }
