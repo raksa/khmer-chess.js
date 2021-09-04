@@ -11,3 +11,4 @@ export declare const EVENT_FLAG_DRAW = "draw";
 export declare const EVENT_FLAG_START_COUNTING = "start-counting";
 export declare const EVENT_FLAG_COUNTING_UP = "counting-up";
 export declare const EVENT_FLAG_COUNT_UP_OUT = "count-up-out";
+export declare const EVENT_FLAG_MOVING = "moving";

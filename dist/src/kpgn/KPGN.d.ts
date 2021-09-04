@@ -44,8 +44,8 @@ export default class KPGN {
     ren: REN;
     timer: Timer;
     constructor(ren: REN);
-    get isCanMoveNext(): boolean;
-    get latestMove(): Move;
+    get isCanMoveNext(): boolean | undefined;
+    get latestMove(): Move | null;
     addMove(move: Move | null): boolean;
     getMove(index: number): Move | null;
     loadRENStr(renStr?: string): void;

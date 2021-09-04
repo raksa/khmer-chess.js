@@ -54,10 +54,10 @@ export default class KPGN {
     }
 
     get isCanMoveNext() {
-        return this.latestMove.isCanMoveNext && this.ren.isCanMoveNext;
+        return this.latestMove?.isCanMoveNext && this.ren.isCanMoveNext;
     }
 
-    get latestMove() {
+    get latestMove(): Move | null {
         return this.moves[this.moves.length - 1] || null;
     }
 

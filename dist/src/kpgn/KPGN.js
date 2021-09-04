@@ -31,7 +31,8 @@ var KPGN = /** @class */ (function () {
     }
     Object.defineProperty(KPGN.prototype, "isCanMoveNext", {
         get: function () {
-            return this.latestMove.isCanMoveNext && this.ren.isCanMoveNext;
+            var _a;
+            return ((_a = this.latestMove) === null || _a === void 0 ? void 0 : _a.isCanMoveNext) && this.ren.isCanMoveNext;
         },
         enumerable: false,
         configurable: true

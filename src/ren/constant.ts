@@ -13,6 +13,7 @@ export const EVENT_FLAG_DRAW = 'draw';
 export const EVENT_FLAG_START_COUNTING = 'start-counting';
 export const EVENT_FLAG_COUNTING_UP = 'counting-up';
 export const EVENT_FLAG_COUNT_UP_OUT = 'count-up-out';
+export const EVENT_FLAG_MOVING = 'moving';
 /*
  * Copyright (c) 2021, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
