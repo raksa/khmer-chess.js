@@ -1,7 +1,7 @@
 
 /*
  * Copyright (c) 2021, K4us
- * Author: Raksa Eng <eng.raksa@gmail.com>
+ * Author: Raksa Eng <eng.raksa@gmail.com>, K4us Net k4us.net@gmail.com
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,12 +28,12 @@
  *---------------------------------------------------------------------------- */
 const path = require('path');
 
-const ROOT = path.resolve(__dirname, 'src');
+const ROOT = path.resolve(__dirname, 'dist');
 
 module.exports = {
     context: ROOT,
     entry: {
-        'khmer-chess': './index.ts'
+        'khmer-chess': './src/index.js'
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -42,14 +42,10 @@ module.exports = {
     },
     mode: 'production',
     devtool: 'source-map',
-    module: {
-        rules: [{
-            test: /\.ts?$/,
-            use: 'ts-loader',
-            exclude: /node_modules/
-        }]
-    },
     resolve: {
-        extensions: ['.tsx', '.ts', '.jsx', '.js']
+        alias: {
+            'khmer-chess': path.resolve(__dirname, 'dist', 'node_modules', 'khmer-chess', 'src'),
+        },
+        extensions: ['.js']
     },
 };
