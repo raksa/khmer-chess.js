@@ -1,13 +1,14 @@
 {
   "name": "khmer-chess",
-  "version": "1.0.54",
+  "version": "1.0.55",
   "description": "KhmerChess Javascript library",
-  "main": "src/index.ts",
+  "main": "dist/src/index.js",
+  "types": "src/index.ts",
   "scripts": {
     "start": "ts-node test-index.ts",
     "lint": "eslint . --ext .ts ./src",
     "build:bundle": "webpack --config webpack.config.js",
-    "build:js": "del-cli dist -f && npm run lint && npx tsc && cp-cli ./package.json ./dist/package.json",
+    "build:js": "del-cli dist -f && npm run lint && tsc",
     "build": "npm run build:js && npm run build:bundle",
     "test": "karma start karma.conf.js",
     "cov": "http-server coverage/ -o"
@@ -44,8 +45,5 @@
     "typescript": "^4.3.5",
     "webpack": "^5.21.2",
     "webpack-cli": "^4.5.0"
-  },
-  "dependencies": {
-    "cp-cli": "^2.0.0"
   }
 }
