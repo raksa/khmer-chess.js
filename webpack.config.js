@@ -36,16 +36,13 @@ module.exports = {
         'khmer-chess': './src/index.js'
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: ROOT,
         filename: 'khmer-chess.umd.js',
         libraryTarget: 'umd'
     },
     mode: 'production',
     devtool: 'source-map',
     resolve: {
-        alias: {
-            'khmer-chess': path.resolve(__dirname, 'dist', 'node_modules', 'khmer-chess', 'src'),
-        },
         extensions: ['.js']
     },
 };

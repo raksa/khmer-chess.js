@@ -9,8 +9,8 @@ Notation [KPNG Spec](https://github.com/K4us/khmer-chess.js/tree/main/src/kpgn/k
 ## Importing
 
 * `npm i -D khmer-chess`
-* [Typescript](https://www.typescriptlang.org/): `import { KhmerChess } from 'khmer-chess'`
-* [Node.js](https://nodejs.org/en/): `const { KhmerChess } = require('khmer-chess/dist/src')`
+* [Typescript](https://www.typescriptlang.org/): `import { KhmerChess } from 'khmer-chess';`
+* [Node.js](https://nodejs.org/en/): `const { KhmerChess } = require('khmer-chess');`
 
 ## Run
 
