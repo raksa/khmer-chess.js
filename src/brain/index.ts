@@ -4,8 +4,7 @@ export { default as genMask } from './genMask';
 export { default as jsis } from './jsis';
 export { default as HVPont } from './HVPont';
 export { default as MoveHelper } from './MoveHelper';
-export { CalCountPropsType } from './MoveHelper';
-export type { OptionsType } from './MoveHelper';
+export type { OptionsType, CalCountPropsType } from './MoveHelper';
 export * from './constant';
 /*
  * Copyright (c) 2021, K4us
