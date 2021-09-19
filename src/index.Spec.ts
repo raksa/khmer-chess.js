@@ -41,13 +41,13 @@ import {
     Player,
     Result,
     Timer,
-} from './index';
+} from './kpgn';
 // other
 import {
     EventHandler,
     ListenerType,
     table,
-} from './index';
+} from './other';
 // ren
 import {
     Board,
@@ -65,10 +65,11 @@ import {
     NOT_SET,
     PIECE_FLAG_KILL,
     PIECE_FLAG_JUMP,
-} from './index';
+} from './ren';
 //  index
 import {
     KhmerChess,
+    khmerChessNS,
 } from './index';
 
 describe('Should import successfully', function () {

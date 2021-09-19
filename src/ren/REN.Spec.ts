@@ -25,8 +25,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  *---------------------------------------------------------------------------- */
-import { KhmerChess, Point } from '../../src/index';
+import KhmerChess from '../KhmerChess';
 import { demo1 } from '../test/helper';
+import Point from './Point';
 
 describe('Should import successfully', function () {
     let kc: KhmerChess;

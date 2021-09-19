@@ -1,4 +1,7 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 /*
  * Copyright (c) 2021, K4us
@@ -27,13 +30,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * POSSIBILITY OF SUCH DAMAGE.
  *
  *---------------------------------------------------------------------------- */
-var index_1 = require("../../src/index");
+var KhmerChess_1 = __importDefault(require("../KhmerChess"));
 var helper_1 = require("../test/helper");
+var Point_1 = __importDefault(require("./Point"));
 describe('Should import successfully', function () {
     var kc;
-    var point = new index_1.Point(1, 0);
+    var point = new Point_1.default(1, 0);
     beforeAll(function () {
-        kc = new index_1.KhmerChess(helper_1.demo1);
+        kc = new KhmerChess_1.default(helper_1.demo1);
     });
     it('should has correct move positions', function () {
         var points = kc.kpgn.ren.getCanMovePointsByPoint(point);
