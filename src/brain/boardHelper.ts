@@ -1,4 +1,3 @@
-import jsis from './jsis';
 import genMask from './genMask';
 import {
     PIECE_COLOR_WHITE,
@@ -105,7 +104,7 @@ class BoardHelper {
                     }
                 }
             }
-            if (!jsis.isNull(p)) {
+            if (p !== null) {
                 pieceIndices.push(_poses[i]);
             }
         }

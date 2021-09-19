@@ -15,7 +15,6 @@ import {
     PIECE_NAMES_ENGLISH,
     COLOR_NAMES_ENGLISH,
 } from '../brain/constant';
-import jsis from '../brain/jsis';
 
 export default class Piece {
     type: string;
@@ -115,7 +114,7 @@ export default class Piece {
         return charCode.toUpperCase();
     }
     static isWhiteCharCode(charCode: string) {
-        return jsis.isUpperCase(charCode);
+        return charCode === charCode.toUpperCase();
     }
     static toBlackCharCode(charCode: string) {
         return charCode.toLowerCase();

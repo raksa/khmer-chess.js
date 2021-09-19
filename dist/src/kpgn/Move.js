@@ -12,6 +12,7 @@ var Captured_1 = __importDefault(require("./Captured"));
 var Move = /** @class */ (function () {
     function Move(_a) {
         var piece = _a.piece, moveFrom = _a.moveFrom, moveTo = _a.moveTo, isUpgrading = _a.isUpgrading, captured = _a.captured;
+        this.renStr = null;
         this.boardStatus = {
             attacker: null,
             winColor: null,

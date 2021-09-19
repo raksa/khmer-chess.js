@@ -19,10 +19,7 @@ var constant_2 = require("../brain/constant");
 var REN = /** @class */ (function () {
     function REN(renProps) {
         this.moveHelper = new MoveHelper_1.default();
-        this.init(renProps);
-    }
-    REN.prototype.init = function (_a) {
-        var boardStr = _a.boardStr, turnStr = _a.turnStr, kqJumpedStr = _a.kqJumpedStr, kAttackedStr = _a.kAttackedStr, countUpStr = _a.countUpStr, graveyardStr = _a.graveyardStr;
+        var boardStr = renProps.boardStr, turnStr = renProps.turnStr, kqJumpedStr = renProps.kqJumpedStr, kAttackedStr = renProps.kAttackedStr, countUpStr = renProps.countUpStr, graveyardStr = renProps.graveyardStr;
         // TODO: improve by moving to fromString()
         this.board = new Board_1.default(boardStr);
         this.turn = turnStr || constant_2.PIECE_COLOR_WHITE;
@@ -37,7 +34,7 @@ var REN = /** @class */ (function () {
             throw new Error(msg);
         }
         this.moveHelper = new MoveHelper_1.default();
-    };
+    }
     REN.prototype.isInvalidPieceCount = function () {
         var pieces = this.board.pieceIndices.map(function (pos) {
             return pos.piece;

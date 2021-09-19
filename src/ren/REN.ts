@@ -37,16 +37,14 @@ export default class REN {
     moveHelper: MoveHelper;
     constructor(renProps: RENPropType) {
         this.moveHelper = new MoveHelper();
-        this.init(renProps);
-    }
+        const {
+            boardStr,
+            turnStr,
+            kqJumpedStr,
+            kAttackedStr,
+            countUpStr: countUpStr,
+            graveyardStr } = renProps;
 
-    init({
-        boardStr,
-        turnStr,
-        kqJumpedStr,
-        kAttackedStr,
-        countUpStr: countUpStr,
-        graveyardStr }: RENPropType) {
         // TODO: improve by moving to fromString()
         this.board = new Board(boardStr);
         this.turn = turnStr || PIECE_COLOR_WHITE;
@@ -68,8 +66,8 @@ export default class REN {
             return pos.piece;
         }).filter((p) => {
             return p !== null;
-        }).concat(this.graveyard.pieces).map((p: Piece) => {
-            return p.originPiece;
+        }).concat(this.graveyard.pieces).map((p: Piece | null) => {
+            return (p as Piece).originPiece;
         });
         const piecesCount = pieces.reduce((obj: any, p) => {
             obj[p.pieceCharCode] = obj[p.pieceCharCode] || 0;

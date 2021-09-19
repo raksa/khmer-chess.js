@@ -29,7 +29,6 @@ export default class REN {
     graveyard: Graveyard;
     moveHelper: MoveHelper;
     constructor(renProps: RENPropType);
-    init({ boardStr, turnStr, kqJumpedStr, kAttackedStr, countUpStr: countUpStr, graveyardStr }: RENPropType): void;
     isInvalidPieceCount(): string | false;
     backRen(move: Move): REN;
     get isCanMoveNext(): boolean;

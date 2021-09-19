@@ -38,7 +38,7 @@ export default class KhmerChess {
             REN.fromString(renStr);
             return { valid: true, error_number: 0, error: 'No errors.' };
         } catch (error) {
-            return { valid: false, error_number: 1, error: error.message };
+            return { valid: false, error_number: 1, error: (error as Error).message };
         }
     }
 

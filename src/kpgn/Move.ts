@@ -19,7 +19,7 @@ export type Option = {
     captured?: Captured;
 };
 export default class Move {
-    renStr: string;
+    renStr: string | null = null;
     boardStatus: {
         attacker: PieceIndex | null,
         winColor: string | null,

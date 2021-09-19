@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CountUpState = void 0;
-var jsis_1 = __importDefault(require("./jsis"));
 var genMask_1 = __importDefault(require("./genMask"));
 var constant_1 = require("./constant");
 var Point_1 = __importDefault(require("../ren/Point"));
@@ -100,7 +99,7 @@ var BoardHelper = /** @class */ (function () {
                     }
                 }
             }
-            if (!jsis_1.default.isNull(p)) {
+            if (p !== null) {
                 pieceIndices.push(_poses[i]);
             }
         }

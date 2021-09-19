@@ -14,7 +14,7 @@ export default class KhmerChess {
     validateRENStr(renStr: string): {
         valid: boolean;
         error_number: number;
-        error: any;
+        error: string;
     };
     getRENStr(): string;
     get piecesInBoardMultiArray(): import("./ren").Piece[][];

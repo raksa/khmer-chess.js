@@ -8,6 +8,20 @@ var boardHelper_1 = __importDefault(require("./boardHelper"));
 var constant_1 = require("./constant");
 var MoveHelper = /** @class */ (function () {
     function MoveHelper() {
+        this.piecesString = '';
+        this.currentTurn = '';
+        this.isQueenMoved = false;
+        this.isKingMoved = false;
+        this.genCanMove = false;
+        this.genCanMoveForAnother = false;
+        this.whiteMoves = [];
+        this.blackMoves = [];
+        this.whiteKingInDanger = null;
+        this.whiteKingWillInDanger = null;
+        this.blackKingInDanger = null;
+        this.blackKingWillInDanger = null;
+        this.winColor = null;
+        this.stuckColor = null;
     }
     Object.defineProperty(MoveHelper.prototype, "isWhiteTurn", {
         get: function () {

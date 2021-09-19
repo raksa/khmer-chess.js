@@ -127,7 +127,7 @@ export default class KPGN {
     toJson() {
         let renStr = this.ren.toString();
         if (this.latestMove) {
-            renStr = this.latestMove.renStr;
+            renStr = this.latestMove.renStr as string;
         }
         return {
             event: this.event,

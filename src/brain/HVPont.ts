@@ -1,5 +1,4 @@
 import { HORIZONTAL_CODE_LETTERS } from './constant';
-import jsis from './jsis';
 
 export default class HVPont {
     h: string;
@@ -14,7 +13,7 @@ export default class HVPont {
         return `${this.h}${this.v}`;
     }
     constructor(h: string, v?: string | number) {
-        if (jsis.isUndefined(v)) {
+        if (!v) {
             h = h[0];
             v = h[1];
         }

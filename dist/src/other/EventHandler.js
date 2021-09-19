@@ -4,6 +4,7 @@ var EventHandler = /** @class */ (function () {
     function EventHandler(options) {
         this._onEventListeners = {};
         this._propEvent = [];
+        this._isLockProp = false;
         this._onEventListeners = {};
         this._propEvent = [];
         this.events = options.events;

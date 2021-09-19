@@ -1,13 +1,9 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var constant_1 = require("./constant");
-var jsis_1 = __importDefault(require("./jsis"));
 var HVPont = /** @class */ (function () {
     function HVPont(h, v) {
-        if (jsis_1.default.isUndefined(v)) {
+        if (!v) {
             h = h[0];
             v = h[1];
         }

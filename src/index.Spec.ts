@@ -5,7 +5,6 @@ import {
     Rectangle,
     boardHelper,
     genMask,
-    jsis,
     MoveHelper,
     OptionsType,
     CalCountPropsType,

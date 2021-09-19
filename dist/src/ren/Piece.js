@@ -8,12 +8,8 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var constant_1 = require("../brain/constant");
-var jsis_1 = __importDefault(require("../brain/jsis"));
 var Piece = /** @class */ (function () {
     function Piece(type, color) {
         this.type = Piece.toNormalCharCode(type);
@@ -170,7 +166,7 @@ var Piece = /** @class */ (function () {
         return charCode.toUpperCase();
     };
     Piece.isWhiteCharCode = function (charCode) {
-        return jsis_1.default.isUpperCase(charCode);
+        return charCode === charCode.toUpperCase();
     };
     Piece.toBlackCharCode = function (charCode) {
         return charCode.toLowerCase();

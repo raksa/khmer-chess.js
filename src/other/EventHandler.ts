@@ -4,7 +4,7 @@ export default class EventHandler {
     _onEventListeners: { [key: string]: any } = {};
     _propEvent: any = [];
     events: any;
-    _isLockProp: boolean;
+    _isLockProp: boolean = false;
     constructor(options: { events: any }) {
         this._onEventListeners = {};
         this._propEvent = [];

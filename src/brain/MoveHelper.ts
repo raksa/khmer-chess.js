@@ -18,21 +18,21 @@ export type CalCountPropsType = {
     force: boolean;
 };
 export default class MoveHelper implements OptionsType {
-    piecesString: string;
-    currentTurn: string;
-    isQueenMoved: boolean;
-    isKingMoved: boolean;
-    genCanMove: boolean;
-    genCanMoveForAnother: boolean;
+    piecesString: string = '';
+    currentTurn: string = '';
+    isQueenMoved: boolean = false;
+    isKingMoved: boolean = false;
+    genCanMove: boolean = false;
+    genCanMoveForAnother: boolean = false;
 
-    whiteMoves: PieceIndex[];
-    blackMoves: PieceIndex[];
-    whiteKingInDanger: Point[] | null;
-    whiteKingWillInDanger: Point[] | null;
-    blackKingInDanger: Point[] | null;
-    blackKingWillInDanger: Point[] | null;
-    winColor: string | null;
-    stuckColor: string | null;
+    whiteMoves: PieceIndex[] = [];
+    blackMoves: PieceIndex[] = [];
+    whiteKingInDanger: Point[] | null = null;
+    whiteKingWillInDanger: Point[] | null = null;
+    blackKingInDanger: Point[] | null = null;
+    blackKingWillInDanger: Point[] | null = null;
+    winColor: string | null = null;
+    stuckColor: string | null = null;
 
     get isWhiteTurn() {
         return Piece.isWhiteColor(this.currentTurn);
