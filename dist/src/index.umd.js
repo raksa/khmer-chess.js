@@ -6,20 +6,26 @@ var __createBinding = (this && this.__createBinding) || (Object.create ? (functi
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
 }));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
 };
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.KhmerChess = void 0;
-__exportStar(require("./brain"), exports);
-__exportStar(require("./kpgn"), exports);
-__exportStar(require("./ren"), exports);
-__exportStar(require("./other"), exports);
+exports.khmerChessNS = exports.KhmerChess = void 0;
 var KhmerChess_1 = require("./KhmerChess");
 Object.defineProperty(exports, "KhmerChess", { enumerable: true, get: function () { return __importDefault(KhmerChess_1).default; } });
+exports.khmerChessNS = __importStar(require("./index"));
 /*
  * Copyright (c) 2021, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
@@ -47,4 +53,4 @@ Object.defineProperty(exports, "KhmerChess", { enumerable: true, get: function (
  * POSSIBILITY OF SUCH DAMAGE.
  *
  *---------------------------------------------------------------------------- */ 
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=index.umd.js.map

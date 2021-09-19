@@ -1,25 +1,5 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.KhmerChess = void 0;
-__exportStar(require("./brain"), exports);
-__exportStar(require("./kpgn"), exports);
-__exportStar(require("./ren"), exports);
-__exportStar(require("./other"), exports);
-var KhmerChess_1 = require("./KhmerChess");
-Object.defineProperty(exports, "KhmerChess", { enumerable: true, get: function () { return __importDefault(KhmerChess_1).default; } });
+export { default as KhmerChess } from './KhmerChess';
+export * as khmerChessNS from './index';
 /*
  * Copyright (c) 2021, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
@@ -46,5 +26,4 @@ Object.defineProperty(exports, "KhmerChess", { enumerable: true, get: function (
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- *---------------------------------------------------------------------------- */ 
-//# sourceMappingURL=index.js.map
+ *---------------------------------------------------------------------------- */

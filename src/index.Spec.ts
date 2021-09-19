@@ -30,7 +30,7 @@ import {
     VERTICAL_NOTE_LETTERS,
     HORIZONTAL_NOTE_LETTERS_ENGLISH,
     VERTICAL_NOTE_LETTERS_ENGLISH,
-} from './brain';
+} from './index';
 // kpgn
 import {
     Captured,
@@ -41,13 +41,13 @@ import {
     Player,
     Result,
     Timer,
-} from './kpgn';
+} from './index';
 // other
 import {
     EventHandler,
     ListenerType,
     table,
-} from './other';
+} from './index';
 // ren
 import {
     Board,
@@ -65,11 +65,10 @@ import {
     NOT_SET,
     PIECE_FLAG_KILL,
     PIECE_FLAG_JUMP,
-} from './ren';
+} from './index';
 //  index
 import {
     KhmerChess,
-    khmerChessNS,
 } from './index';
 
 describe('Should import successfully', function () {

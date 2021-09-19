@@ -1,17 +1,8 @@
+export * from './brain';
+export * from './kpgn';
+export * from './ren';
+export * from './other';
 export { default as KhmerChess } from './KhmerChess';
-import * as brain from './brain';
-import * as kpgn from './kpgn';
-import * as ren from './ren';
-import * as other from './other';
-import KhmerChess from './KhmerChess';
-export const khmerChessNS = Object.assign({
-    KhmerChess,
-},
-    brain,
-    kpgn,
-    ren,
-    other
-);
 /*
  * Copyright (c) 2021, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>

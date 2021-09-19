@@ -33,7 +33,7 @@ const ROOT = path.resolve(__dirname, 'dist');
 module.exports = {
     context: ROOT,
     entry: {
-        'khmer-chess': './src/index.js'
+        'khmer-chess': './src/index.umd.js'
     },
     output: {
         path: ROOT,
