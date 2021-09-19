@@ -11,6 +11,11 @@ export default class EventHandler {
         this.events = options.events;
     }
 
+    public destroy(){
+        this._onEventListeners = {};
+        this._propEvent = [];
+    }
+
     _checkPropEvent() {
         if (this._isLockProp) {
             return;

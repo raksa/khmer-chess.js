@@ -9,6 +9,10 @@ var EventHandler = /** @class */ (function () {
         this._propEvent = [];
         this.events = options.events;
     }
+    EventHandler.prototype.destroy = function () {
+        this._onEventListeners = {};
+        this._propEvent = [];
+    };
     EventHandler.prototype._checkPropEvent = function () {
         if (this._isLockProp) {
             return;

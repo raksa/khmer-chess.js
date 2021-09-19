@@ -9,6 +9,7 @@ export default class EventHandler {
     constructor(options: {
         events: any;
     });
+    destroy(): void;
     _checkPropEvent(): void;
     _addPropEvent(event: string, data?: any): void;
     _guardEventName(eventName?: string): void;
