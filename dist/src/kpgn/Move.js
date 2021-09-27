@@ -220,7 +220,7 @@ var Move = /** @class */ (function () {
             }
             var upgrade = this.isUpgrading ? ' transforms' : '';
             var jump = this.getJumpingMessage(isEnglish);
-            return this.piece.titleEnglish + " moved from " + this.moveFrom.titleEnglish + " to " + this.moveTo.titleEnglish + upgrade + captured + " " + jump;
+            return "[" + this.toString() + "] " + this.piece.titleEnglish + " moved from " + this.moveFrom.titleEnglish + " to " + this.moveTo.titleEnglish + upgrade + captured + " " + jump;
         }
         else {
             var captured = '';
@@ -229,7 +229,7 @@ var Move = /** @class */ (function () {
             }
             var upgrade = this.isUpgrading ? ' បក' : '';
             var jump = this.getJumpingMessage(isEnglish);
-            return this.piece.title + " \u178A\u17BE\u179A\u200B\u1796\u17B8 " + this.moveFrom.title + " \u1791\u17C5 " + this.moveTo.title + upgrade + captured + " " + jump;
+            return "[" + this.toString() + "] " + this.piece.title + " \u178A\u17BE\u179A\u200B\u1796\u17B8 " + this.moveFrom.title + " \u1791\u17C5 " + this.moveTo.title + upgrade + captured + " " + jump;
         }
     };
     return Move;

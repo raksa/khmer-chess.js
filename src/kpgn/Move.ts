@@ -209,7 +209,7 @@ export default class Move {
             }
             const upgrade = this.isUpgrading ? ' transforms' : '';
             const jump = this.getJumpingMessage(isEnglish);
-            return `${this.piece.titleEnglish} moved from ${this.moveFrom.titleEnglish} to ${this.moveTo.titleEnglish}${upgrade}${captured} ${jump}`;
+            return `[${this.toString()}] ${this.piece.titleEnglish} moved from ${this.moveFrom.titleEnglish} to ${this.moveTo.titleEnglish}${upgrade}${captured} ${jump}`;
         } else {
             let captured = '';
             if (this.captured) {
@@ -217,7 +217,7 @@ export default class Move {
             }
             const upgrade = this.isUpgrading ? ' បក' : '';
             const jump = this.getJumpingMessage(isEnglish);
-            return `${this.piece.title} ដើរ​ពី ${this.moveFrom.title} ទៅ ${this.moveTo.title}${upgrade}${captured} ${jump}`;
+            return `[${this.toString()}] ${this.piece.title} ដើរ​ពី ${this.moveFrom.title} ទៅ ${this.moveTo.title}${upgrade}${captured} ${jump}`;
         }
     }
 }
