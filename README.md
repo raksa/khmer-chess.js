@@ -12,11 +12,21 @@ console.log(kc.drawAscii());
 
 ![alt text](./docs/Screen%20Shot%202022-10-13%20at%2010.18.25%20PM.png "Screen Shot 2022-10-13 at 10.18.25 PM.png")
 
+## Installing
+
+* `npm i -D khmer-chess`
+
 ## Importing
 
 * `npm i -D khmer-chess`
-* [Typescript](https://www.typescriptlang.org/): `import { KhmerChess } from 'khmer-chess';`
-* [Node.js](https://nodejs.org/en/): `const { KhmerChess } = require('khmer-chess');`
+* [Typescript](https://www.typescriptlang.org/): 
+```typescript
+import { KhmerChess } from 'khmer-chess';
+```
+* [Node.js](https://nodejs.org/en/): 
+```javascript
+const { KhmerChess } = require('khmer-chess');
+```
 
 ## Run
 
