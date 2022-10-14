@@ -18,7 +18,6 @@ console.log(kc.drawAscii());
 
 ## Importing
 
-* `npm i -D khmer-chess`
 * [Typescript](https://www.typescriptlang.org/): 
 ```typescript
 import { KhmerChess } from 'khmer-chess';
