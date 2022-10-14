@@ -1,18 +1,27 @@
+import Piece from '../ren/Piece';
 import REN from '../ren/REN';
+
+function renderLine(pieces: (Piece | null)[]) {
+  return pieces.map((piece) => {
+    return ` ${piece === null ? ' ' : piece.pieceCharCode} `;
+  }).join('┃');
+}
 
 export default function asciiTable(ren: REN) {
   const arr = ren.board.piecesMultiArray;
   const str = '  ┏━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┓';
   const result = arr.reverse().reduce((s, subArr, i) => {
-    const rs = subArr.map((p) => ` ${p ? p.pieceCharCode : ' '} `).join('┃');
-    const bottom = i === arr.length - 1 ? '┗━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┛' : '┣━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━┫';
+    const rs = renderLine(subArr);
+    const bottom = i === arr.length - 1 ?
+      '┗━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┛' :
+      '┣━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━┫';
     s += `
 ${8 - i} ┃${rs}┃
   ${bottom}`;
     return s;
   }, str);
   const gyTStr = ren.graveyard.pieces.map(() => '━━━').join('┳');
-  const gyStr = ren.graveyard.pieces.map((p) => ` ${p ? p.pieceCharCode : ' '} `).join('┃');
+  const gyStr = renderLine(ren.graveyard.pieces);
   const gyBStr = ren.graveyard.pieces.map(() => '━━━').join('┻');
   const graveyardStr = `  ┏${gyTStr}┓
   ┃${gyStr}┃

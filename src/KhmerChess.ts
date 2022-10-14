@@ -1,5 +1,8 @@
 import config from '../package.json';
-import { VERTICAL_NOTE_LETTERS, VERTICAL_NOTE_LETTERS_ENGLISH } from './brain/constant';
+import {
+    VERTICAL_NOTE_LETTERS,
+    VERTICAL_NOTE_LETTERS_ENGLISH,
+} from './brain/constant';
 import KPGN from './kpgn/KPGN';
 import Move from './kpgn/Move';
 import asciiTable from './other/table';

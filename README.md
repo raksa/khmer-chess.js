@@ -15,6 +15,7 @@ Notation [KPNG Spec](https://github.com/K4us/khmer-chess.js/tree/main/src/kpgn/k
 ```bash
 > npm i
 > npm start
+> npm run start:watch
 ```
 
 ## Build

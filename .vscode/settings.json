@@ -18,4 +18,7 @@
         "tab.activeBorder": "#ff0000",
         "tab.activeModifiedBorder": "#3cfe31",
     },
+    "editor.rulers": [
+        80,
+    ]
 }
