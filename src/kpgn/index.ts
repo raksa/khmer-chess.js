@@ -1,14 +1,5 @@
-export { default as KPGN } from './KPGN';
-export { default as Move } from './Move';
-export type { Option as MoveOption } from './Move';
-export { default as Captured } from './Captured';
-export type { CapturedPropType } from './Captured';
-export { default as Player } from './Player';
-export { default as Result } from './Result';
-export { default as Timer } from './Timer';
-export type { Option as KPGNOption } from './KPGN';
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -34,3 +25,12 @@ export type { Option as KPGNOption } from './KPGN';
  * POSSIBILITY OF SUCH DAMAGE.
  *
  *---------------------------------------------------------------------------- */
+export { default as KPGN } from './KPGN';
+export { default as Move } from './Move';
+export type { Option as MoveOption } from './Move';
+export { default as Captured } from './Captured';
+export type { CapturedPropType } from './Captured';
+export { default as Player } from './Player';
+export { default as Result } from './Result';
+export { default as Timer } from './Timer';
+export type { Option as KPGNOption } from './KPGN';

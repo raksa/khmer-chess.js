@@ -1,24 +1,5 @@
-
-import Piece from '../ren/Piece';
-import Point from '../ren/Point';
-
-export type CapturedPropType = {
-    piece: Piece;
-    fromBoardPoint: Point;
-    toGraveyardPoint: Point;
-};
-export default class Captured implements CapturedPropType {
-    piece: Piece;
-    fromBoardPoint: Point;
-    toGraveyardPoint: Point;
-    constructor({ piece, fromBoardPoint: fromBoardPoint, toGraveyardPoint: toGraveyardPoint }: CapturedPropType) {
-        this.piece = piece;
-        this.fromBoardPoint = fromBoardPoint;
-        this.toGraveyardPoint = toGraveyardPoint;
-    }
-}
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -44,3 +25,21 @@ export default class Captured implements CapturedPropType {
  * POSSIBILITY OF SUCH DAMAGE.
  *
  *---------------------------------------------------------------------------- */
+import Piece from '../ren/Piece';
+import Point from '../ren/Point';
+
+export type CapturedPropType = {
+    piece: Piece;
+    fromBoardPoint: Point;
+    toGraveyardPoint: Point;
+};
+export default class Captured implements CapturedPropType {
+    piece: Piece;
+    fromBoardPoint: Point;
+    toGraveyardPoint: Point;
+    constructor({ piece, fromBoardPoint: fromBoardPoint, toGraveyardPoint: toGraveyardPoint }: CapturedPropType) {
+        this.piece = piece;
+        this.fromBoardPoint = fromBoardPoint;
+        this.toGraveyardPoint = toGraveyardPoint;
+    }
+}

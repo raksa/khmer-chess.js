@@ -1,36 +1,5 @@
-export type Option = {
-    totalSecond?: number;
-    bonusTime?: number;
-    currentWhite?: number;
-    currentBlack?: number;
-};
-export default class Timer {
-    bonusTime: number;
-    totalSecond: number;
-    currentWhite: number;
-    currentBlack: number;
-    constructor({ totalSecond, bonusTime, currentWhite, currentBlack }: Option) {
-        this.bonusTime = bonusTime || 0;
-        this.totalSecond = totalSecond || 0;
-        this.currentWhite = currentWhite || 0;
-        this.currentBlack = currentBlack || 0;
-    }
-
-    fromJson() {
-
-    }
-
-    toJson() {
-        return {
-            totalSecond: this.totalSecond,
-            bonusTime: this.bonusTime,
-            currentWhite: this.currentWhite,
-            currentBlack: this.currentBlack,
-        };
-    }
-}
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -56,3 +25,30 @@ export default class Timer {
  * POSSIBILITY OF SUCH DAMAGE.
  *
  *---------------------------------------------------------------------------- */
+export type Option = {
+    totalSecond?: number;
+    bonusTime?: number;
+    currentWhite?: number;
+    currentBlack?: number;
+};
+export default class Timer {
+    bonusTime: number;
+    totalSecond: number;
+    currentWhite: number;
+    currentBlack: number;
+    constructor({ totalSecond, bonusTime, currentWhite, currentBlack }: Option) {
+        this.bonusTime = bonusTime || 0;
+        this.totalSecond = totalSecond || 0;
+        this.currentWhite = currentWhite || 0;
+        this.currentBlack = currentBlack || 0;
+    }
+
+    toJson() {
+        return {
+            totalSecond: this.totalSecond,
+            bonusTime: this.bonusTime,
+            currentWhite: this.currentWhite,
+            currentBlack: this.currentBlack,
+        };
+    }
+}

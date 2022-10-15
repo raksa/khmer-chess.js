@@ -1,10 +1,5 @@
-export * from './brain';
-export * from './kpgn';
-export * from './ren';
-export * from './other';
-export { default as KhmerChess } from './KhmerChess';
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -30,3 +25,8 @@ export { default as KhmerChess } from './KhmerChess';
  * POSSIBILITY OF SUCH DAMAGE.
  *
  *---------------------------------------------------------------------------- */
+export * from './brain';
+export * from './kpgn';
+export * from './ren';
+export * from './other';
+export { default as KhmerChess } from './KhmerChess';

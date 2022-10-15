@@ -1,28 +1,5 @@
-import { PIECE_TYPE_KING } from '../brain/constant';
-import { NOT_SET } from './constant';
-import Piece from './Piece';
-
-/**
- * King has attacked, this will effect jumping
- */
-export default class KAttacked {
-    whiteKing = false;
-    blackKing = false;
-    constructor(kAttackedStr?: string) {
-        if (kAttackedStr) {
-            this.whiteKing = !!~kAttackedStr.indexOf(Piece.toWhiteCharCode(PIECE_TYPE_KING));
-            this.blackKing = !!~kAttackedStr.indexOf(PIECE_TYPE_KING);
-        }
-    }
-
-    toString() {
-        let str = `${this.whiteKing ? Piece.toWhiteCharCode(PIECE_TYPE_KING) : NOT_SET}`;
-        str += `${this.blackKing ? PIECE_TYPE_KING : NOT_SET}`;
-        return str;
-    }
-}
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -48,3 +25,26 @@ export default class KAttacked {
  * POSSIBILITY OF SUCH DAMAGE.
  *
  *---------------------------------------------------------------------------- */
+import { PIECE_TYPE_KING } from '../brain/constant';
+import { NOT_SET } from './constant';
+import Piece from './Piece';
+
+/**
+ * King has attacked, this will effect jumping
+ */
+export default class KAttacked {
+    whiteKing = false;
+    blackKing = false;
+    constructor(kAttackedStr?: string) {
+        if (kAttackedStr) {
+            this.whiteKing = !!~kAttackedStr.indexOf(Piece.toWhiteCharCode(PIECE_TYPE_KING));
+            this.blackKing = !!~kAttackedStr.indexOf(PIECE_TYPE_KING);
+        }
+    }
+
+    toString() {
+        let str = `${this.whiteKing ? Piece.toWhiteCharCode(PIECE_TYPE_KING) : NOT_SET}`;
+        str += `${this.blackKing ? PIECE_TYPE_KING : NOT_SET}`;
+        return str;
+    }
+}

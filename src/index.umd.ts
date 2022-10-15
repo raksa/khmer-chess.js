@@ -1,7 +1,5 @@
-export { default as KhmerChess } from './KhmerChess';
-export * as khmerChessNS from './index';
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -27,3 +25,5 @@ export * as khmerChessNS from './index';
  * POSSIBILITY OF SUCH DAMAGE.
  *
  *---------------------------------------------------------------------------- */
+export { default as KhmerChess } from './KhmerChess';
+export * as khmerChessNS from './index';

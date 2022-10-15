@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -39,8 +39,8 @@ describe('Should import successfully', function () {
 
     it('should has correct move positions', () => {
         const points = kc.kpgn.ren.getCanMovePointsByPoint(point);
-        points.map(p => {
-            expect(p.indexCode).toBe('d2');
+        points.forEach((point) => {
+            expect(point.indexCode).toBe('d2');
         });
     });
 });

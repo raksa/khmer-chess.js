@@ -1,29 +1,5 @@
-export type Option = {
-    win?: number;
-    draw?: number;
-    lost?: number;
-};
-export default class Result {
-    win: number;
-    draw: number;
-    lost: number;
-    constructor({ win, draw, lost }: Option) {
-        this.win = win || 0;
-        this.draw = draw || 0;
-        this.lost = lost || 0;
-    }
-
-    toJson() {
-        return {
-            win: this.win,
-            draw: this.draw,
-            lost: this.lost,
-        };
-    }
-}
-
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -49,3 +25,26 @@ export default class Result {
  * POSSIBILITY OF SUCH DAMAGE.
  *
  *---------------------------------------------------------------------------- */
+export type Option = {
+    win?: number;
+    draw?: number;
+    lost?: number;
+};
+export default class Result {
+    win: number;
+    draw: number;
+    lost: number;
+    constructor({ win, draw, lost }: Option) {
+        this.win = win || 0;
+        this.draw = draw || 0;
+        this.lost = lost || 0;
+    }
+
+    toJson() {
+        return {
+            win: this.win,
+            draw: this.draw,
+            lost: this.lost,
+        };
+    }
+}

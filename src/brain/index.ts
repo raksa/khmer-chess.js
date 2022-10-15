@@ -1,12 +1,5 @@
-export { default as Rectangle } from './Rectangle';
-export { default as boardHelper } from './boardHelper';
-export { default as genMask } from './genMask';
-export { default as HVPont } from './HVPont';
-export { default as MoveHelper } from './MoveHelper';
-export type { OptionsType, CalCountPropsType } from './MoveHelper';
-export * from './constant';
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -32,3 +25,10 @@ export * from './constant';
  * POSSIBILITY OF SUCH DAMAGE.
  *
  *---------------------------------------------------------------------------- */
+export { default as Rectangle } from './Rectangle';
+export { default as boardHelper } from './boardHelper';
+export { default as genMask } from './genMask';
+export { default as HVPont } from './HVPont';
+export { default as MoveHelper } from './MoveHelper';
+export type { OptionsType, CalCountPropsType } from './MoveHelper';
+export * from './constant';

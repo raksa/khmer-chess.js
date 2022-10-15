@@ -1,7 +1,6 @@
-
 /*
- * Copyright (c) 2021, K4us
- * Author: Raksa Eng <eng.raksa@gmail.com>, K4us Net k4us.net@gmail.com
+ * Copyright (c) 2021-2022, K4us
+ * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without

@@ -1,21 +1,5 @@
-// BHGQKGHB/8/FFFFFFFF/8/8/ffffffff/8/bhgkqghb w ---- -- -.-
-export const STRING_COUNT = 'B2F8G2H2K1Q1b2f8g2h2k1q1';
-// BHGQKGHB/8/FFFFFFFF/8/8/ffffffff/8/bhgkqghb w ---- -- -.-
-export const DEFAULT_BOARD_STR = 'BHGKQGHB/8/FFFFFFFF/8/8/ffffffff/8/bhgqkghb';
-export const NOT_SET = '-';
-export const PIECE_FLAG_KILL = '<';
-export const PIECE_FLAG_JUMP = '^';
-export const PIECE_FLAG_UPGRADE = '*';
-export const PIECE_FLAG_START_COUNTING = '#';
-export const EVENT_FLAG_ATTACK = 'attack';
-export const EVENT_FLAG_WIN = 'win';
-export const EVENT_FLAG_DRAW = 'draw';
-export const EVENT_FLAG_START_COUNTING = 'start-counting';
-export const EVENT_FLAG_COUNTING_UP = 'counting-up';
-export const EVENT_FLAG_COUNT_UP_OUT = 'count-up-out';
-export const EVENT_FLAG_MOVING = 'moving';
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -41,3 +25,19 @@ export const EVENT_FLAG_MOVING = 'moving';
  * POSSIBILITY OF SUCH DAMAGE.
  *
  *---------------------------------------------------------------------------- */
+// BHGQKGHB/8/FFFFFFFF/8/8/ffffffff/8/bhgkqghb w ---- -- -.-
+export const STRING_COUNT = 'B2F8G2H2K1Q1b2f8g2h2k1q1';
+// BHGQKGHB/8/FFFFFFFF/8/8/ffffffff/8/bhgkqghb w ---- -- -.-
+export const DEFAULT_BOARD_STR = 'BHGKQGHB/8/FFFFFFFF/8/8/ffffffff/8/bhgqkghb';
+export const NOT_SET = '-';
+export const PIECE_FLAG_KILL = '<';
+export const PIECE_FLAG_JUMP = '^';
+export const PIECE_FLAG_UPGRADE = '*';
+export const PIECE_FLAG_START_COUNTING = '#';
+export const EVENT_FLAG_ATTACK = 'attack';
+export const EVENT_FLAG_WIN = 'win';
+export const EVENT_FLAG_DRAW = 'draw';
+export const EVENT_FLAG_START_COUNTING = 'start-counting';
+export const EVENT_FLAG_COUNTING_UP = 'counting-up';
+export const EVENT_FLAG_COUNT_UP_OUT = 'count-up-out';
+export const EVENT_FLAG_MOVING = 'moving';

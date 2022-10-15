@@ -1,29 +1,5 @@
-import { HORIZONTAL_CODE_LETTERS } from './constant';
-
-export default class HVPont {
-    h: string;
-    v: number;
-    get x() {
-        return HORIZONTAL_CODE_LETTERS.indexOf(this.h);
-    }
-    get y() {
-        return this.v - 1;
-    }
-    get indexCode() {
-        return `${this.h}${this.v}`;
-    }
-    constructor(h: string, v?: string | number) {
-        if (!v) {
-            h = h[0];
-            v = h[1];
-        }
-        this.h = h;
-        this.v = Number(v);
-    }
-
-}
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -49,3 +25,27 @@ export default class HVPont {
  * POSSIBILITY OF SUCH DAMAGE.
  *
  *---------------------------------------------------------------------------- */
+import { HORIZONTAL_CODE_LETTERS } from './constant';
+
+export default class HVPont {
+    h: string;
+    v: number;
+    get x() {
+        return HORIZONTAL_CODE_LETTERS.indexOf(this.h);
+    }
+    get y() {
+        return this.v - 1;
+    }
+    get indexCode() {
+        return `${this.h}${this.v}`;
+    }
+    constructor(h: string, v?: string | number) {
+        if (!v) {
+            h = h[0];
+            v = h[1];
+        }
+        this.h = h;
+        this.v = Number(v);
+    }
+
+}

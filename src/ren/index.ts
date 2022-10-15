@@ -1,16 +1,5 @@
-export { default as Board } from './Board';
-export { default as CountUp } from './CountUp';
-export { default as Graveyard } from './Graveyard';
-export { default as KAttacked } from './KAttacked';
-export { default as KqJumped } from './KqJumped';
-export { default as Piece } from './Piece';
-export { default as PieceIndex } from './PieceIndex';
-export { default as REN } from './REN';
-export type { RENPropType } from './REN';
-export { default as Point } from './Point';
-export * from './constant';
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -36,3 +25,14 @@ export * from './constant';
  * POSSIBILITY OF SUCH DAMAGE.
  *
  *---------------------------------------------------------------------------- */
+export { default as Board } from './Board';
+export { default as CountUp } from './CountUp';
+export { default as Graveyard } from './Graveyard';
+export { default as KAttacked } from './KAttacked';
+export { default as KqJumped } from './KqJumped';
+export { default as Piece } from './Piece';
+export { default as PieceIndex } from './PieceIndex';
+export { default as REN } from './REN';
+export type { RENPropType } from './REN';
+export { default as Point } from './Point';
+export * from './constant';

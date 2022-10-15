@@ -1,26 +1,5 @@
-import { EMPTY_PIECE } from '../brain/constant';
-import Piece from './Piece';
-import Point from './Point';
-
-export default class PieceIndex {
-    point: Point;
-    piece: Piece | null;
-    canMovePoints: Point[] = [];
-    constructor(point: Point, piece: Piece | null) {
-        this.point = point;
-        this.piece = piece;
-    }
-
-    toCode() {
-        return this.piece != null ? `${this.piece.pieceCharCode}${this.point.indexCode}` : null;
-    }
-
-    toPieceCharCode() {
-        return this.piece !== null ? this.piece.pieceCharCode : EMPTY_PIECE;
-    }
-}
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -46,3 +25,30 @@ export default class PieceIndex {
  * POSSIBILITY OF SUCH DAMAGE.
  *
  *---------------------------------------------------------------------------- */
+import { EMPTY_PIECE } from '../brain/constant';
+import Piece from './Piece';
+import Point from './Point';
+
+export default class PieceIndex {
+    point: Point;
+    piece: Piece | null;
+    canMovePoints: Point[] = [];
+    constructor(point: Point, piece: Piece | null) {
+        this.point = point;
+        this.piece = piece;
+    }
+
+    toCode() {
+        if (this.piece === null) {
+            return null;
+        }
+        return `${this.piece.pieceCharCode}${this.point.indexCode}`;
+    }
+
+    toPieceCharCode() {
+        if (this.piece === null) {
+            return EMPTY_PIECE;
+        }
+        return this.piece.pieceCharCode;
+    }
+}

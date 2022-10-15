@@ -1,24 +1,5 @@
-export type Option = {
-    id?: string;
-    name?: string;
-};
-export default class Player {
-    name: string | null;
-    id: string | null;
-    constructor({ id, name }: Option) {
-        this.id = id || '';
-        this.name = name || '';
-    }
-
-    toJson() {
-        return {
-            id: this.id,
-            name: this.name,
-        };
-    }
-}
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -44,3 +25,22 @@ export default class Player {
  * POSSIBILITY OF SUCH DAMAGE.
  *
  *---------------------------------------------------------------------------- */
+export type Option = {
+    id?: string;
+    name?: string;
+};
+export default class Player {
+    name: string | null;
+    id: string | null;
+    constructor({ id, name }: Option) {
+        this.id = id || '';
+        this.name = name || '';
+    }
+
+    toJson() {
+        return {
+            id: this.id,
+            name: this.name,
+        };
+    }
+}

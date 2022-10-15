@@ -1,6 +1,5 @@
-
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -31,7 +30,7 @@ import { KhmerChess, Point } from './src/index';
 const kc = new KhmerChess('BHGQK2B/4GH2/TFFFFFFF/8/8/5ft1/2qg2b1/bhgk2h1 w ---- -- -.- ffffff');
 // console.log(kc.renInstance.genAllCanMoves());
 const point = new Point(1, 0);
-const piece = kc.renInstance.board.getPieceAtIndex(point.index);
-const points = kc.renInstance.getCanMovePointsByPoint(point);
-console.log(piece.title, point.indexCode);
+const piece = kc.kpgn.ren.board.getPieceAtIndex(point.index);
+const points = kc.getCanMovePointsByPoint(point);
+console.log(piece?.title, point.indexCode);
 console.log(points.map(p => p.indexCode).join(','));
