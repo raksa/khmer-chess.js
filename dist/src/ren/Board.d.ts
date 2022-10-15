@@ -6,7 +6,7 @@ import PieceIndex from './PieceIndex';
 export default class Board {
     pieceIndices: PieceIndex[];
     constructor(boardStr?: string);
-    get piecesMultiArray(): Piece[][];
+    get piecesMultiArray(): (Piece | null)[][];
     get pieces(): (Piece | null)[];
     get whiteKing(): PieceIndex | undefined;
     get blackKing(): PieceIndex | undefined;

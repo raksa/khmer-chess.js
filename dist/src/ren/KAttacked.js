@@ -3,31 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var constant_1 = require("../brain/constant");
-var constant_2 = require("./constant");
-var Piece_1 = __importDefault(require("./Piece"));
-/**
- * King has attacked, this will effect jumping
- */
-var KAttacked = /** @class */ (function () {
-    function KAttacked(kAttackedStr) {
-        this.whiteKing = false;
-        this.blackKing = false;
-        if (kAttackedStr) {
-            this.whiteKing = !!~kAttackedStr.indexOf(Piece_1.default.toWhiteCharCode(constant_1.PIECE_TYPE_KING));
-            this.blackKing = !!~kAttackedStr.indexOf(constant_1.PIECE_TYPE_KING);
-        }
-    }
-    KAttacked.prototype.toString = function () {
-        var str = "" + (this.whiteKing ? Piece_1.default.toWhiteCharCode(constant_1.PIECE_TYPE_KING) : constant_2.NOT_SET);
-        str += "" + (this.blackKing ? constant_1.PIECE_TYPE_KING : constant_2.NOT_SET);
-        return str;
-    };
-    return KAttacked;
-}());
-exports.default = KAttacked;
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -52,5 +29,28 @@ exports.default = KAttacked;
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- *---------------------------------------------------------------------------- */ 
+ *---------------------------------------------------------------------------- */
+var constant_1 = require("../brain/constant");
+var constant_2 = require("./constant");
+var Piece_1 = __importDefault(require("./Piece"));
+/**
+ * King has attacked, this will effect jumping
+ */
+var KAttacked = /** @class */ (function () {
+    function KAttacked(kAttackedStr) {
+        this.whiteKing = false;
+        this.blackKing = false;
+        if (kAttackedStr) {
+            this.whiteKing = !!~kAttackedStr.indexOf(Piece_1.default.toWhiteCharCode(constant_1.PIECE_TYPE_KING));
+            this.blackKing = !!~kAttackedStr.indexOf(constant_1.PIECE_TYPE_KING);
+        }
+    }
+    KAttacked.prototype.toString = function () {
+        var str = "" + (this.whiteKing ? Piece_1.default.toWhiteCharCode(constant_1.PIECE_TYPE_KING) : constant_2.NOT_SET);
+        str += "" + (this.blackKing ? constant_1.PIECE_TYPE_KING : constant_2.NOT_SET);
+        return str;
+    };
+    return KAttacked;
+}());
+exports.default = KAttacked;
 //# sourceMappingURL=KAttacked.js.map

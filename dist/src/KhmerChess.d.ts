@@ -17,7 +17,7 @@ export default class KhmerChess {
         error: string;
     };
     getRENStr(): string;
-    get piecesInBoardMultiArray(): import("./ren").Piece[][];
+    get piecesInBoardMultiArray(): (import("./ren").Piece | null)[][];
     get piecesInBoard(): (import("./ren").Piece | null)[];
     get piecesInGraveyard(): import("./ren").Piece[];
     getKPGN(): {

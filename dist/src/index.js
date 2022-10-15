@@ -14,14 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.KhmerChess = void 0;
-__exportStar(require("./brain"), exports);
-__exportStar(require("./kpgn"), exports);
-__exportStar(require("./ren"), exports);
-__exportStar(require("./other"), exports);
-var KhmerChess_1 = require("./KhmerChess");
-Object.defineProperty(exports, "KhmerChess", { enumerable: true, get: function () { return __importDefault(KhmerChess_1).default; } });
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -46,5 +40,11 @@ Object.defineProperty(exports, "KhmerChess", { enumerable: true, get: function (
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- *---------------------------------------------------------------------------- */ 
+ *---------------------------------------------------------------------------- */
+__exportStar(require("./brain"), exports);
+__exportStar(require("./kpgn"), exports);
+__exportStar(require("./ren"), exports);
+__exportStar(require("./other"), exports);
+var KhmerChess_1 = require("./KhmerChess");
+Object.defineProperty(exports, "KhmerChess", { enumerable: true, get: function () { return __importDefault(KhmerChess_1).default; } });
 //# sourceMappingURL=index.js.map

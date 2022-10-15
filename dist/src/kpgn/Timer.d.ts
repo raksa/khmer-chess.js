@@ -10,7 +10,6 @@ export default class Timer {
     currentWhite: number;
     currentBlack: number;
     constructor({ totalSecond, bonusTime, currentWhite, currentBlack }: Option);
-    fromJson(): void;
     toJson(): {
         totalSecond: number;
         bonusTime: number;

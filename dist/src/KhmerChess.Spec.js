@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *

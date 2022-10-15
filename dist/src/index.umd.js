@@ -23,11 +23,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.khmerChessNS = exports.KhmerChess = void 0;
-var KhmerChess_1 = require("./KhmerChess");
-Object.defineProperty(exports, "KhmerChess", { enumerable: true, get: function () { return __importDefault(KhmerChess_1).default; } });
-exports.khmerChessNS = __importStar(require("./index"));
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -52,5 +49,8 @@ exports.khmerChessNS = __importStar(require("./index"));
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- *---------------------------------------------------------------------------- */ 
+ *---------------------------------------------------------------------------- */
+var KhmerChess_1 = require("./KhmerChess");
+Object.defineProperty(exports, "KhmerChess", { enumerable: true, get: function () { return __importDefault(KhmerChess_1).default; } });
+exports.khmerChessNS = __importStar(require("./index"));
 //# sourceMappingURL=index.umd.js.map

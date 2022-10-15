@@ -4,12 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.table = exports.EventHandler = void 0;
-var EventHandler_1 = require("./EventHandler");
-Object.defineProperty(exports, "EventHandler", { enumerable: true, get: function () { return __importDefault(EventHandler_1).default; } });
-var table_1 = require("./table");
-Object.defineProperty(exports, "table", { enumerable: true, get: function () { return __importDefault(table_1).default; } });
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -34,5 +30,9 @@ Object.defineProperty(exports, "table", { enumerable: true, get: function () { r
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- *---------------------------------------------------------------------------- */ 
+ *---------------------------------------------------------------------------- */
+var EventHandler_1 = require("./EventHandler");
+Object.defineProperty(exports, "EventHandler", { enumerable: true, get: function () { return __importDefault(EventHandler_1).default; } });
+var table_1 = require("./table");
+Object.defineProperty(exports, "table", { enumerable: true, get: function () { return __importDefault(table_1).default; } });
 //# sourceMappingURL=index.js.map

@@ -14,19 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MoveHelper = exports.HVPont = exports.genMask = exports.boardHelper = exports.Rectangle = void 0;
-var Rectangle_1 = require("./Rectangle");
-Object.defineProperty(exports, "Rectangle", { enumerable: true, get: function () { return __importDefault(Rectangle_1).default; } });
-var boardHelper_1 = require("./boardHelper");
-Object.defineProperty(exports, "boardHelper", { enumerable: true, get: function () { return __importDefault(boardHelper_1).default; } });
-var genMask_1 = require("./genMask");
-Object.defineProperty(exports, "genMask", { enumerable: true, get: function () { return __importDefault(genMask_1).default; } });
-var HVPont_1 = require("./HVPont");
-Object.defineProperty(exports, "HVPont", { enumerable: true, get: function () { return __importDefault(HVPont_1).default; } });
-var MoveHelper_1 = require("./MoveHelper");
-Object.defineProperty(exports, "MoveHelper", { enumerable: true, get: function () { return __importDefault(MoveHelper_1).default; } });
-__exportStar(require("./constant"), exports);
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -51,5 +40,16 @@ __exportStar(require("./constant"), exports);
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- *---------------------------------------------------------------------------- */ 
+ *---------------------------------------------------------------------------- */
+var Rectangle_1 = require("./Rectangle");
+Object.defineProperty(exports, "Rectangle", { enumerable: true, get: function () { return __importDefault(Rectangle_1).default; } });
+var boardHelper_1 = require("./boardHelper");
+Object.defineProperty(exports, "boardHelper", { enumerable: true, get: function () { return __importDefault(boardHelper_1).default; } });
+var genMask_1 = require("./genMask");
+Object.defineProperty(exports, "genMask", { enumerable: true, get: function () { return __importDefault(genMask_1).default; } });
+var HVPont_1 = require("./HVPont");
+Object.defineProperty(exports, "HVPont", { enumerable: true, get: function () { return __importDefault(HVPont_1).default; } });
+var MoveHelper_1 = require("./MoveHelper");
+Object.defineProperty(exports, "MoveHelper", { enumerable: true, get: function () { return __importDefault(MoveHelper_1).default; } });
+__exportStar(require("./constant"), exports);
 //# sourceMappingURL=index.js.map

@@ -14,27 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Point = exports.REN = exports.PieceIndex = exports.Piece = exports.KqJumped = exports.KAttacked = exports.Graveyard = exports.CountUp = exports.Board = void 0;
-var Board_1 = require("./Board");
-Object.defineProperty(exports, "Board", { enumerable: true, get: function () { return __importDefault(Board_1).default; } });
-var CountUp_1 = require("./CountUp");
-Object.defineProperty(exports, "CountUp", { enumerable: true, get: function () { return __importDefault(CountUp_1).default; } });
-var Graveyard_1 = require("./Graveyard");
-Object.defineProperty(exports, "Graveyard", { enumerable: true, get: function () { return __importDefault(Graveyard_1).default; } });
-var KAttacked_1 = require("./KAttacked");
-Object.defineProperty(exports, "KAttacked", { enumerable: true, get: function () { return __importDefault(KAttacked_1).default; } });
-var KqJumped_1 = require("./KqJumped");
-Object.defineProperty(exports, "KqJumped", { enumerable: true, get: function () { return __importDefault(KqJumped_1).default; } });
-var Piece_1 = require("./Piece");
-Object.defineProperty(exports, "Piece", { enumerable: true, get: function () { return __importDefault(Piece_1).default; } });
-var PieceIndex_1 = require("./PieceIndex");
-Object.defineProperty(exports, "PieceIndex", { enumerable: true, get: function () { return __importDefault(PieceIndex_1).default; } });
-var REN_1 = require("./REN");
-Object.defineProperty(exports, "REN", { enumerable: true, get: function () { return __importDefault(REN_1).default; } });
-var Point_1 = require("./Point");
-Object.defineProperty(exports, "Point", { enumerable: true, get: function () { return __importDefault(Point_1).default; } });
-__exportStar(require("./constant"), exports);
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -59,5 +40,24 @@ __exportStar(require("./constant"), exports);
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- *---------------------------------------------------------------------------- */ 
+ *---------------------------------------------------------------------------- */
+var Board_1 = require("./Board");
+Object.defineProperty(exports, "Board", { enumerable: true, get: function () { return __importDefault(Board_1).default; } });
+var CountUp_1 = require("./CountUp");
+Object.defineProperty(exports, "CountUp", { enumerable: true, get: function () { return __importDefault(CountUp_1).default; } });
+var Graveyard_1 = require("./Graveyard");
+Object.defineProperty(exports, "Graveyard", { enumerable: true, get: function () { return __importDefault(Graveyard_1).default; } });
+var KAttacked_1 = require("./KAttacked");
+Object.defineProperty(exports, "KAttacked", { enumerable: true, get: function () { return __importDefault(KAttacked_1).default; } });
+var KqJumped_1 = require("./KqJumped");
+Object.defineProperty(exports, "KqJumped", { enumerable: true, get: function () { return __importDefault(KqJumped_1).default; } });
+var Piece_1 = require("./Piece");
+Object.defineProperty(exports, "Piece", { enumerable: true, get: function () { return __importDefault(Piece_1).default; } });
+var PieceIndex_1 = require("./PieceIndex");
+Object.defineProperty(exports, "PieceIndex", { enumerable: true, get: function () { return __importDefault(PieceIndex_1).default; } });
+var REN_1 = require("./REN");
+Object.defineProperty(exports, "REN", { enumerable: true, get: function () { return __importDefault(REN_1).default; } });
+var Point_1 = require("./Point");
+Object.defineProperty(exports, "Point", { enumerable: true, get: function () { return __importDefault(Point_1).default; } });
+__exportStar(require("./constant"), exports);
 //# sourceMappingURL=index.js.map

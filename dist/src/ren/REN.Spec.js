@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -41,8 +41,8 @@ describe('Should import successfully', function () {
     });
     it('should has correct move positions', function () {
         var points = kc.kpgn.ren.getCanMovePointsByPoint(point);
-        points.map(function (p) {
-            expect(p.indexCode).toBe('d2');
+        points.forEach(function (point) {
+            expect(point.indexCode).toBe('d2');
         });
     });
 });

@@ -1,23 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var constant_1 = require("../brain/constant");
-var PieceIndex = /** @class */ (function () {
-    function PieceIndex(point, piece) {
-        this.canMovePoints = [];
-        this.point = point;
-        this.piece = piece;
-    }
-    PieceIndex.prototype.toCode = function () {
-        return this.piece != null ? "" + this.piece.pieceCharCode + this.point.indexCode : null;
-    };
-    PieceIndex.prototype.toPieceCharCode = function () {
-        return this.piece !== null ? this.piece.pieceCharCode : constant_1.EMPTY_PIECE;
-    };
-    return PieceIndex;
-}());
-exports.default = PieceIndex;
 /*
- * Copyright (c) 2021, K4us
+ * Copyright (c) 2021-2022, K4us
  * Author: Raksa Eng <eng.raksa@gmail.com>
  * All rights reserved.
  *
@@ -42,5 +26,27 @@ exports.default = PieceIndex;
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- *---------------------------------------------------------------------------- */ 
+ *---------------------------------------------------------------------------- */
+var constant_1 = require("../brain/constant");
+var PieceIndex = /** @class */ (function () {
+    function PieceIndex(point, piece) {
+        this.canMovePoints = [];
+        this.point = point;
+        this.piece = piece;
+    }
+    PieceIndex.prototype.toCode = function () {
+        if (this.piece === null) {
+            return null;
+        }
+        return "" + this.piece.pieceCharCode + this.point.indexCode;
+    };
+    PieceIndex.prototype.toPieceCharCode = function () {
+        if (this.piece === null) {
+            return constant_1.EMPTY_PIECE;
+        }
+        return this.piece.pieceCharCode;
+    };
+    return PieceIndex;
+}());
+exports.default = PieceIndex;
 //# sourceMappingURL=PieceIndex.js.map
